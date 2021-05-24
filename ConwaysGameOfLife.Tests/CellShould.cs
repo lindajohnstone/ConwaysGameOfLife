@@ -1,6 +1,5 @@
 using System;
-using Xunit;
-using ConwaysGameOfLife;
+using Xunit; 
 
 namespace ConwaysGameOfLife.Tests
 {
@@ -14,6 +13,6 @@ namespace ConwaysGameOfLife.Tests
             Assert.False(result);
         }
 
-        
+
     }
 }
