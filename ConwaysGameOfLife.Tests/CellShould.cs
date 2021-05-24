@@ -13,5 +13,7 @@ namespace ConwaysGameOfLife.Tests
             var result = cell.IsAlive();
             Assert.False(result);
         }
+
+        
     }
 }
