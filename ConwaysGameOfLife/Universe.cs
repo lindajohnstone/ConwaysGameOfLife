@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ConwaysGameOfLife
 {
     public class Universe
     {
         // creates the Universe/World
-        public List<Cell> Cells { get; set; }
+        private List<Cell> _cells;
 
         private int _gridWidth;
 
@@ -15,7 +16,7 @@ namespace ConwaysGameOfLife
         {
             _gridWidth = gridWidth;
             _gridLength = gridLength;
-            Cells = InitializeCells(gridWidth, gridLength);
+            _cells = InitializeCells(gridWidth, gridLength);
         }
 
         private List<Cell> InitializeCells(int gridWidth, int gridLength)
@@ -29,6 +30,16 @@ namespace ConwaysGameOfLife
                 }
             }
             return cells;
+        }
+
+        public int GetSize()
+        {
+            return _cells.Count;
+        }
+
+        public bool AreAllCellsDead()
+        {
+            return _cells.All((cell) => !cell.IsAlive());
         }
     }
 }

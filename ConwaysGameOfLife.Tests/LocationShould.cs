@@ -13,7 +13,9 @@ namespace ConwaysGameOfLife.Tests
             var location = new Location(x, y);
             var one = location;
             var two = new Location(0, 0);
+
             var result = (one.Equals(two));
+            
             Assert.True(result);
         }
     }

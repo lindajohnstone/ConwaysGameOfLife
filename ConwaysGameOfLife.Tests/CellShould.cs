@@ -10,7 +10,9 @@ namespace ConwaysGameOfLife.Tests
         public void WhenInitialized_BeDead()
         {
             var cell = new Cell(CellState.Dead, It.IsAny<int>(), It.IsAny<int>());
+
             var result = cell.IsAlive();
+
             Assert.False(result);
         }
 
@@ -18,7 +20,9 @@ namespace ConwaysGameOfLife.Tests
         public void WhenInitialized_BeAlive()
         {
             var cell = new Cell(CellState.Alive, It.IsAny<int>(), It.IsAny<int>());
+
             var result = cell.IsAlive();
+
             Assert.True(result);
         }
 
@@ -29,7 +33,9 @@ namespace ConwaysGameOfLife.Tests
         public void WhenInitialized_SetLocation(int x, int y)
         {
             var cell = new Cell(It.IsAny<CellState>(), x, y);
+
             var result = cell.Location;
+            
             Assert.Equal(new Location(x, y), result);
         }
     }
