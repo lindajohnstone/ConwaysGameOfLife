@@ -1,4 +1,5 @@
 using System;
+using Moq;
 using Xunit; 
 
 namespace ConwaysGameOfLife.Tests
@@ -8,7 +9,7 @@ namespace ConwaysGameOfLife.Tests
         [Fact]
         public void WhenInitialized_BeDead()
         {
-            var cell = new Cell(CellState.Dead);
+            var cell = new Cell(CellState.Dead, It.IsAny<int>(), It.IsAny<int>());
             var result = cell.IsAlive();
             Assert.False(result);
         }
@@ -16,21 +17,20 @@ namespace ConwaysGameOfLife.Tests
         [Fact]
         public void WhenInitialized_BeAlive()
         {
-            var cell = new Cell(CellState.Alive);
+            var cell = new Cell(CellState.Alive, It.IsAny<int>(), It.IsAny<int>());
             var result = cell.IsAlive();
             Assert.True(result);
         }
 
-        [Fact]
-        public void WhenInitialized_SetLocation()
+        [Theory]
+        [InlineData(0, 0)]
+        [InlineData(-1, -2)]
+        [InlineData(2, 3)]
+        public void WhenInitialized_SetLocation(int x, int y)
         {
-            var cell = new Cell(CellState.Alive);
-            var x = 0;
-            var y = 0;
-            var result = cell.SetLocation(x, y);
-            Assert.Equal(new Location(0, 0), result);
+            var cell = new Cell(It.IsAny<CellState>(), x, y);
+            var result = cell.Location;
+            Assert.Equal(new Location(x, y), result);
         }
-
-        
     }
 }

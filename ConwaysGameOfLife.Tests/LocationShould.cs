@@ -6,7 +6,7 @@ namespace ConwaysGameOfLife.Tests
     public class LocationShould
     {
         [Fact]
-        public void testName()
+        public void WhenXAndYAreSame_BeEqual()
         {
             var x = 0;
             var y = 0;
