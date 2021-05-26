@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ConwaysGameOfLife
 {
@@ -18,6 +19,18 @@ namespace ConwaysGameOfLife
         public bool IsAlive()
         {
             return _cellState == CellState.Alive;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Cell cell &&
+                   _cellState == cell._cellState &&
+                   EqualityComparer<Location>.Default.Equals(Location, cell.Location);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(_cellState, Location);
         }
     }
 }

@@ -38,5 +38,21 @@ namespace ConwaysGameOfLife.Tests
             
             Assert.Equal(new Location(x, y), result);
         }
+        [Fact]
+        public void WhenCellStateAndLocationAreSame_BeEqual()
+        {
+            var x1 = 0;
+            var y1 = 1;
+            var x2 = 0;
+            var y2 = 1;
+            var one = new Cell(CellState.Dead, x1, y1);
+            var two = new Cell(CellState.Dead, x2, y2);
+            var expected = true;
+
+            var result = (one.Equals(two));
+
+            Assert.Equal(expected, result);
+        }
+
     }
 }

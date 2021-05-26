@@ -8,25 +8,24 @@ namespace ConwaysGameOfLife
         // creates the Universe/World
         private List<Cell> _cells;
 
-        private int _gridWidth;
-
-        private int _gridLength;
+        public int GridWidth { get; private set; }
+        public int GridLength { get; private set; }
 
         public Universe(int gridWidth, int gridLength)
         {
-            _gridWidth = gridWidth;
-            _gridLength = gridLength;
+            GridWidth = gridWidth;
+            GridLength = gridLength;
             _cells = InitializeCells(gridWidth, gridLength);
         }
 
         private List<Cell> InitializeCells(int gridWidth, int gridLength)
         {
             var cells = new List<Cell>();
-            for (var width = 0; width < gridWidth; width++)
+            for (var x = 0; x < gridWidth; x++)
             {
-                for (var length = 0; length < gridLength; length++)
+                for (var y = 0; y < gridLength; y++)
                 {
-                    cells.Add(new Cell(CellState.Dead, width, length));
+                    cells.Add(new Cell(CellState.Dead, x, y));
                 }
             }
             return cells;
@@ -37,7 +36,7 @@ namespace ConwaysGameOfLife
             return _cells.Count;
         }
 
-        public bool AreAllCellsDead()
+        public bool AreAllCellsDead() 
         {
             return _cells.All((cell) => !cell.IsAlive());
         }
