@@ -8,6 +8,7 @@ namespace ConwaysGameOfLife
     {
         // creates the Universe/World
         private List<Cell> _cells;
+        private List<Location> _neighbourLocations;
         public List<Location> AllLocations { get => _cells.Select(cell => cell.Location).ToList(); }
         public int GridWidth { get; private set; }
         public int GridLength { get; private set; }
@@ -56,11 +57,32 @@ namespace ConwaysGameOfLife
             return neighbourLocations;
         }
 
-        public CellState GetCellStateFromLocation(Cell cell)
+        public CellState GetCellStateFromLocation(Location location)
         {
             var newCells = _cells.Where(cell => cell.Location == new Location(cell.Location.X, cell.Location.Y));
             var newCell = newCells.ElementAt(0);
             return newCell.CellState;
+        }
+
+        public List<Cell> CheckIfNeighboursAlive(Cell cell)
+        {
+            var neighbourList = new List<Cell>();
+            _neighbourLocations = GetCellNeighbourLocations(cell);
+            foreach (var neighbour in _neighbourLocations)
+            {
+                var state = GetCellStateFromLocation(neighbour);
+
+            }
+            return neighbourList;
+        }
+
+        public Cell SwitchCellState(Cell cell)
+        {
+            if (cell.IsAlive())
+            {
+                return new Cell(CellState.Dead, cell.Location.X, cell.Location.Y);
+            }
+            return new Cell(CellState.Alive, cell.Location.X, cell.Location.Y);
         }
     }
 }
