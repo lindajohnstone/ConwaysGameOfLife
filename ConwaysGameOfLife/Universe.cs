@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,6 +8,7 @@ namespace ConwaysGameOfLife
     {
         // creates the Universe/World
         private List<Cell> _cells;
+        public List<Location> AllLocations { get => _cells.Select(cell => cell.Location).ToList(); }
         public int GridWidth { get; private set; }
         public int GridLength { get; private set; }
 
@@ -40,10 +42,25 @@ namespace ConwaysGameOfLife
             return _cells.All((cell) => !cell.IsAlive());
         }
 
-        public int HowManyLiveNeighbours(Cell cell, Neighbours neighbours)
+        public List<Location> GetCellNeighbourLocations(Cell cell)
         {
-            return 0;
-            //neighbours.CellNeighbours.Count((x) => x.CellState == CellState.Alive);
+            var neighbourLocations = new List<Location>();
+            neighbourLocations.Add(new Location(cell.Location.X - 1, cell.Location.Y - 1));//0,0
+            neighbourLocations.Add(new Location(cell.Location.X - 1, cell.Location.Y));// 0,1
+            neighbourLocations.Add(new Location(cell.Location.X - 1, cell.Location.Y + 1));//0,2
+            neighbourLocations.Add(new Location(cell.Location.X, cell.Location.Y - 1));//1,0
+            neighbourLocations.Add(new Location(cell.Location.X, cell.Location.Y + 1));//1,2
+            neighbourLocations.Add(new Location(cell.Location.X + 1, cell.Location.Y - 1));//2,0
+            neighbourLocations.Add(new Location(cell.Location.X + 1, cell.Location.Y));//2,1
+            neighbourLocations.Add(new Location(cell.Location.X + 1, cell.Location.Y + 1));//2,2
+            return neighbourLocations;
+        }
+
+        public CellState GetCellStateFromLocation(Cell cell)
+        {
+            var newCells = _cells.Where(cell => cell.Location == new Location(cell.Location.X, cell.Location.Y));
+            var newCell = newCells.ElementAt(0);
+            return newCell.CellState;
         }
     }
 }

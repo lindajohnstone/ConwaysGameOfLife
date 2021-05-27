@@ -41,6 +41,8 @@ namespace ConwaysGameOfLife
             CellNeighbours.Add(new Cell(cell.CellState, cell.Location.X + 1, cell.Location.Y - 1));//2,0
             CellNeighbours.Add(new Cell(cell.CellState, cell.Location.X + 1, cell.Location.Y));//2,1
             CellNeighbours.Add(new Cell(cell.CellState, cell.Location.X + 1, cell.Location.Y + 1));//2,2
+            // loop through each location
+            // use location (how?) to determine cell state
             return CellNeighbours;
         }
     }

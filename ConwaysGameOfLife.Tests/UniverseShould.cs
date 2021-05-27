@@ -32,22 +32,42 @@ namespace ConwaysGameOfLife.Tests
         } 
 
         [Fact]
-        public void WhenUniverseGenerated_ReturnsNumberOfLiveNeighbours()
+        public void WhenUniverseGenerated_ReturnsListOfNeighbours()
         {
             var universe = new Universe(3, 3);
             var cell = new Cell(CellState.Dead, 1, 1);
-            var neighbours = new Neighbours(cell);
-            var expected = 8;
-            var cell1 = new Cell(CellState.Alive, 0, 0);
-            var cell2 = new Cell(CellState.Alive, 0, 1);
-            var cell3 = new Cell(CellState.Alive, 0, 2);
-            var cell4 = new Cell(CellState.Alive, 1, 0);
-            var cell5 = new Cell(CellState.Alive, 1, 2);
-            var cell6 = new Cell(CellState.Alive, 2, 0);
-            var cell7 = new Cell(CellState.Alive, 2, 1);
-            var cell8 = new Cell(CellState.Alive, 2, 2);
+            var expected = new List<Location>();
+            expected.Add(new Location(0, 0));
+            expected.Add(new Location(0, 1));
+            expected.Add(new Location(0, 2));
+            expected.Add(new Location(1, 0));
+            expected.Add(new Location(1, 2));
+            expected.Add(new Location(2, 0));
+            expected.Add(new Location(2, 1));
+            expected.Add(new Location(2, 2));
 
-            var result = universe.HowManyLiveNeighbours(cell, neighbours);
+            var result = universe.GetCellNeighbourLocations(cell);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(CellState.Dead, 0, 0)]
+        [InlineData(CellState.Dead, 0, 1)]
+        [InlineData(CellState.Dead, 0, 2)]
+        [InlineData(CellState.Dead, 1, 0)]
+        [InlineData(CellState.Dead, 1, 1)]
+        [InlineData(CellState.Dead, 1, 2)]
+        [InlineData(CellState.Dead, 2, 0)]
+        [InlineData(CellState.Dead, 2, 1)]
+        [InlineData(CellState.Dead, 2, 2)]
+        public void WhenInitialized_FindCellStateOfCell(CellState state, int x, int y)
+        {
+            var universe = new Universe(3, 3);
+            var cell = new Cell(CellState.Dead, x, y);
+            var expected = CellState.Dead;
+
+            var result = universe.GetCellStateFromLocation(cell);
 
             Assert.Equal(expected, result);
         }
