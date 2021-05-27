@@ -1,6 +1,6 @@
 namespace ConwaysGameOfLife
 {
-    public class Controller
+    public class Generator
     {
         // responsible for implementing game
         // orchestrator type class - brings all together

@@ -7,7 +7,6 @@ namespace ConwaysGameOfLife
     {
         // creates the Universe/World
         private List<Cell> _cells;
-
         public int GridWidth { get; private set; }
         public int GridLength { get; private set; }
 
@@ -39,6 +38,12 @@ namespace ConwaysGameOfLife
         public bool AreAllCellsDead() 
         {
             return _cells.All((cell) => !cell.IsAlive());
+        }
+
+        public int HowManyLiveNeighbours(Cell cell, Neighbours neighbours)
+        {
+            return 0;
+            //neighbours.CellNeighbours.Count((x) => x.CellState == CellState.Alive);
         }
     }
 }
