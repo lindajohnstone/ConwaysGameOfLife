@@ -65,7 +65,7 @@ namespace ConwaysGameOfLife.Tests
         {
             var universe = new Universe(3, 3);
             var location = new Location(x, y);
-            var expected = CellState.Dead;
+            var expected = state;
 
             var result = universe.GetCellStateFromLocation(location);
 
@@ -92,6 +92,39 @@ namespace ConwaysGameOfLife.Tests
             var expected = new Cell(CellState.Alive, 0, 0);
 
             var result = universe.SwitchCellState(cell);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void WhenInitialized_ReturnsEmptyListOfAliveCells_UsingSourceData()
+        {
+            var universe = new Universe(SourceData.UniverseInitializedAllDeadCells());
+            var cell = new Cell(CellState.Dead, 1, 1);
+            var expected = new List<Cell>();
+
+            var result = universe.CheckIfNeighboursAlive(cell);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(CellState.Dead, 0, 0)]
+        [InlineData(CellState.Dead, 0, 1)]
+        [InlineData(CellState.Dead, 0, 2)]
+        [InlineData(CellState.Dead, 1, 0)]
+        [InlineData(CellState.Dead, 1, 1)]
+        [InlineData(CellState.Dead, 1, 2)]
+        [InlineData(CellState.Dead, 2, 0)]
+        [InlineData(CellState.Dead, 2, 1)]
+        [InlineData(CellState.Dead, 2, 2)]
+        public void WhenInitialized_FindCellStateOfCell_UsingSourceData(CellState state, int x, int y)
+        {
+            var universe = new Universe(SourceData.UniverseInitializedAllDeadCells());
+            var location = new Location(x, y);
+            var expected = state;
+
+            var result = universe.GetCellStateFromLocation(location);
 
             Assert.Equal(expected, result);
         }

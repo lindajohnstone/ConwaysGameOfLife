@@ -15,9 +15,46 @@ namespace ConwaysGameOfLife
 
         public Universe(int gridWidth, int gridLength)
         {
+            Initialize(gridWidth, gridLength, InitializeCells(gridWidth, gridLength));
+        }
+
+        public Universe(CellState[][] sourceData)
+        {
+            Initialize(sourceData.GetLength(0), sourceData.Length, InitializeCells(sourceData));
+        }
+        public Universe(Universe sourceUniverse)
+        {
+            Initialize(sourceUniverse.GridWidth, sourceUniverse.GridLength, sourceUniverse._cells);
+        }
+        
+        public void Initialize(int gridWidth, int gridLength, List<Cell> cells)
+        {
             GridWidth = gridWidth;
             GridLength = gridLength;
-            _cells = InitializeCells(gridWidth, gridLength);
+            _cells = cells;
+        }
+        
+        private List<Cell> InitializeCells(CellState[][] sourceData)
+        {
+            var gridWidth = sourceData.GetLength(0);
+            var gridLength = sourceData.Length;
+            var _cells = new List<Cell>();
+            for (var x = 0; x < gridWidth; x++)
+            {
+                if (sourceData[x].Length != gridWidth)
+                {
+                    throw new ArgumentOutOfRangeException("sourceData should be a square array");
+                }
+                for (var y = 0; y < gridLength; y++)
+                {
+                    if (sourceData[y].Length != gridLength)
+                    {
+                        throw new ArgumentOutOfRangeException("sourceData should be a square array");
+                    }
+                    _cells.Add(new Cell(sourceData[x][y], x, y));
+                }
+            }
+            return _cells;
         }
 
         private List<Cell> InitializeCells(int gridWidth, int gridLength)
