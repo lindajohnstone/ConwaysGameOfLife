@@ -5,9 +5,11 @@ namespace ConwaysGameOfLife.Tests
 {
     public static class TestUniverse
     {
-        public static List<Cell> InitializeUniverse(String sourceData)
+        
+    
+        public static Universe InitializeUniverse(String sourceData)
         {
-            var src = sourceData.Split("\n", StringSplitOptions.RemoveEmptyEntries);
+            var src = SplitInput(sourceData, "\n");
             var gridWidth = src[0].Length;
             var gridLength = src.Length;
             var _cells = new List<Cell>();
@@ -25,12 +27,14 @@ namespace ConwaysGameOfLife.Tests
                     {
                         throw new ArgumentOutOfRangeException("sourceData should be a square array"); // TODO: ?? need exception? - if yes, change message
                     }
-                    _cells.Add(new Cell(GetSourceDataCellState(src[x]), x, y));
+                    // split into characters
+                    var currentCell = src[y][x];
+                    _cells.Add(new Cell(GetSourceDataCellState(currentCell.ToString()), x, y));
                 }
             }
-            return _cells;
+            return new Universe(gridWidth, gridLength);
         }
-
+        //TODO: another method to return list of cells ??
         private static CellState GetSourceDataCellState(String value)
         {
             if (value == "X")
@@ -38,6 +42,10 @@ namespace ConwaysGameOfLife.Tests
                 return CellState.Dead;
             }
             return CellState.Alive;
+        }
+        private static string[] SplitInput(string input, string delimiter)
+        {
+            return input.Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }
