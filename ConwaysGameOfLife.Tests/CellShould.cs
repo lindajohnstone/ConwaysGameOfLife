@@ -54,5 +54,15 @@ namespace ConwaysGameOfLife.Tests
             Assert.Equal(expected, result);
         }
 
+        [Fact]
+        public void WhenUniverseRegenerated_SwitchState()
+        {
+            var cell = new Cell(CellState.Dead, 0, 0);
+            var expected = new Cell(CellState.Alive, 0, 0);
+
+            var result = cell.SwitchCellState(cell);
+
+            Assert.Equal(expected, result);
+        }
     }
 }

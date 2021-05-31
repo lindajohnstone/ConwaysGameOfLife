@@ -101,25 +101,34 @@ namespace ConwaysGameOfLife
             return newCell.CellState;
         }
 
-        public List<Cell> CheckIfNeighboursAlive(Cell cell)
+        public List<Cell> CheckIfNeighboursAlive(Cell cell) 
         {
             var neighbourList = new List<Cell>();
             _neighbourLocations = GetCellNeighbourLocations(cell);
             foreach (var neighbour in _neighbourLocations)
             {
                 var state = GetCellStateFromLocation(neighbour);
-
+                if (state == CellState.Alive)
+                {
+                    _neighbourLocations.Add(neighbour);
+                }
             }
             return neighbourList;
         }
 
-        public Cell SwitchCellState(Cell cell)
+        public override bool Equals(object obj)
         {
-            if (cell.IsAlive())
-            {
-                return new Cell(CellState.Dead, cell.Location.X, cell.Location.Y);
-            }
-            return new Cell(CellState.Alive, cell.Location.X, cell.Location.Y);
+            return obj is Universe universe &&
+                   EqualityComparer<List<Cell>>.Default.Equals(_cells, universe._cells) &&
+                   EqualityComparer<List<Location>>.Default.Equals(_neighbourLocations, universe._neighbourLocations) &&
+                   EqualityComparer<List<Location>>.Default.Equals(AllLocations, universe.AllLocations) &&
+                   GridWidth == universe.GridWidth &&
+                   GridLength == universe.GridLength;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(_cells, _neighbourLocations, AllLocations, GridWidth, GridLength);
         }
     }
 }
