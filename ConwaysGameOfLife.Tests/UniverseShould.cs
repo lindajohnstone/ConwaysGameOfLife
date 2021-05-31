@@ -128,5 +128,37 @@ namespace ConwaysGameOfLife.Tests
 
             Assert.Equal(expected, result);
         }
+
+        [Fact]
+        public void testName()
+        {
+            var initData = "XXX" + Environment.NewLine + "XXX" + Environment.NewLine + "XXX";
+            TestUniverse.InitializeUniverse(initData);
+            var expected = new List<Cell> {
+                new Cell(CellState.Dead, 0, 0),
+                new Cell(CellState.Dead, 0, 1),
+                new Cell(CellState.Dead, 0, 2),
+                new Cell(CellState.Dead, 1, 0),
+                new Cell(CellState.Dead, 1, 1),
+                new Cell(CellState.Dead, 1, 2),
+                new Cell(CellState.Dead, 2, 0),
+                new Cell(CellState.Dead, 2, 1),
+                new Cell(CellState.Dead, 2, 2)
+            };
+
+            var result = new List<Cell> {
+                new Cell(CellState.Dead, 0, 0),
+                new Cell(CellState.Dead, 0, 1),
+                new Cell(CellState.Dead, 0, 2),
+                new Cell(CellState.Dead, 1, 0),
+                new Cell(CellState.Dead, 1, 1),
+                new Cell(CellState.Dead, 1, 2),
+                new Cell(CellState.Dead, 2, 0),
+                new Cell(CellState.Dead, 2, 1),
+                new Cell(CellState.Dead, 2, 2)
+            };
+
+            Assert.Equal(expected, result);
+        }
     }
 }

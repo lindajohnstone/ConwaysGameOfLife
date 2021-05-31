@@ -18,10 +18,10 @@ namespace ConwaysGameOfLife
             Initialize(gridWidth, gridLength, InitializeCells(gridWidth, gridLength));
         }
 
-        public Universe(CellState[][] sourceData)
-        {
-            Initialize(sourceData.GetLength(0), sourceData.Length, InitializeCells(sourceData));
-        }
+        // public Universe(String sourceData)
+        // {
+        //     TestUniverse.;
+        // }
         public Universe(Universe sourceUniverse)
         {
             Initialize(sourceUniverse.GridWidth, sourceUniverse.GridLength, sourceUniverse._cells);
