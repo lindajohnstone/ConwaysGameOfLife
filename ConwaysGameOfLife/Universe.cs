@@ -116,6 +116,15 @@ namespace ConwaysGameOfLife
             return neighbourList;
         }
 
+        public Cell SwitchCellState(Cell cell) // changes the state of the cell // TODO: rename
+        {
+            if (cell.IsAlive())
+            {
+                return new Cell(CellState.Dead, cell.Location.X, cell.Location.Y);
+            }
+            return new Cell(CellState.Alive, cell.Location.X, cell.Location.Y);
+        }
+
         public override bool Equals(object obj)
         {
             return obj is Universe universe &&

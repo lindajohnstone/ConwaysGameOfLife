@@ -122,11 +122,24 @@ namespace ConwaysGameOfLife.Tests
         [Fact]
         public void testName() // test being used to test method 
         {
-            var initData = "XXX" + Environment.NewLine + "XXX" + Environment.NewLine + "XXX";
+            var initData = "XXX" + Environment.NewLine + 
+                                    "XXX" + Environment.NewLine + 
+                                    "XXX";
             TestUniverse.InitializeUniverse(initData);
             var expected = new Universe(3, 3);
 
             var result = TestUniverse.InitializeUniverse(initData);
+
+            Assert.Equal(expected, result);
+        }
+        [Fact]
+        public void WhenUniverseRegenerated_SwitchState() // TODO: rename
+        {
+            var cell = new Cell(CellState.Dead, 0, 0);
+            var universe = new Universe(3, 3);
+            var expected = new Cell(CellState.Alive, 0, 0);
+
+            var result = universe.SwitchCellState(cell);
 
             Assert.Equal(expected, result);
         }
