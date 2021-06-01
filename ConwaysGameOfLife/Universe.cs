@@ -99,6 +99,11 @@ namespace ConwaysGameOfLife
             return new Cell(CellState.Alive, cell.Location.X, cell.Location.Y);
         }
 
+        public Cell GetCellAtLocation(int x, int y)
+        {
+            return Cells.Find(cell => cell.Location.X == x && cell.Location.Y == y);
+        }
+
         public override bool Equals(object obj)
         {
             return obj is Universe universe &&

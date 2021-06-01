@@ -108,5 +108,21 @@ namespace ConwaysGameOfLife.Tests
 
             Assert.Equal(expected, result);
         }
+
+        [Fact]
+        public void WhenGivenALocation_ReturnsCell()
+        {
+            var gridWidth = 4;
+            var gridLength = 4;
+            var x = 0;
+            var y = 0;
+            var universe = new Universe(gridWidth, gridLength);
+            
+            var result = universe.GetCellAtLocation(x, y);
+
+            Assert.Equal(0, result.Location.X);
+            Assert.Equal(0, result.Location.Y);
+            Assert.Equal(CellState.Dead, result.CellState);
+        }
     }
 }
