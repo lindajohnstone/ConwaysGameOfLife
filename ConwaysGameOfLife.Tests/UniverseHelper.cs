@@ -16,7 +16,10 @@ namespace ConwaysGameOfLife.Tests
                 {
                     if (obj1.GetCellAtLocation(x, y) != obj2.GetCellAtLocation(x, y))
                     {
-                        return false;
+                        if (obj1.GetCellAtLocation(x, y).CellState != obj2.GetCellAtLocation(x, y).CellState)
+                        {
+                            return false; 
+                        }
                     }
                 }
             }
