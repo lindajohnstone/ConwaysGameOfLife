@@ -3,41 +3,34 @@ using System.Collections.Generic;
 
 namespace ConwaysGameOfLife.Tests
 {
-    public static class TestUniverse
+    public static class TestUniverse // TODO: move these functions into UniverseShould
     {
-        
-    
-        public static Universe InitializeUniverse(String sourceData)
+        public static Universe InitializeUniverse(String sourceData) //TODO: rename?
         {
-            var src = SplitInput(sourceData, "\n");
-            var gridWidth = src[0].Length;
-            var gridLength = src.Length;
-            var _cells = new List<Cell>();
-            // use the row/column in array to add to cell
+            var rows = SplitInput(sourceData, Environment.NewLine);
+            var gridWidth = rows[0].Length;
+            var gridLength = rows.Length;
+            var cells = new List<Cell>();
 
             for (var y = 0; y < gridLength; y++)
             {
-                if (src[y].Length != gridLength)
+                var row = rows[y];
+                if (row.Length != gridWidth)
                 {
-                    throw new ArgumentOutOfRangeException("sourceData should be a square array"); // TODO: ?? need exception? - if yes, change message
+                    throw new ArgumentOutOfRangeException("The row should be the correct width");
                 }
                 for (var x = 0; x < gridWidth; x++)
                 {
-                    if (src[x].Length != gridWidth)
-                    {
-                        throw new ArgumentOutOfRangeException("sourceData should be a square array"); // TODO: ?? need exception? - if yes, change message
-                    }
-                    // split into characters
-                    var currentCell = src[y][x];
-                    _cells.Add(new Cell(GetSourceDataCellState(currentCell.ToString()), x, y));
+                    var currentCell = row[x];
+                    cells.Add(new Cell(GetSourceDataCellState(currentCell), x, y));
                 }
             }
-            return new Universe(gridWidth, gridLength);
+            return new Universe(gridWidth, gridLength, cells);
         }
-        //TODO: another method to return list of cells ??
-        private static CellState GetSourceDataCellState(String value)
+
+        private static CellState GetSourceDataCellState(char value) // TODO: rename method and parameter
         {
-            if (value == "X")
+            if (value == 'X')
             {
                 return CellState.Dead;
             }

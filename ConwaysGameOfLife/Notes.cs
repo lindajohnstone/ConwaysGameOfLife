@@ -11,7 +11,10 @@ namespace ConwaysGameOfLife
             * Any live cell with two or three live neighbours lives on to the next generation.  
             * Any dead cell with exactly three live neighbours becomes a live cell.  
 
-            
+            21-06-01
+            Generate a new Universe - inside Universe or should this be the responsibility of the Generator?
+            Generator:
+                in
         */
     }
 }

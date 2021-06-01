@@ -7,9 +7,9 @@ namespace ConwaysGameOfLife
     public class Universe
     {
         // creates the Universe/World
-        private List<Cell> _cells;
+        public List<Cell> Cells { get; private set; }
         private List<Location> _neighbourLocations;
-        public List<Location> AllLocations { get => _cells.Select(cell => cell.Location).ToList(); }
+        public List<Location> AllLocations { get => Cells.Select(cell => cell.Location).ToList(); } // TODO: refactor to replace this logic
         public int GridWidth { get; private set; }
         public int GridLength { get; private set; }
 
@@ -18,45 +18,18 @@ namespace ConwaysGameOfLife
             Initialize(gridWidth, gridLength, InitializeCells(gridWidth, gridLength));
         }
 
-        public Universe(CellState[][] sourceData)
+        public Universe(int gridWidth, int gridLength, List<Cell> cells)
         {
-            Initialize(sourceData.GetLength(0), sourceData.Length, InitializeCells(sourceData));
-        }
-        public Universe(Universe sourceUniverse)
-        {
-            Initialize(sourceUniverse.GridWidth, sourceUniverse.GridLength, sourceUniverse._cells);
+            Initialize(gridWidth, gridLength, cells);
         }
         
-        public void Initialize(int gridWidth, int gridLength, List<Cell> cells)
+        private void Initialize(int gridWidth, int gridLength, List<Cell> cells)
         {
             GridWidth = gridWidth;
             GridLength = gridLength;
-            _cells = cells;
+            Cells = cells;
         }
         
-        private List<Cell> InitializeCells(CellState[][] sourceData)
-        {
-            var gridWidth = sourceData.GetLength(0);
-            var gridLength = sourceData.Length;
-            var _cells = new List<Cell>();
-            for (var x = 0; x < gridWidth; x++)
-            {
-                if (sourceData[x].Length != gridWidth)
-                {
-                    throw new ArgumentOutOfRangeException("sourceData should be a square array");
-                }
-                for (var y = 0; y < gridLength; y++)
-                {
-                    if (sourceData[y].Length != gridLength)
-                    {
-                        throw new ArgumentOutOfRangeException("sourceData should be a square array");
-                    }
-                    _cells.Add(new Cell(sourceData[x][y], x, y));
-                }
-            }
-            return _cells;
-        }
-
         private List<Cell> InitializeCells(int gridWidth, int gridLength)
         {
             var cells = new List<Cell>();
@@ -72,12 +45,12 @@ namespace ConwaysGameOfLife
 
         public int GetSize()
         {
-            return _cells.Count;
+            return Cells.Count;
         }
 
         public bool AreAllCellsDead() 
         {
-            return _cells.All((cell) => !cell.IsAlive());
+            return Cells.All((cell) => !cell.IsAlive());
         }
 
         public List<Location> GetCellNeighbourLocations(Cell cell)
@@ -96,7 +69,7 @@ namespace ConwaysGameOfLife
 
         public CellState GetCellStateFromLocation(Location location)
         {
-            var newCells = _cells.Where(cell => cell.Location == new Location(cell.Location.X, cell.Location.Y));
+            var newCells = Cells.Where(cell => cell.Location == new Location(cell.Location.X, cell.Location.Y));
             var newCell = newCells.ElementAt(0);
             return newCell.CellState;
         }
@@ -116,10 +89,25 @@ namespace ConwaysGameOfLife
             return neighbourList;
         }
 
+        public Cell SwitchCellState(Cell cell) // changes the state of the cell // TODO: rename. 
+        // NB should universe check state of cell & neighbours against the rules then create a new universe?
+        {
+            if (cell.IsAlive())
+            {
+                return new Cell(CellState.Dead, cell.Location.X, cell.Location.Y);
+            }
+            return new Cell(CellState.Alive, cell.Location.X, cell.Location.Y);
+        }
+
+        public Cell GetCellAtLocation(int x, int y)
+        {
+            return Cells.Find(cell => cell.Location.X == x && cell.Location.Y == y);
+        }
+
         public override bool Equals(object obj)
         {
             return obj is Universe universe &&
-                   EqualityComparer<List<Cell>>.Default.Equals(_cells, universe._cells) &&
+                   EqualityComparer<List<Cell>>.Default.Equals(Cells, universe.Cells) &&
                    EqualityComparer<List<Location>>.Default.Equals(_neighbourLocations, universe._neighbourLocations) &&
                    EqualityComparer<List<Location>>.Default.Equals(AllLocations, universe.AllLocations) &&
                    GridWidth == universe.GridWidth &&
@@ -128,7 +116,7 @@ namespace ConwaysGameOfLife
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(_cells, _neighbourLocations, AllLocations, GridWidth, GridLength);
+            return HashCode.Combine(Cells, _neighbourLocations, AllLocations, GridWidth, GridLength);
         }
     }
 }
