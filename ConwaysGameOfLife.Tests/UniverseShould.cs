@@ -108,7 +108,7 @@ namespace ConwaysGameOfLife.Tests
 
             var result = universe.SwitchCellState(cell);
 
-            Assert.Equal(expected, result);
+            Assert.True(UniverseHelper.CellsAreEqual(expected, result));
         }
 
         [Fact]

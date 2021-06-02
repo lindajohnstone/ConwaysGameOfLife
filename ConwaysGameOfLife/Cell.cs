@@ -20,17 +20,5 @@ namespace ConwaysGameOfLife
         {
             return CellState == CellState.Alive;
         }
-
-        public override bool Equals(object obj)
-        {
-            return obj is Cell cell &&
-                   CellState == cell.CellState &&
-                   EqualityComparer<Location>.Default.Equals(Location, cell.Location);
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(CellState, Location);
-        }
     }
 }
