@@ -92,10 +92,10 @@ namespace ConwaysGameOfLife.Tests
             var initData = "XXX" + Environment.NewLine + 
                                     "XXX" + Environment.NewLine + 
                                     "XXX";
-            TestUniverse.InitializeUniverse(initData);
+            UniverseHelper.InitializeUniverse(initData);
             var expected = new Universe(3, 3);
 
-            var result = TestUniverse.InitializeUniverse(initData);
+            var result = UniverseHelper.InitializeUniverse(initData);
 
             Assert.True(UniverseHelper.UniversesAreEqual(expected, result));
         }
