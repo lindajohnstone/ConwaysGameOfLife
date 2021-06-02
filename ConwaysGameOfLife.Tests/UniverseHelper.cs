@@ -44,6 +44,23 @@ namespace ConwaysGameOfLife.Tests
             }
             return true;
         }
+
+        public static bool ListsOfCellsAreEqual(List<Cell> obj1, List<Cell> obj2)
+        {
+            if (obj1.Count != obj2.Count)
+            {
+                return false;
+            }
+            for (var cell = 0; cell < obj1.Count; cell++)
+            {
+                if (!CellsAreEqual(obj1[cell], obj2[cell]))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        // TODO: method for location equals
         public static Universe InitializeUniverse(String sourceData) //TODO: rename?
         {
             var rows = SplitInput(sourceData, Environment.NewLine);
