@@ -38,18 +38,16 @@ namespace ConwaysGameOfLife.Tests
             
             Assert.Equal(new Location(x, y), result);
         }
-        [Fact]
-        public void WhenCellStateAndLocationAreSame_BeEqual()
-        {
-            var x1 = 0;
-            var y1 = 1;
-            var x2 = 0;
-            var y2 = 1;
-            var one = new Cell(CellState.Dead, x1, y1);
-            var two = new Cell(CellState.Dead, x2, y2);
-            var expected = true;
 
-            var result = (one.Equals(two));
+        [Theory]
+        [InlineData(0, 1, CellState.Dead, 0, 1, CellState.Dead, true)]
+        [InlineData(0, 1, CellState.Alive, 0, 1, CellState.Dead, false)]
+        public void WhenCellStateAndLocationAreSame_BeEqual(int x1, int y1, CellState oneState, int x2, int y2, CellState twoState, bool expected) // TODO: rename method
+        {
+            var one = new Cell(oneState, x1, y1);
+            var two = new Cell(twoState, x2, y2);
+
+            var result = UniverseHelper.CellsAreEqual(one, two);
 
             Assert.Equal(expected, result);
         }

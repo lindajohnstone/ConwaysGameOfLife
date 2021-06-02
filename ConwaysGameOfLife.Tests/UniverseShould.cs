@@ -36,19 +36,21 @@ namespace ConwaysGameOfLife.Tests
         {
             var universe = new Universe(3, 3);
             var cell = new Cell(CellState.Dead, 1, 1);
-            var expected = new List<Location>();
-            expected.Add(new Location(0, 0));
-            expected.Add(new Location(0, 1));
-            expected.Add(new Location(0, 2));
-            expected.Add(new Location(1, 0));
-            expected.Add(new Location(1, 2));
-            expected.Add(new Location(2, 0));
-            expected.Add(new Location(2, 1));
-            expected.Add(new Location(2, 2));
+            var expected = new List<Location>() {
+                new Location(0, 0),
+                new Location(0, 1),
+                new Location(0, 2),
+                new Location(1, 0),
+                new Location(1, 2),
+                new Location(2, 0),
+                new Location(2, 1),
+                new Location(2, 2),
+            };
 
             var result = universe.GetCellNeighbourLocations(cell);
 
             Assert.Equal(expected, result);
+            Assert.Equal(8, result.Count);
         }
 
         [Theory]
@@ -85,17 +87,17 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void testName() // test being used to test method 
+        public void testName() // TODO: rename
         {
             var initData = "XXX" + Environment.NewLine + 
                                     "XXX" + Environment.NewLine + 
                                     "XXX";
-            TestUniverse.InitializeUniverse(initData);
+            UniverseHelper.InitializeUniverse(initData);
             var expected = new Universe(3, 3);
 
-            var result = TestUniverse.InitializeUniverse(initData);
+            var result = UniverseHelper.InitializeUniverse(initData);
 
-            Assert.Equal(expected, result);
+            Assert.True(UniverseHelper.UniversesAreEqual(expected, result));
         }
         [Fact]
         public void WhenUniverseRegenerated_SwitchState() // TODO: rename
@@ -106,7 +108,7 @@ namespace ConwaysGameOfLife.Tests
 
             var result = universe.SwitchCellState(cell);
 
-            Assert.Equal(expected, result);
+            Assert.True(UniverseHelper.CellsAreEqual(expected, result));
         }
 
         [Fact]
@@ -123,6 +125,18 @@ namespace ConwaysGameOfLife.Tests
             Assert.Equal(0, result.Location.X);
             Assert.Equal(0, result.Location.Y);
             Assert.Equal(CellState.Dead, result.CellState);
+        }
+
+        [Fact]
+        public void TestUniverseHelper_UniversesAreEqual() // TODO: rename method
+        {
+            var gridWidth = 4;
+            var gridLength = 4;
+            var universe = new Universe(gridWidth, gridLength);
+
+            var result = UniverseHelper.UniversesAreEqual(universe, new Universe(4, 4));
+
+            Assert.True(result);
         }
     }
 }

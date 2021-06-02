@@ -8,8 +8,6 @@ namespace ConwaysGameOfLife
     {
         // creates the Universe/World
         public List<Cell> Cells { get; private set; }
-        private List<Location> _neighbourLocations;
-        public List<Location> AllLocations { get => Cells.Select(cell => cell.Location).ToList(); } // TODO: refactor to replace this logic
         public int GridWidth { get; private set; }
         public int GridLength { get; private set; }
 
@@ -67,23 +65,25 @@ namespace ConwaysGameOfLife
             return neighbourLocations;
         }
 
-        public CellState GetCellStateFromLocation(Location location)
+        public CellState GetCellStateFromLocation(Location location) //TODO: do I need this - can use get cellaatlocation
         {
-            var newCells = Cells.Where(cell => cell.Location == new Location(cell.Location.X, cell.Location.Y));
-            var newCell = newCells.ElementAt(0);
-            return newCell.CellState;
+            // var newCell = Cells.Find(cell => cell.Location == new Location(cell.Location.X, cell.Location.Y));
+            var x = location.X;
+            var y = location.Y;
+            var cellAtLocation = Cells.FirstOrDefault(cell => cell.Location.X == x && cell.Location.Y == y);
+            return cellAtLocation.CellState;
         }
 
         public List<Cell> CheckIfNeighboursAlive(Cell cell) 
         {
             var neighbourList = new List<Cell>();
-            _neighbourLocations = GetCellNeighbourLocations(cell);
-            foreach (var neighbour in _neighbourLocations)
+            var neighbourLocations = GetCellNeighbourLocations(cell);
+            foreach (var neighbour in neighbourLocations)
             {
                 var state = GetCellStateFromLocation(neighbour);
                 if (state == CellState.Alive)
                 {
-                    _neighbourLocations.Add(neighbour);
+                    neighbourLocations.Add(neighbour);
                 }
             }
             return neighbourList;
@@ -101,22 +101,7 @@ namespace ConwaysGameOfLife
 
         public Cell GetCellAtLocation(int x, int y)
         {
-            return Cells.Find(cell => cell.Location.X == x && cell.Location.Y == y);
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is Universe universe &&
-                   EqualityComparer<List<Cell>>.Default.Equals(Cells, universe.Cells) &&
-                   EqualityComparer<List<Location>>.Default.Equals(_neighbourLocations, universe._neighbourLocations) &&
-                   EqualityComparer<List<Location>>.Default.Equals(AllLocations, universe.AllLocations) &&
-                   GridWidth == universe.GridWidth &&
-                   GridLength == universe.GridLength;
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Cells, _neighbourLocations, AllLocations, GridWidth, GridLength);
+            return Cells.FirstOrDefault(cell => cell.Location.X == x && cell.Location.Y == y);
         }
     }
 }
