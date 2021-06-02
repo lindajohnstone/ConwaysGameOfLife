@@ -85,7 +85,7 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void testName() // test being used to test method 
+        public void testName() // TODO: rename
         {
             var initData = "XXX" + Environment.NewLine + 
                                     "XXX" + Environment.NewLine + 
@@ -126,7 +126,7 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void TestUniverseHelper_UniverseAreEqual()
+        public void TestUniverseHelper_UniversesAreEqual() // TODO: rename method
         {
             var gridWidth = 4;
             var gridLength = 4;
