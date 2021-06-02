@@ -36,19 +36,21 @@ namespace ConwaysGameOfLife.Tests
         {
             var universe = new Universe(3, 3);
             var cell = new Cell(CellState.Dead, 1, 1);
-            var expected = new List<Location>();
-            expected.Add(new Location(0, 0));
-            expected.Add(new Location(0, 1));
-            expected.Add(new Location(0, 2));
-            expected.Add(new Location(1, 0));
-            expected.Add(new Location(1, 2));
-            expected.Add(new Location(2, 0));
-            expected.Add(new Location(2, 1));
-            expected.Add(new Location(2, 2));
+            var expected = new List<Location>() {
+                new Location(0, 0),
+                new Location(0, 1),
+                new Location(0, 2),
+                new Location(1, 0),
+                new Location(1, 2),
+                new Location(2, 0),
+                new Location(2, 1),
+                new Location(2, 2),
+            };
 
             var result = universe.GetCellNeighbourLocations(cell);
 
             Assert.Equal(expected, result);
+            Assert.Equal(8, result.Count);
         }
 
         [Theory]

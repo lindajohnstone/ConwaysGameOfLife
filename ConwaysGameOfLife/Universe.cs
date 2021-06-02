@@ -69,8 +69,7 @@ namespace ConwaysGameOfLife
 
         public CellState GetCellStateFromLocation(Location location)
         {
-            var newCells = Cells.Where(cell => cell.Location == new Location(cell.Location.X, cell.Location.Y));
-            var newCell = newCells.ElementAt(0);
+            var newCell = Cells.Find(cell => cell.Location == new Location(cell.Location.X, cell.Location.Y));
             return newCell.CellState;
         }
 
