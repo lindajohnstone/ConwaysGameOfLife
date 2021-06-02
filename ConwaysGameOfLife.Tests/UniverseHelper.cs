@@ -34,15 +34,8 @@ namespace ConwaysGameOfLife.Tests
         public static bool CellsAreEqual(Cell obj1, Cell obj2)
         {
             var isLocationSame = (obj1.Location.X == obj2.Location.X) && (obj1.Location.Y == obj2.Location.Y);
-            if (!isLocationSame)
-            {
-                return false;
-            }
-            if (obj1.CellState != obj2.CellState)
-            {
-                return false;
-            }
-            return true;
+            var isCellStateSame = obj1.CellState == obj2.CellState;
+            return isCellStateSame && isLocationSame;
         }
 
         public static bool ListsOfCellsAreEqual(List<Cell> obj1, List<Cell> obj2)
