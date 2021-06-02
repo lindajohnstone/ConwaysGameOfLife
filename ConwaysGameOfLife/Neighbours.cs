@@ -18,29 +18,32 @@ namespace ConwaysGameOfLife
 
         private List<Location> GetNeighbourLocations(Cell cell)
         {
-            NeighbourLocations = new List<Location>();
-            NeighbourLocations.Add(new Location(cell.Location.X - 1, cell.Location.Y - 1));//0,0
-            NeighbourLocations.Add(new Location(cell.Location.X - 1, cell.Location.Y));// 0,1
-            NeighbourLocations.Add(new Location(cell.Location.X - 1, cell.Location.Y + 1));//0,2
-            NeighbourLocations.Add(new Location(cell.Location.X, cell.Location.Y - 1));//1,0
-            NeighbourLocations.Add(new Location(cell.Location.X, cell.Location.Y + 1));//1,2
-            NeighbourLocations.Add(new Location(cell.Location.X + 1, cell.Location.Y - 1));//2,0
-            NeighbourLocations.Add(new Location(cell.Location.X + 1, cell.Location.Y));//2,1
-            NeighbourLocations.Add(new Location(cell.Location.X + 1, cell.Location.Y + 1));//2,2
+            NeighbourLocations = new List<Location>() {
+                new Location(cell.Location.X - 1, cell.Location.Y - 1),     //0,0
+                new Location(cell.Location.X - 1, cell.Location.Y),         //0,1
+                new Location(cell.Location.X - 1, cell.Location.Y + 1),     //0,2
+                new Location(cell.Location.X, cell.Location.Y - 1),         //1,0
+                new Location(cell.Location.X, cell.Location.Y + 1),         //1,2
+                new Location(cell.Location.X + 1, cell.Location.Y - 1),     //2,0
+                new Location(cell.Location.X + 1, cell.Location.Y),         //2,1
+                new Location(cell.Location.X + 1, cell.Location.Y + 1)      //2,2
+            };
             return NeighbourLocations;
         }
 
         private List<Cell> GetCellNeighbours(Cell cell)
         {
-            CellNeighbours = new List<Cell>();
-            CellNeighbours.Add(new Cell(cell.CellState, cell.Location.X - 1, cell.Location.Y - 1));//0,0
-            CellNeighbours.Add(new Cell(cell.CellState, cell.Location.X - 1, cell.Location.Y));// 0,1
-            CellNeighbours.Add(new Cell(cell.CellState, cell.Location.X - 1, cell.Location.Y + 1));//0,2
-            CellNeighbours.Add(new Cell(cell.CellState, cell.Location.X, cell.Location.Y - 1));//1,0
-            CellNeighbours.Add(new Cell(cell.CellState, cell.Location.X, cell.Location.Y + 1));//1,2
-            CellNeighbours.Add(new Cell(cell.CellState, cell.Location.X + 1, cell.Location.Y - 1));//2,0
-            CellNeighbours.Add(new Cell(cell.CellState, cell.Location.X + 1, cell.Location.Y));//2,1
-            CellNeighbours.Add(new Cell(cell.CellState, cell.Location.X + 1, cell.Location.Y + 1));//2,2
+            CellNeighbours = new List<Cell>()
+            {
+                new Cell(cell.CellState, cell.Location.X - 1, cell.Location.Y - 1),     //0,0
+                new Cell(cell.CellState, cell.Location.X - 1, cell.Location.Y),         //0,1
+                new Cell(cell.CellState, cell.Location.X - 1, cell.Location.Y + 1),     //0,2
+                new Cell(cell.CellState, cell.Location.X, cell.Location.Y - 1),         //1,0
+                new Cell(cell.CellState, cell.Location.X, cell.Location.Y + 1),         //1,2
+                new Cell(cell.CellState, cell.Location.X + 1, cell.Location.Y - 1),     //2,0
+                new Cell(cell.CellState, cell.Location.X + 1, cell.Location.Y),         //2,1
+                new Cell(cell.CellState, cell.Location.X + 1, cell.Location.Y + 1)      //2,2
+            };
             // loop through each location
             // use location (how?) to determine cell state
             return CellNeighbours;
