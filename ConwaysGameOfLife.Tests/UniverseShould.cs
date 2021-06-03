@@ -74,14 +74,14 @@ namespace ConwaysGameOfLife.Tests
             Assert.Equal(expected, result);
         }
 
-        [Fact]
-        public void WhenInitialized_ReturnsEmptyListOfAliveCells()
+        [Theory]
+        [InlineData("XXX\nXXX\nXXX", 1, 1, 0)]
+        public void WhenInitialized_ReturnsCountOfLiveNeighbours(string initData, int x, int y, int expected) 
         {
-            var universe = new Universe(3, 3);
-            var cell = new Cell(CellState.Dead, 1, 1);
-            var expected = new List<Cell>();
+            var universe = UniverseHelper.InitializeUniverse(initData);
+            var cell = universe.GetCellAtLocation(x, y);
 
-            var result = universe.CheckIfNeighboursAlive(cell);
+            var result = universe.CountLiveNeighbours(cell);
 
             Assert.Equal(expected, result);
         }
@@ -89,9 +89,9 @@ namespace ConwaysGameOfLife.Tests
         [Fact]
         public void testName() // TODO: rename
         {
-            var initData = "XXX" + Environment.NewLine + 
-                                    "XXX" + Environment.NewLine + 
-                                    "XXX";
+            var initData =  "XXX" + Environment.NewLine + 
+                            "XXX" + Environment.NewLine + 
+                            "XXX";
             UniverseHelper.InitializeUniverse(initData);
             var expected = new Universe(3, 3);
 

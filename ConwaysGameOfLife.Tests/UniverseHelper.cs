@@ -17,14 +17,15 @@ namespace ConwaysGameOfLife.Tests
             {
                 for (var y = 0; y < obj1.GridLength; y++)
                 {
-                    var cell1 = obj1.GetCellAtLocation(x, y);
+                    var cell1 = obj1.GetCellAtLocation(x, y); 
                     var cell2 = obj2.GetCellAtLocation(x, y);
-                    if (cell1 != cell2)
+                    if (cell1 == null || cell2 == null)
                     {
-                        if (cell1.CellState != cell2.CellState) // TODO: cellstate method similar to getcellatlocation
-                        {
-                            return false; 
-                        }
+                        return false;
+                    }
+                    if (cell1.CellState != cell2.CellState) // TODO: cellstate method similar to getcellatlocation
+                    {
+                        return false; 
                     }
                 }
             }
@@ -44,7 +45,7 @@ namespace ConwaysGameOfLife.Tests
             {
                 return false;
             }
-            for (var cell = 0; cell < obj1.Count; cell++)
+            for (var cell = 0; cell < obj1.Count; cell++)// TODO: what if the cells are not in order? - try sorting 
             {
                 if (!CellsAreEqual(obj1[cell], obj2[cell]))
                 {

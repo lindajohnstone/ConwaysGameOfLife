@@ -74,19 +74,19 @@ namespace ConwaysGameOfLife
             return cellAtLocation.CellState;
         }
 
-        public List<Cell> CheckIfNeighboursAlive(Cell cell) 
+        public int CountLiveNeighbours(Cell cell) 
         {
-            var neighbourList = new List<Cell>();
+            var aliveNeighbours = new List<Location>();
             var neighbourLocations = GetCellNeighbourLocations(cell);
             foreach (var neighbour in neighbourLocations)
             {
                 var state = GetCellStateFromLocation(neighbour);
                 if (state == CellState.Alive)
                 {
-                    neighbourLocations.Add(neighbour);
+                    aliveNeighbours.Add(neighbour);
                 }
             }
-            return neighbourList;
+            return aliveNeighbours.Count;
         }
 
         public Cell SwitchCellState(Cell cell) // changes the state of the cell // TODO: rename. 
