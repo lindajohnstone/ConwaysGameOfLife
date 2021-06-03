@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Moq;
 using Xunit; 
 
@@ -50,6 +52,66 @@ namespace ConwaysGameOfLife.Tests
             var result = UniverseHelper.CellsAreEqual(one, two);
 
             Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void WhenTwoListsOfCellsSameOrderInstantiated_BeEqual()
+        {
+            var expected = new List<Cell>(){
+                new Cell(CellState.Dead, 0, 0),
+                new Cell(CellState.Dead, 0, 1),
+                new Cell(CellState.Dead, 0, 2),
+                new Cell(CellState.Dead, 1, 0),
+                new Cell(CellState.Dead, 1, 1),
+                new Cell(CellState.Dead, 1, 2),
+                new Cell(CellState.Dead, 2, 0),
+                new Cell(CellState.Dead, 2, 1),
+                new Cell(CellState.Dead, 2, 2)
+            };
+
+            var result = new List<Cell>(){
+                new Cell(CellState.Dead, 0, 0),
+                new Cell(CellState.Dead, 0, 1),
+                new Cell(CellState.Dead, 0, 2),
+                new Cell(CellState.Dead, 1, 0),
+                new Cell(CellState.Dead, 1, 1),
+                new Cell(CellState.Dead, 1, 2),
+                new Cell(CellState.Dead, 2, 0),
+                new Cell(CellState.Dead, 2, 1),
+                new Cell(CellState.Dead, 2, 2)
+            };
+
+            Assert.True(UniverseHelper.ListsOfCellsAreEqual(expected, result));
+        }
+
+        [Fact]
+        public void WhenTwoListsOfCellsNotSameOrderInstantiated_BeEqual()
+        {
+            var expected = new List<Cell>(){
+                new Cell(CellState.Dead, 0, 0),
+                new Cell(CellState.Dead, 0, 1),
+                new Cell(CellState.Dead, 0, 2),
+                new Cell(CellState.Dead, 1, 1),
+                new Cell(CellState.Dead, 1, 0),
+                new Cell(CellState.Dead, 1, 2),
+                new Cell(CellState.Dead, 2, 0),
+                new Cell(CellState.Dead, 2, 1),
+                new Cell(CellState.Dead, 2, 2)
+            };
+
+            var result = new List<Cell>(){
+                new Cell(CellState.Dead, 0, 0),
+                new Cell(CellState.Dead, 0, 1),
+                new Cell(CellState.Dead, 0, 2),
+                new Cell(CellState.Dead, 1, 0),
+                new Cell(CellState.Dead, 1, 1),
+                new Cell(CellState.Dead, 1, 2),
+                new Cell(CellState.Dead, 2, 0),
+                new Cell(CellState.Dead, 2, 1),
+                new Cell(CellState.Dead, 2, 2)
+            };
+
+            Assert.True(UniverseHelper.ListsOfCellsAreEqual(expected, result)); // TODO: currently failing
         }
     }
 }

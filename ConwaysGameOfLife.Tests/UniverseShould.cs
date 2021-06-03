@@ -74,12 +74,15 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Theory]
-        [InlineData("XXX\nXXX\nXXX", 1, 1, 0)]
-        [InlineData("XXX\nOXX\nXXX", 1, 1, 1 )]
-        [InlineData("OOO\nOOO\nOOO", 1, 1, 8)]
-        [InlineData("OXX\nXXX\nXXO", 1, 1, 2)]
-        public void WhenInitialized_ReturnsCountOfLiveNeighbours(string initData, int x, int y, int expected) 
+        [InlineData("XXX", "XXX", "XXX", 1, 1, 0)]
+        [InlineData("XXX", "OXX", "XXX", 1, 1, 1 )]
+        [InlineData("OOO", "OOO", "OOO", 1, 1, 8)]
+        [InlineData("OXX", "XXX", "XXO", 1, 1, 2)]
+        public void WhenInitialized_ReturnsCountOfLiveNeighbours(string row1, string row2, string row3, int x, int y, int expected) 
         {
+            var initData =  row1 + Environment.NewLine +
+                            row2 + Environment.NewLine +
+                            row3;
             var universe = UniverseHelper.InitializeUniverse(initData);
             var cell = universe.GetCellAtLocation(x, y);
 
@@ -102,7 +105,7 @@ namespace ConwaysGameOfLife.Tests
             Assert.True(UniverseHelper.UniversesAreEqual(expected, result));
         }
         [Fact]
-        public void WhenUniverseRegenerated_SwitchState() // TODO: rename
+        public void WhenUniverseRegenerated_SwitchState() // TODO: rename once decision is made which class is responsible for this
         {
             var cell = new Cell(CellState.Dead, 0, 0);
             var universe = new Universe(3, 3);
@@ -130,13 +133,14 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void TestUniverseHelper_UniversesAreEqual() // TODO: rename method
+        public void WhenTwoUniversesInstantiated_BeEqual() 
         {
             var gridWidth = 4;
             var gridLength = 4;
-            var universe = new Universe(gridWidth, gridLength);
+            var universe1 = new Universe(gridWidth, gridLength);
+            var universe2 = new Universe(gridWidth, gridLength);
 
-            var result = UniverseHelper.UniversesAreEqual(universe, new Universe(4, 4));
+            var result = UniverseHelper.UniversesAreEqual(universe1, universe2);
 
             Assert.True(result);
         }

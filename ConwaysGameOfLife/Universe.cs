@@ -53,15 +53,17 @@ namespace ConwaysGameOfLife
 
         public List<Location> GetCellNeighbourLocations(Cell cell)
         {
-            var neighbourLocations = new List<Location>();
-            neighbourLocations.Add(new Location(cell.Location.X - 1, cell.Location.Y - 1));//0,0
-            neighbourLocations.Add(new Location(cell.Location.X - 1, cell.Location.Y));// 0,1
-            neighbourLocations.Add(new Location(cell.Location.X - 1, cell.Location.Y + 1));//0,2
-            neighbourLocations.Add(new Location(cell.Location.X, cell.Location.Y - 1));//1,0
-            neighbourLocations.Add(new Location(cell.Location.X, cell.Location.Y + 1));//1,2
-            neighbourLocations.Add(new Location(cell.Location.X + 1, cell.Location.Y - 1));//2,0
-            neighbourLocations.Add(new Location(cell.Location.X + 1, cell.Location.Y));//2,1
-            neighbourLocations.Add(new Location(cell.Location.X + 1, cell.Location.Y + 1));//2,2
+            var neighbourLocations = new List<Location>() {
+                new Location(cell.Location.X - 1, cell.Location.Y - 1),     //0,0
+                new Location(cell.Location.X - 1, cell.Location.Y),         //0,1
+                new Location(cell.Location.X - 1, cell.Location.Y + 1),     //0,2
+                new Location(cell.Location.X, cell.Location.Y - 1),         //1,0
+                new Location(cell.Location.X, cell.Location.Y + 1),         //1,2
+                new Location(cell.Location.X + 1, cell.Location.Y - 1),     //2,0
+                new Location(cell.Location.X + 1, cell.Location.Y),         //2,1
+                new Location(cell.Location.X + 1, cell.Location.Y + 1)      //2,2
+            };
+            
             return neighbourLocations;
         }
 
@@ -76,6 +78,7 @@ namespace ConwaysGameOfLife
                 {
                     aliveNeighbours.Add(neighbour);
                 }
+                //aliveNeighbours = neighbourLocations.Count(location => GetCellStateFromLocation(location) == CellState.Alive);
             }
             return aliveNeighbours.Count;
         }
