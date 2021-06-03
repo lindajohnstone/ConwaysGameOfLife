@@ -53,40 +53,33 @@ namespace ConwaysGameOfLife
 
         public List<Location> GetCellNeighbourLocations(Cell cell)
         {
-            var neighbourLocations = new List<Location>();
-            neighbourLocations.Add(new Location(cell.Location.X - 1, cell.Location.Y - 1));//0,0
-            neighbourLocations.Add(new Location(cell.Location.X - 1, cell.Location.Y));// 0,1
-            neighbourLocations.Add(new Location(cell.Location.X - 1, cell.Location.Y + 1));//0,2
-            neighbourLocations.Add(new Location(cell.Location.X, cell.Location.Y - 1));//1,0
-            neighbourLocations.Add(new Location(cell.Location.X, cell.Location.Y + 1));//1,2
-            neighbourLocations.Add(new Location(cell.Location.X + 1, cell.Location.Y - 1));//2,0
-            neighbourLocations.Add(new Location(cell.Location.X + 1, cell.Location.Y));//2,1
-            neighbourLocations.Add(new Location(cell.Location.X + 1, cell.Location.Y + 1));//2,2
+            var neighbourLocations = new List<Location>() {
+                new Location(cell.Location.X - 1, cell.Location.Y - 1),     //0,0
+                new Location(cell.Location.X - 1, cell.Location.Y),         //0,1
+                new Location(cell.Location.X - 1, cell.Location.Y + 1),     //0,2
+                new Location(cell.Location.X, cell.Location.Y - 1),         //1,0
+                new Location(cell.Location.X, cell.Location.Y + 1),         //1,2
+                new Location(cell.Location.X + 1, cell.Location.Y - 1),     //2,0
+                new Location(cell.Location.X + 1, cell.Location.Y),         //2,1
+                new Location(cell.Location.X + 1, cell.Location.Y + 1)      //2,2
+            };
+            
             return neighbourLocations;
         }
 
-        public CellState GetCellStateFromLocation(Location location) //TODO: do I need this - can use get cellaatlocation
+        public int CountLiveNeighbours(Cell cell) 
         {
-            // var newCell = Cells.Find(cell => cell.Location == new Location(cell.Location.X, cell.Location.Y));
-            var x = location.X;
-            var y = location.Y;
-            var cellAtLocation = Cells.FirstOrDefault(cell => cell.Location.X == x && cell.Location.Y == y);
-            return cellAtLocation.CellState;
-        }
-
-        public List<Cell> CheckIfNeighboursAlive(Cell cell) 
-        {
-            var neighbourList = new List<Cell>();
+            var aliveNeighbours = new List<Location>();
             var neighbourLocations = GetCellNeighbourLocations(cell);
             foreach (var neighbour in neighbourLocations)
             {
-                var state = GetCellStateFromLocation(neighbour);
+                var state = GetCellAtLocation(neighbour.X, neighbour.Y).CellState;
                 if (state == CellState.Alive)
                 {
-                    neighbourLocations.Add(neighbour);
+                    aliveNeighbours.Add(neighbour);
                 }
             }
-            return neighbourList;
+            return aliveNeighbours.Count;
         }
 
         public Cell SwitchCellState(Cell cell) // changes the state of the cell // TODO: rename. 

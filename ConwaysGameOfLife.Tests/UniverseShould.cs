@@ -66,22 +66,27 @@ namespace ConwaysGameOfLife.Tests
         public void WhenInitialized_FindCellStateOfCell(CellState state, int x, int y)
         {
             var universe = new Universe(3, 3);
-            var location = new Location(x, y);
             var expected = state;
 
-            var result = universe.GetCellStateFromLocation(location);
+            var result = universe.GetCellAtLocation(x, y).CellState;
 
             Assert.Equal(expected, result);
         }
 
-        [Fact]
-        public void WhenInitialized_ReturnsEmptyListOfAliveCells()
+        [Theory]
+        [InlineData("XXX", "XXX", "XXX", 1, 1, 0)]
+        [InlineData("XXX", "OXX", "XXX", 1, 1, 1 )]
+        [InlineData("OOO", "OOO", "OOO", 1, 1, 8)]
+        [InlineData("OXX", "XXX", "XXO", 1, 1, 2)]
+        public void WhenInitialized_ReturnsCountOfLiveNeighbours(string row1, string row2, string row3, int x, int y, int expected) 
         {
-            var universe = new Universe(3, 3);
-            var cell = new Cell(CellState.Dead, 1, 1);
-            var expected = new List<Cell>();
+            var initData =  row1 + Environment.NewLine +
+                            row2 + Environment.NewLine +
+                            row3;
+            var universe = UniverseHelper.InitializeUniverse(initData);
+            var cell = universe.GetCellAtLocation(x, y);
 
-            var result = universe.CheckIfNeighboursAlive(cell);
+            var result = universe.CountLiveNeighbours(cell);
 
             Assert.Equal(expected, result);
         }
@@ -89,9 +94,9 @@ namespace ConwaysGameOfLife.Tests
         [Fact]
         public void testName() // TODO: rename
         {
-            var initData = "XXX" + Environment.NewLine + 
-                                    "XXX" + Environment.NewLine + 
-                                    "XXX";
+            var initData =  "XXX" + Environment.NewLine + 
+                            "XXX" + Environment.NewLine + 
+                            "XXX";
             UniverseHelper.InitializeUniverse(initData);
             var expected = new Universe(3, 3);
 
@@ -100,7 +105,7 @@ namespace ConwaysGameOfLife.Tests
             Assert.True(UniverseHelper.UniversesAreEqual(expected, result));
         }
         [Fact]
-        public void WhenUniverseRegenerated_SwitchState() // TODO: rename
+        public void WhenUniverseRegenerated_SwitchState() // TODO: rename once decision is made which class is responsible for this
         {
             var cell = new Cell(CellState.Dead, 0, 0);
             var universe = new Universe(3, 3);
@@ -128,13 +133,14 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void TestUniverseHelper_UniversesAreEqual() // TODO: rename method
+        public void WhenTwoUniversesInstantiated_BeEqual() 
         {
             var gridWidth = 4;
             var gridLength = 4;
-            var universe = new Universe(gridWidth, gridLength);
+            var universe1 = new Universe(gridWidth, gridLength);
+            var universe2 = new Universe(gridWidth, gridLength);
 
-            var result = UniverseHelper.UniversesAreEqual(universe, new Universe(4, 4));
+            var result = UniverseHelper.UniversesAreEqual(universe1, universe2);
 
             Assert.True(result);
         }
