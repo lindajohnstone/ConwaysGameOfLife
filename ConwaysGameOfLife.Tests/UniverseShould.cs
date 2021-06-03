@@ -76,6 +76,9 @@ namespace ConwaysGameOfLife.Tests
 
         [Theory]
         [InlineData("XXX\nXXX\nXXX", 1, 1, 0)]
+        [InlineData("XXX\nOXX\nXXX", 1, 1, 1 )]
+        [InlineData("OOO\nOOO\nOOO", 1, 1, 8)]
+        [InlineData("OXX\nXXX\nXXO", 1, 1, 2)]
         public void WhenInitialized_ReturnsCountOfLiveNeighbours(string initData, int x, int y, int expected) 
         {
             var universe = UniverseHelper.InitializeUniverse(initData);
