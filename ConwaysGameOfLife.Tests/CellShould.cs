@@ -111,7 +111,7 @@ namespace ConwaysGameOfLife.Tests
                 new Cell(CellState.Dead, 2, 2)
             };
 
-            Assert.True(UniverseHelper.ListsOfCellsAreEqual(expected, result)); // TODO: currently failing
+            Assert.True(UniverseHelper.ListsOfCellsAreEqual(expected, result)); 
         }
     }
 }

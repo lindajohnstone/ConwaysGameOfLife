@@ -46,13 +46,12 @@ namespace ConwaysGameOfLife.Tests
             {
                 return false;
             }
-            for (var cell = 0; cell < obj1.Count; cell++)// TODO: what if the cells are not in order? - try sorting 
+            var obj1Ordered = obj1.OrderBy(c => c.Location.X).ThenBy(c => c.Location.Y).ToList();
+            var obj2Ordered = obj2.OrderBy(c => c.Location.X).ThenBy(c => c.Location.Y).ToList();
+
+            for (var cell = 0; cell < obj1.Count; cell++)
             {
-                // search obj2 for obj1[cell]
-                // pass index into line 52 as obj2s index
-                // var obj2Cell = obj2.FirstOrDefault(x => obj1.Contains()== obj2.X && obj1.Y == y);
-                // expected[3].Location.X == result[4].Location.X && expected[3].Location.Y == result[4].Location.Y
-                if (!CellsAreEqual(obj1[cell], obj2[cell]))
+                if (!CellsAreEqual(obj1Ordered[cell], obj2Ordered[cell]))
                 {
                     return false;
                 }
@@ -60,7 +59,6 @@ namespace ConwaysGameOfLife.Tests
             return true;
         }
 
-        // TODO: method for location equals
         public static bool LocationsAreEqual(Location obj1, Location obj2)
         {
             if (obj1.X != obj2.X && obj1.Y != obj2.Y)
