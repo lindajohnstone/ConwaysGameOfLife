@@ -65,22 +65,13 @@ namespace ConwaysGameOfLife
             return neighbourLocations;
         }
 
-        public CellState GetCellStateFromLocation(Location location) //TODO: do I need this - can use get cellaatlocation
-        {
-            // var newCell = Cells.Find(cell => cell.Location == new Location(cell.Location.X, cell.Location.Y));
-            var x = location.X;
-            var y = location.Y;
-            var cellAtLocation = Cells.FirstOrDefault(cell => cell.Location.X == x && cell.Location.Y == y);
-            return cellAtLocation.CellState;
-        }
-
         public int CountLiveNeighbours(Cell cell) 
         {
             var aliveNeighbours = new List<Location>();
             var neighbourLocations = GetCellNeighbourLocations(cell);
             foreach (var neighbour in neighbourLocations)
             {
-                var state = GetCellStateFromLocation(neighbour);
+                var state = GetCellAtLocation(neighbour.X, neighbour.Y).CellState;
                 if (state == CellState.Alive)
                 {
                     aliveNeighbours.Add(neighbour);

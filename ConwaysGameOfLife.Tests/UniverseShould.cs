@@ -66,10 +66,9 @@ namespace ConwaysGameOfLife.Tests
         public void WhenInitialized_FindCellStateOfCell(CellState state, int x, int y)
         {
             var universe = new Universe(3, 3);
-            var location = new Location(x, y);
             var expected = state;
 
-            var result = universe.GetCellStateFromLocation(location);
+            var result = universe.GetCellAtLocation(x, y).CellState;
 
             Assert.Equal(expected, result);
         }
