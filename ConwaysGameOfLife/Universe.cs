@@ -78,7 +78,6 @@ namespace ConwaysGameOfLife
                 {
                     aliveNeighbours.Add(neighbour);
                 }
-                //aliveNeighbours = neighbourLocations.Count(location => GetCellStateFromLocation(location) == CellState.Alive);
             }
             return aliveNeighbours.Count;
         }
