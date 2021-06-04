@@ -144,5 +144,20 @@ namespace ConwaysGameOfLife.Tests
 
             Assert.True(result);
         }
+
+        [Fact]
+        public void WhenTwoUniversesInstantiated_NotBeEqual()
+        {
+            var gridWidth1 = 4;
+            var gridLength1 = 4;
+            var gridWidth2 = 5;
+            var gridLength2 = 4;
+            var universe1 = new Universe(gridWidth1, gridLength1);
+            var universe2 = new Universe(gridWidth2, gridLength2);
+
+            var result = UniverseHelper.UniversesAreEqual(universe1, universe2);
+
+            Assert.False(result);
+        }
     }
 }
