@@ -147,5 +147,16 @@ namespace ConwaysGameOfLife.Tests
 
             Assert.False(result);
         }
+
+        [Fact]
+        public void WhenCellIsNull_ThrowException() // TODO: rename - if cell in GetCellNeighbourLocations is null & throws exception
+        {
+            Cell cell = null;
+            var universe = new Universe(3, 3);
+
+            var result = Assert.Throws<NullReferenceException>(() => universe.GetCellNeighbourLocations(cell));
+            
+            Assert.Equal("Object reference not set to an instance of an object.", result.Message);
+        }
     }
 }
