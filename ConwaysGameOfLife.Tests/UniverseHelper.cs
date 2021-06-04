@@ -61,11 +61,11 @@ namespace ConwaysGameOfLife.Tests
 
         public static bool LocationsAreEqual(Location obj1, Location obj2)
         {
-            if (obj1.X != obj2.X && obj1.Y != obj2.Y)
+            if (obj1.X == obj2.X && obj1.Y == obj2.Y)
             {
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }
         public static Universe InitializeUniverse(String sourceData) //TODO: rename?
         {
