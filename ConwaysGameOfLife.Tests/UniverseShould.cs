@@ -20,18 +20,6 @@ namespace ConwaysGameOfLife.Tests
         }  
 
         [Fact]
-        public void WhenInitialized_UniverseSizeIsCorrect()
-        {
-            var gridWidth = 4;
-            var gridLength = 4;
-            var universe = new Universe(gridWidth, gridLength);
-
-            var result = universe.GetSize();
-
-            Assert.Equal(16, result);
-        } 
-
-        [Fact]
         public void WhenUniverseGenerated_ReturnsListOfNeighbours()
         {
             var universe = new Universe(3, 3);

@@ -41,11 +41,6 @@ namespace ConwaysGameOfLife
             return cells;
         }
 
-        public int GetSize()
-        {
-            return Cells.Count;
-        }
-
         public bool AreAllCellsDead() 
         {
             return Cells.All((cell) => !cell.IsAlive());
