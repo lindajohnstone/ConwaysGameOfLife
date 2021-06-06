@@ -35,7 +35,6 @@ namespace ConwaysGameOfLife.Tests
 
         [Theory]
         [InlineData(0, 0, 0, 0, true)]
-        [InlineData(0, 0, 1, 0, false)]
         public void WhenTwoLocationsInstantiated_BeEqual(int x1, int y1, int x2, int y2, bool expected)
         {
             var location1 = new Location(x1, y1);
