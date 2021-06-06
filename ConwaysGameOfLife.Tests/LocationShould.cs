@@ -33,17 +33,29 @@ namespace ConwaysGameOfLife.Tests
             Assert.True(result);
         }
 
-        [Fact]
-        public void WhenTwoLocationsInstantiated_BeEqual()
+        [Theory]
+        [InlineData(0, 0, 0, 0, true)]
+        [InlineData(0, 0, 1, 0, false)]
+        public void WhenTwoLocationsInstantiated_BeEqual(int x1, int y1, int x2, int y2, bool expected)
         {
-            var x = 0;
-            var y = 0;
-            var location1 = new Location(x, y);
-            var location2 = new Location(x, y);
+            var location1 = new Location(x1, y1);
+            var location2 = new Location(x2, y2);
 
             var result = UniverseHelper.LocationsAreEqual(location1, location2);
 
-            Assert.True(result);
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(0, 0, 1, 0, false)]
+        public void WhenTwoLocationsInstantiated_NotBeEqual(int x1, int y1, int x2, int y2, bool expected)
+        {
+            var location1 = new Location(x1, y1);
+            var location2 = new Location(x2, y2);
+
+            var result = UniverseHelper.LocationsAreEqual(location1, location2);
+
+            Assert.Equal(expected, result);
         }
     }
 }

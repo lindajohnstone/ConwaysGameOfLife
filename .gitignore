@@ -91,6 +91,8 @@ fabric.properties
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+launch.json
+tasks.json
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files

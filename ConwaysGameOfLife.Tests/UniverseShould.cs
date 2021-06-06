@@ -20,18 +20,6 @@ namespace ConwaysGameOfLife.Tests
         }  
 
         [Fact]
-        public void WhenInitialized_UniverseSizeIsCorrect()
-        {
-            var gridWidth = 4;
-            var gridLength = 4;
-            var universe = new Universe(gridWidth, gridLength);
-
-            var result = universe.GetSize();
-
-            Assert.Equal(16, result);
-        } 
-
-        [Fact]
         public void WhenUniverseGenerated_ReturnsListOfNeighbours()
         {
             var universe = new Universe(3, 3);
@@ -143,6 +131,32 @@ namespace ConwaysGameOfLife.Tests
             var result = UniverseHelper.UniversesAreEqual(universe1, universe2);
 
             Assert.True(result);
+        }
+
+        [Fact]
+        public void WhenTwoUniversesInstantiated_NotBeEqual()
+        {
+            var gridWidth1 = 4;
+            var gridLength1 = 4;
+            var gridWidth2 = 5;
+            var gridLength2 = 4;
+            var universe1 = new Universe(gridWidth1, gridLength1);
+            var universe2 = new Universe(gridWidth2, gridLength2);
+
+            var result = UniverseHelper.UniversesAreEqual(universe1, universe2);
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void WhenCellIsNull_ThrowException() // TODO: rename - if cell in GetCellNeighbourLocations is null & throws exception
+        {
+            Cell cell = null;
+            var universe = new Universe(3, 3);
+
+            var result = Assert.Throws<NullReferenceException>(() => universe.GetCellNeighbourLocations(cell));
+            
+            Assert.Equal("Object reference not set to an instance of an object.", result.Message);
         }
     }
 }

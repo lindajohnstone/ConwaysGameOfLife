@@ -41,11 +41,6 @@ namespace ConwaysGameOfLife
             return cells;
         }
 
-        public int GetSize()
-        {
-            return Cells.Count;
-        }
-
         public bool AreAllCellsDead() 
         {
             return Cells.All((cell) => !cell.IsAlive());
@@ -67,9 +62,10 @@ namespace ConwaysGameOfLife
             return neighbourLocations;
         }
 
-        public int CountLiveNeighbours(Cell cell) 
+        public int CountLiveNeighbours(Cell cell)
         {
             var aliveNeighbours = new List<Location>();
+            ThrowsExceptionIfCellIsNull(cell);
             var neighbourLocations = GetCellNeighbourLocations(cell);
             foreach (var neighbour in neighbourLocations)
             {
@@ -80,6 +76,14 @@ namespace ConwaysGameOfLife
                 }
             }
             return aliveNeighbours.Count;
+        }
+
+        private static void ThrowsExceptionIfCellIsNull(Cell cell)
+        {
+            if (cell == null)
+            {
+                throw new NullReferenceException();
+            }
         }
 
         public Cell SwitchCellState(Cell cell) // changes the state of the cell // TODO: rename. 
