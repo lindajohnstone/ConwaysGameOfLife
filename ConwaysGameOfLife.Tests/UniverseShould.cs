@@ -154,9 +154,7 @@ namespace ConwaysGameOfLife.Tests
             Cell cell = null;
             var universe = new Universe(3, 3);
 
-            var result = Assert.Throws<NullReferenceException>(() => universe.GetCellNeighbourLocations(cell));
-            
-            Assert.Equal("Object reference not set to an instance of an object.", result.Message);
+            Assert.Throws<NullReferenceException>(() => universe.GetCellNeighbourLocations(cell));
         }
     }
 }

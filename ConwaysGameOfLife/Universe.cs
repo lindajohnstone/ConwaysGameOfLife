@@ -65,10 +65,11 @@ namespace ConwaysGameOfLife
         public int CountLiveNeighbours(Cell cell)
         {
             var aliveNeighbours = new List<Location>();
-            ThrowsExceptionIfCellIsNull(cell);
+            ThrowsExceptionIfObjectIsNull(cell);
             var neighbourLocations = GetCellNeighbourLocations(cell);
             foreach (var neighbour in neighbourLocations)
             {
+                ThrowsExceptionIfObjectIsNull(neighbour);
                 var state = GetCellAtLocation(neighbour.X, neighbour.Y).CellState;
                 if (state == CellState.Alive)
                 {
@@ -78,9 +79,9 @@ namespace ConwaysGameOfLife
             return aliveNeighbours.Count;
         }
 
-        private static void ThrowsExceptionIfCellIsNull(Cell cell)
+        private static void ThrowsExceptionIfObjectIsNull(Object obj)
         {
-            if (cell == null)
+            if (obj == null)
             {
                 throw new NullReferenceException();
             }
