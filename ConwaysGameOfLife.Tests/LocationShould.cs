@@ -31,7 +31,7 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void WhenTwoListsOfLocationsSameOrderInstantiated_BeEqual()
+        public void WhenTwoListsOfLocations_BeEqual()
         {
             var expected = new List<Location>(){
                 new Location(0, 0),
@@ -59,7 +59,7 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void WhenTwoListsOfCellsNotSameOrderInstantiated_BeEqual()
+        public void WhenTwoListsOfLocations_NotBeEqual()
         {
             var expected = new List<Location>(){
                 new Location(0, 0),
@@ -76,14 +76,14 @@ namespace ConwaysGameOfLife.Tests
                 new Location(0, 0),
                 new Location(0, 1),
                 new Location(0, 2),
+                new Location(1, 1),
                 new Location(1, 2),
-                new Location(1, 0),
                 new Location(2, 0),
                 new Location(2, 1),
                 new Location(2, 2)
             };
 
-            Assert.True(UniverseHelper.ListsOfLocationsAreEqual(expected, result));
+            Assert.False(UniverseHelper.ListsOfLocationsAreEqual(expected, result));
         }
     }
 }
