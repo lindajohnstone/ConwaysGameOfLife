@@ -49,9 +49,9 @@ namespace ConwaysGameOfLife.Tests
             var location1Ordered = locations1.OrderBy(c => c.X).ThenBy(c => c.Y).ToList();
             var location2Ordered = locations2.OrderBy(c => c.X).ThenBy(c => c.Y).ToList();
 
-            for (var location = 0; location < locations1.Count; location++)
+            for (var i = 0; i < locations1.Count; i++)
             {
-                if (!LocationsAreEqual(location1Ordered[location], location2Ordered[location]))
+                if (!LocationsAreEqual(location1Ordered[i], location2Ordered[i]))
                 {
                     return false;
                 }
