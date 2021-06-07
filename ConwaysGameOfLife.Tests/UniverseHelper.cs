@@ -6,25 +6,25 @@ namespace ConwaysGameOfLife.Tests
 {
     public static class UniverseHelper
     {
-        public static bool UniversesAreEqual(Universe obj1, Universe obj2)
+        public static bool UniversesAreEqual(Universe universe1, Universe universe2)
         {
-            var isSizeSame = (obj1.GridWidth == obj2.GridWidth) && (obj1.GridLength == obj2.GridLength);
+            var isSizeSame = (universe1.GridWidth == universe2.GridWidth) && (universe1.GridLength == universe2.GridLength);
             if (!isSizeSame)
             {
                 return false;
             }
             
-            for (var x = 0; x < obj1.GridLength; x++)
+            for (var x = 0; x < universe1.GridLength; x++)
             {
-                for (var y = 0; y < obj1.GridLength; y++)
+                for (var y = 0; y < universe1.GridLength; y++)
                 {
-                    var cell1 = obj1.GetCellAtLocation(x, y); 
-                    var cell2 = obj2.GetCellAtLocation(x, y);
+                    var cell1 = universe1.GetCellAtLocation(x, y); 
+                    var cell2 = universe2.GetCellAtLocation(x, y);
                     if (cell1 == null || cell2 == null)
                     {
                         return false;
                     }
-                    if (cell1.CellState != cell2.CellState) // TODO: cellstate method similar to getcellatlocation
+                    if (cell1.CellState != cell2.CellState) 
                     {
                         return false; 
                     }
@@ -33,25 +33,25 @@ namespace ConwaysGameOfLife.Tests
             return true;
         }
 
-        public static bool CellsAreEqual(Cell obj1, Cell obj2)
+        public static bool CellsAreEqual(Cell cell1, Cell cell2)
         {
-            var isLocationSame = (obj1.Location.X == obj2.Location.X) && (obj1.Location.Y == obj2.Location.Y);
-            var isCellStateSame = obj1.CellState == obj2.CellState;
+            var isLocationSame = (cell1.Location.X == cell2.Location.X) && (cell1.Location.Y == cell2.Location.Y);
+            var isCellStateSame = cell1.CellState == cell2.CellState;
             return isCellStateSame && isLocationSame;
         }
 
-        public static bool ListsOfCellsAreEqual(List<Cell> obj1, List<Cell> obj2)
+        public static bool ListsOfLocationsAreEqual(List<Location> location1, List<Location> location2)
         {
-            if (obj1.Count != obj2.Count)
+            if (location1.Count != location2.Count)
             {
                 return false;
             }
-            var obj1Ordered = obj1.OrderBy(c => c.Location.X).ThenBy(c => c.Location.Y).ToList();
-            var obj2Ordered = obj2.OrderBy(c => c.Location.X).ThenBy(c => c.Location.Y).ToList();
+            var location1Ordered = location1.OrderBy(c => c.X).ThenBy(c => c.Y).ToList();
+            var location2Ordered = location2.OrderBy(c => c.X).ThenBy(c => c.Y).ToList();
 
-            for (var cell = 0; cell < obj1.Count; cell++)
+            for (var location = 0; location < location1.Count; location++)
             {
-                if (!CellsAreEqual(obj1Ordered[cell], obj2Ordered[cell]))
+                if (!LocationsAreEqual(location1Ordered[location], location2Ordered[location]))
                 {
                     return false;
                 }
@@ -59,9 +59,9 @@ namespace ConwaysGameOfLife.Tests
             return true;
         }
 
-        public static bool LocationsAreEqual(Location obj1, Location obj2)
+        public static bool LocationsAreEqual(Location location1, Location location2)
         {
-            if (obj1.X == obj2.X && obj1.Y == obj2.Y)
+            if (location1.X == location2.X && location1.Y == location2.Y)
             {
                 return true;
             }

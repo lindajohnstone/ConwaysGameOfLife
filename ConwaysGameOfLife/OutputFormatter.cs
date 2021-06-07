@@ -24,7 +24,7 @@ namespace ConwaysGameOfLife
             return "Welcome to Game of Life!";
         }
 
-        public string FormatUniverse()
+        public string FormatUniverse() // universe created with user input - dimensions & live cells ?? - needed??
         {
             throw new NotImplementedException();
         }

@@ -20,7 +20,7 @@ namespace ConwaysGameOfLife.Tests
         }  
 
         [Fact]
-        public void WhenUniverseGenerated_ReturnsListOfNeighbours()
+        public void WhenGivenANonBoundaryCell_ReturnCorrectNeighbours()
         {
             var universe = new Universe(3, 3);
             var cell = new Cell(CellState.Dead, 1, 1);
@@ -37,7 +37,7 @@ namespace ConwaysGameOfLife.Tests
 
             var result = universe.GetCellNeighbourLocations(cell);
 
-            Assert.Equal(expected, result);
+            Assert.True(UniverseHelper.ListsOfLocationsAreEqual(expected, result));
             Assert.Equal(8, result.Count);
         }
 
@@ -134,7 +134,7 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void WhenTwoUniversesInstantiated_NotBeEqual()
+        public void WhenUniversesOfDifferentDimensionsInstantiated_NotBeEqual()
         {
             var gridWidth1 = 4;
             var gridLength1 = 4;
@@ -154,9 +154,113 @@ namespace ConwaysGameOfLife.Tests
             Cell cell = null;
             var universe = new Universe(3, 3);
 
-            var result = Assert.Throws<NullReferenceException>(() => universe.GetCellNeighbourLocations(cell));
+            Assert.Throws<NullReferenceException>(() => universe.GetCellNeighbourLocations(cell));
+            Assert.Throws<NullReferenceException>(() => universe.CountLiveNeighbours(cell));
+        }
+
+        [Fact]
+        public void WhenGivenANonBoundaryCell_ReturnCorrectNeighbourLocations()
+        {
+            var universe = new Universe(3, 3);
+            var cell = new Cell(CellState.Dead, 1, 1);
+            var expected = new List<Location>() {
+                new Location(0, 0), // x + 1, y + 1
+                new Location(0, 1),
+                new Location(0, 2),
+                new Location(1, 0),
+                new Location(1, 2),
+                new Location(2, 0),
+                new Location(2, 1),
+                new Location(2, 2)
+            };
             
-            Assert.Equal("Object reference not set to an instance of an object.", result.Message);
+            var result = universe.GetCellNeighbourLocations(cell);
+
+            Assert.True(UniverseHelper.ListsOfLocationsAreEqual(expected, result));
+        }
+
+        [Fact]
+        public void WhenGivenACellOnBoundaryX_ReturnCorrectNeighbourLocationsListInOrder()
+        {
+            var universe = new Universe(3, 3);
+            var cell = new Cell(CellState.Dead, 0, 1);
+            var expected = new List<Location>() {
+                new Location(2, 0),
+                new Location(2, 1),
+                new Location(2, 2),
+                new Location(0, 0),
+                new Location(0, 2),
+                new Location(1, 0),
+                new Location(1, 1),
+                new Location(1, 2)
+            };
+
+            var result = universe.GetCellNeighbourLocations(cell);
+
+            Assert.True(UniverseHelper.ListsOfLocationsAreEqual(expected, result));
+        }
+
+        [Fact]
+        public void WhenGivenABoundaryCellX_ReturnCorrectNeighbourLocationsListOutOfOrder()
+        {
+            var universe = new Universe(3, 3);
+            var cell = new Cell(CellState.Dead, 0, 1);
+            var expected = new List<Location>() {
+                new Location(2, 1),
+                new Location(2, 0),
+                new Location(2, 2),
+                new Location(0, 0),
+                new Location(0, 2),
+                new Location(1, 0),
+                new Location(1, 1),
+                new Location(1, 2)
+            };
+
+            var result = universe.GetCellNeighbourLocations(cell);
+
+            Assert.True(UniverseHelper.ListsOfLocationsAreEqual(expected, result));
+        }
+
+        [Fact]
+        public void WhenGivenABoundaryCellY_ReturnCorrectNeighbourLocationsListOutOfOrder()
+        {
+            var universe = new Universe(3, 3);
+            var cell = new Cell(CellState.Dead, 1, 0);
+            var expected = new List<Location>() {
+                new Location(2, 1),
+                new Location(2, 0),
+                new Location(2, 2),
+                new Location(0, 0),
+                new Location(0, 2),
+                new Location(0, 1),
+                new Location(1, 1),
+                new Location(1, 2)
+            };
+
+            var result = universe.GetCellNeighbourLocations(cell);
+
+            Assert.True(UniverseHelper.ListsOfLocationsAreEqual(expected, result));
+        }
+
+        [Fact]
+        public void WhenGivenABoundaryCornerCell_ReturnCorrectNeighbourLocationsListOutOfOrder()
+        {
+            var universe = new Universe(3, 3);
+            var cell = new Cell(CellState.Dead, 0, 0);
+            var expected = new List<Location>() {
+                new Location(2, 1),
+                new Location(2, 0),
+                new Location(2, 2),
+                new Location(0, 1),
+                new Location(0, 2),
+                new Location(1, 0),
+                new Location(1, 1),
+                new Location(1, 2)
+            };
+
+            var result = universe.GetCellNeighbourLocations(cell);
+
+            Assert.True(UniverseHelper.ListsOfLocationsAreEqual(expected, result));
         }
     }
 }
