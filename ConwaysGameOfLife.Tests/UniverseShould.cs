@@ -134,7 +134,7 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void WhenUniversesOfDifferentDimensionsInstantiated_NotBeEqual()
+        public void WhenUniversesOfDifferentDimensionsInstantiated_NotBeEqual() // TODO: rename - what does the test do? testing universesareequal - may get deleted
         {
             var gridWidth1 = 4;
             var gridLength1 = 4;
