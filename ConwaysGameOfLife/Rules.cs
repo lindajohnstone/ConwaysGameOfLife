@@ -1,3 +1,5 @@
+using System;
+
 namespace ConwaysGameOfLife
 {
     public class Rules
@@ -8,6 +10,13 @@ namespace ConwaysGameOfLife
         // * Any live cell with more than three live neighbours dies, as if by overcrowding.
         // * Any live cell with two or three live neighbours lives on to the next generation.
         // * Any dead cell with exactly three live neighbours becomes a live cell.
-        
+        public Rules(Universe universe)
+        {
+        }
+
+        public bool Check(Cell cell)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

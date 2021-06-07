@@ -55,7 +55,6 @@ namespace ConwaysGameOfLife
             var yTop = yMiddle == 0 ? GridLength - 1 : yMiddle - 1;
             var yBottom = yMiddle == GridLength - 1 ? 0 : yMiddle + 1;
             var neighbourLocations = new List<Location>() {
-                // if x == 0 x -1 = gridwidth-1;
                 new Location(xLeft, yTop),     
                 new Location(xLeft, yMiddle),         
                 new Location(xLeft, yBottom),     

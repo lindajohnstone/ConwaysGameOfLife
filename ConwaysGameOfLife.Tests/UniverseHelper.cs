@@ -24,7 +24,7 @@ namespace ConwaysGameOfLife.Tests
                     {
                         return false;
                     }
-                    if (cell1.CellState != cell2.CellState) // TODO: cellstate method similar to getcellatlocation
+                    if (cell1.CellState != cell2.CellState) 
                     {
                         return false; 
                     }
