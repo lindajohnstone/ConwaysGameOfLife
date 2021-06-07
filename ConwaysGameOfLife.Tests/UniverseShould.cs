@@ -164,7 +164,7 @@ namespace ConwaysGameOfLife.Tests
             var universe = new Universe(3, 3);
             var cell = new Cell(CellState.Dead, 1, 1);
             var expected = new List<Location>() {
-                new Location(0, 0),
+                new Location(0, 0), // x + 1, y + 1
                 new Location(0, 1),
                 new Location(0, 2),
                 new Location(1, 0),
@@ -172,6 +172,27 @@ namespace ConwaysGameOfLife.Tests
                 new Location(2, 0),
                 new Location(2, 1),
                 new Location(2, 2)
+            };
+            
+            var result = universe.GetCellNeighbourLocations(cell);
+
+            Assert.True(UniverseHelper.ListsOfLocationsAreEqual(expected, result));
+        }
+
+        [Fact]
+        public void WhenGivenABoundaryCell_ReturnCorrectNeighbourLocations()
+        {
+            var universe = new Universe(3, 3);
+            var cell = new Cell(CellState.Dead, 0, 1);
+            var expected = new List<Location>() {
+                new Location(2, 0),
+                new Location(2, 1),
+                new Location(2, 2),
+                new Location(0, 0),
+                new Location(0, 2),
+                new Location(1, 0),
+                new Location(1, 1),
+                new Location(1, 2)
             };
             
             var result = universe.GetCellNeighbourLocations(cell);

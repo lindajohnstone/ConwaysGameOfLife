@@ -48,15 +48,22 @@ namespace ConwaysGameOfLife
 
         public List<Location> GetCellNeighbourLocations(Cell cell)
         {
+            var xMiddle = cell.Location.X;
+            var yMiddle = cell.Location.Y;
+            var xLeft = xMiddle == 0 ? GridWidth - 1 : xMiddle - 1;
+            var xRight = xMiddle == GridWidth - 1  ? 0 : xMiddle + 1;
+            var yTop = yMiddle == 0 ? GridLength - 1 : yMiddle - 1;
+            var yBottom = yMiddle == GridLength - 1 ? 0 : yMiddle + 1;
             var neighbourLocations = new List<Location>() {
-                new Location(cell.Location.X - 1, cell.Location.Y - 1),     //0,0
-                new Location(cell.Location.X - 1, cell.Location.Y),         //0,1
-                new Location(cell.Location.X - 1, cell.Location.Y + 1),     //0,2
-                new Location(cell.Location.X, cell.Location.Y - 1),         //1,0
-                new Location(cell.Location.X, cell.Location.Y + 1),         //1,2
-                new Location(cell.Location.X + 1, cell.Location.Y - 1),     //2,0
-                new Location(cell.Location.X + 1, cell.Location.Y),         //2,1
-                new Location(cell.Location.X + 1, cell.Location.Y + 1)      //2,2
+                // if x == 0 x -1 = gridwidth-1;
+                new Location(xLeft, yTop),     
+                new Location(xLeft, yMiddle),         
+                new Location(xLeft, yBottom),     
+                new Location(xMiddle, yTop),         
+                new Location(xMiddle, yBottom),         
+                new Location(xRight, yTop),     
+                new Location(xRight, yMiddle),         
+                new Location(xRight, yBottom)      
             };
             
             return neighbourLocations;
