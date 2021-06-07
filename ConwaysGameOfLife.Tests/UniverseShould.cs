@@ -134,7 +134,7 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void WhenTwoUniversesInstantiated_NotBeEqual()
+        public void WhenUniversesOfDifferentDimensionsInstantiated_NotBeEqual()
         {
             var gridWidth1 = 4;
             var gridLength1 = 4;
