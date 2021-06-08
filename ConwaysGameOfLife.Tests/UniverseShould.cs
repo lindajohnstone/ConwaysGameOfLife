@@ -80,19 +80,6 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void testName() // TODO: rename
-        {
-            var initData =  "XXX" + Environment.NewLine + 
-                            "XXX" + Environment.NewLine + 
-                            "XXX";
-            UniverseHelper.InitializeUniverse(initData);
-            var expected = new Universe(3, 3);
-
-            var result = UniverseHelper.InitializeUniverse(initData);
-
-            Assert.True(UniverseHelper.UniversesAreEqual(expected, result));
-        }
-        [Fact]
         public void WhenUniverseRegenerated_SwitchState() // TODO: rename once decision is made which class is responsible for this
         {
             var cell = new Cell(CellState.Dead, 0, 0);
@@ -118,34 +105,6 @@ namespace ConwaysGameOfLife.Tests
             Assert.Equal(0, result.Location.X);
             Assert.Equal(0, result.Location.Y);
             Assert.Equal(CellState.Dead, result.CellState);
-        }
-
-        [Fact]
-        public void WhenTwoUniversesInstantiated_BeEqual() 
-        {
-            var gridWidth = 4;
-            var gridLength = 4;
-            var universe1 = new Universe(gridWidth, gridLength);
-            var universe2 = new Universe(gridWidth, gridLength);
-
-            var result = UniverseHelper.UniversesAreEqual(universe1, universe2);
-
-            Assert.True(result);
-        }
-
-        [Fact]
-        public void WhenUniversesOfDifferentDimensionsInstantiated_NotBeEqual() // TODO: rename - what does the test do? testing universesareequal - may get deleted
-        {
-            var gridWidth1 = 4;
-            var gridLength1 = 4;
-            var gridWidth2 = 5;
-            var gridLength2 = 4;
-            var universe1 = new Universe(gridWidth1, gridLength1);
-            var universe2 = new Universe(gridWidth2, gridLength2);
-
-            var result = UniverseHelper.UniversesAreEqual(universe1, universe2);
-
-            Assert.False(result);
         }
 
         [Fact]
