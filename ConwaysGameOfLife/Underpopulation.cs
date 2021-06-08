@@ -2,7 +2,7 @@ using System;
 
 namespace ConwaysGameOfLife
 {
-    public class Rules
+    public class Underpopulation : IRules
     {
         // responsible for validating rules
         // should this be an interface?
@@ -10,13 +10,16 @@ namespace ConwaysGameOfLife
         // * Any live cell with more than three live neighbours dies, as if by overcrowding.
         // * Any live cell with two or three live neighbours lives on to the next generation.
         // * Any dead cell with exactly three live neighbours becomes a live cell.
-        public Rules(Universe universe)
+        private Universe _universe;
+        public Underpopulation(Universe universe)
         {
+            _universe = universe;
         }
 
-        public bool Check(Cell cell)
+        public bool Check(int x, int y)
         {
-            throw new NotImplementedException();
+            if (_universe.CountLiveNeighbours(_universe.GetCellAtLocation(x, y)) < 2) return true;
+            return false;
         }
     }
 }

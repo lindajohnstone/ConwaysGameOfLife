@@ -29,11 +29,6 @@ namespace ConwaysGameOfLife
             throw new NotImplementedException();
         }
 
-        public string FormatNewUniverse()
-        {
-            throw new NotImplementedException();
-        }
-
         // print method to ask user for universe dimensions
 
         // print press q to quit

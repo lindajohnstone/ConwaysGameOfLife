@@ -70,18 +70,18 @@ namespace ConwaysGameOfLife
 
         public int CountLiveNeighbours(Cell cell)
         {
-            var aliveNeighbours = new List<Location>();
-            ThrowsExceptionIfObjectIsNull(cell); // TODO: check if cell is null before calling
+            var aliveNeighbours = 0;
+            ThrowsExceptionIfObjectIsNull(cell); // TODO: check if cell is null before calling // use try / catch or not call exception return false
             var neighbourLocations = GetCellNeighbourLocations(cell);
             foreach (var neighbour in neighbourLocations)
             {
                 var state = GetCellAtLocation(neighbour.X, neighbour.Y).CellState;
                 if (state == CellState.Alive)
                 {
-                    aliveNeighbours.Add(neighbour);
+                    aliveNeighbours++;
                 }
             }
-            return aliveNeighbours.Count;
+            return aliveNeighbours;
         }
 
         private static void ThrowsExceptionIfObjectIsNull(Object obj)

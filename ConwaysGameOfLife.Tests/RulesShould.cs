@@ -9,13 +9,30 @@ namespace ConwaysGameOfLife.Tests
         [Fact]
         public void WhenAnyLiveCellHasFewerThan2LiveNeighbours_ItDies()
         {
-            var universe = new Universe(3, 3);
-            var rules = new Rules(universe);
-            var cell = new Cell(It.IsAny<CellState>(), 1, 1);
-
-            var result = rules.Check(cell);
+            var initData =  "XXX" + Environment.NewLine +
+                            "XOX" + Environment.NewLine +
+                            "XXX";
+            var rules = new Underpopulation(UniverseHelper.InitializeUniverse(initData));
+            var x = 1;
+            var y = 1;
+            var result = rules.Check(x, y);
 
             Assert.True(result);
+        }
+
+        [Fact]
+        public void WhenAnyLiveCellHas2LiveNeighbours_ItDoesNotDie()
+        {
+            var initData =  "XXO" + Environment.NewLine +
+                            "XOX" + Environment.NewLine +
+                            "XXO";
+            var rules = new Underpopulation(UniverseHelper.InitializeUniverse(initData));
+            var x = 1;
+            var y = 1;
+
+            var result = rules.Check(x, y);
+
+            Assert.False(result);
         }
     }
 }

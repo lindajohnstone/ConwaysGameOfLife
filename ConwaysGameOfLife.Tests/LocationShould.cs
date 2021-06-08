@@ -7,31 +7,31 @@ namespace ConwaysGameOfLife.Tests
     public class LocationShould
     {
         [Theory]
-        [InlineData(0, 0, 0, 0, true)]
-        public void WhenTwoLocationsInstantiated_BeEqual(int x1, int y1, int x2, int y2, bool expected)
+        [InlineData(0, 0, 0, 0)]
+        public void WhenTwoLocationsInstantiated_BeEqual(int x1, int y1, int x2, int y2)
         {
             var location1 = new Location(x1, y1);
             var location2 = new Location(x2, y2);
 
             var result = UniverseHelper.LocationsAreEqual(location1, location2);
 
-            Assert.Equal(expected, result);
+            Assert.True(result);
         }
 
         [Theory]
-        [InlineData(0, 0, 1, 0, false)]
-        public void WhenTwoLocationsInstantiated_NotBeEqual(int x1, int y1, int x2, int y2, bool expected)
+        [InlineData(0, 0, 1, 0)]
+        public void WhenTwoLocationsInstantiated_NotBeEqual(int x1, int y1, int x2, int y2)
         {
             var location1 = new Location(x1, y1);
             var location2 = new Location(x2, y2);
 
             var result = UniverseHelper.LocationsAreEqual(location1, location2);
 
-            Assert.Equal(expected, result);
+            Assert.False(result);
         }
 
         [Fact]
-        public void WhenTwoListsOfLocations_BeEqual()
+        public void GivenTwoListsOfLocations_AreEqual()
         {
             var expected = new List<Location>(){
                 new Location(0, 0),
@@ -59,7 +59,7 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void WhenTwoListsOfLocations_NotBeEqual()
+        public void GivenTwoListsOfLocations_AreNotEqual()
         {
             var expected = new List<Location>(){
                 new Location(0, 0),
