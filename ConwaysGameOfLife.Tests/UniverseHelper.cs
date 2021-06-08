@@ -40,18 +40,18 @@ namespace ConwaysGameOfLife.Tests
             return isCellStateSame && isLocationSame;
         }
 
-        public static bool ListsOfLocationsAreEqual(List<Location> location1, List<Location> location2)
+        public static bool ListsOfLocationsAreEqual(List<Location> locations1, List<Location> locations2)
         {
-            if (location1.Count != location2.Count)
+            if (locations1.Count != locations2.Count)
             {
                 return false;
             }
-            var location1Ordered = location1.OrderBy(c => c.X).ThenBy(c => c.Y).ToList();
-            var location2Ordered = location2.OrderBy(c => c.X).ThenBy(c => c.Y).ToList();
+            var location1Ordered = locations1.OrderBy(c => c.X).ThenBy(c => c.Y).ToList();
+            var location2Ordered = locations2.OrderBy(c => c.X).ThenBy(c => c.Y).ToList();
 
-            for (var location = 0; location < location1.Count; location++)
+            for (var i = 0; i < locations1.Count; i++)
             {
-                if (!LocationsAreEqual(location1Ordered[location], location2Ordered[location]))
+                if (!LocationsAreEqual(location1Ordered[i], location2Ordered[i]))
                 {
                     return false;
                 }
