@@ -8,7 +8,7 @@ namespace ConwaysGameOfLife
 
         public bool ShouldSwitchCellState(int numberAliveNeighbours, CellState cellState)
         {
-            throw new System.NotImplementedException();
+            return cellState == CellState.Dead && numberAliveNeighbours == 3;
         }
     }
 }
