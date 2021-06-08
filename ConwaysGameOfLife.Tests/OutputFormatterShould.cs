@@ -45,5 +45,16 @@ namespace ConwaysGameOfLife.Tests
 
             Assert.Equal(expected, result);
         }
+
+        [Fact]
+        public void GivenUniverseNeedsToBeInstantiated_DisplayMessageAskingUserForDimensions()
+        {
+            var formatter = new OutputFormatter();
+            var expected = "Please enter the width & length for the Universe as a number followed by a comma then a number (e.g. '0,0')";
+
+            var result = formatter.FormatRequestForDimensions();
+
+            Assert.Equal(expected, result);
+        }
     }
 }

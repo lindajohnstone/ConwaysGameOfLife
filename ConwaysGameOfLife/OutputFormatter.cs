@@ -46,6 +46,11 @@ namespace ConwaysGameOfLife
             return format;
         }
 
+        public string FormatRequestForDimensions()
+        {
+            return "Please enter the width & length for the Universe as a number followed by a comma then a number (e.g. '0,0')";
+        }
+
         // print method to ask user for universe dimensions
 
         // print press q to quit

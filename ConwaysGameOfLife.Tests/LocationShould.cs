@@ -4,7 +4,7 @@ using Xunit;
 
 namespace ConwaysGameOfLife.Tests
 {
-    public class LocationShould
+    public class LocationShould // TODO: all tests relate to universehelper methods ?? delete class?
     {
         [Theory]
         [InlineData(0, 0, 0, 0)]
