@@ -60,5 +60,10 @@ namespace ConwaysGameOfLife
         {
             return "Enter 'q' to quit Game.";
         }
+
+        public string FormatRequestForLiveCells()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
