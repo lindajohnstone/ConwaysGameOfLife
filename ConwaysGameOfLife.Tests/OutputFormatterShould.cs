@@ -47,12 +47,23 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void GivenUniverseNeedsToBeInstantiated_DisplayMessageAskingUserForDimensions()
+        public void GivenUniverseNeedsToBeInstantiated_FormatMessageAskingUserForDimensions()
         {
             var formatter = new OutputFormatter();
             var expected = "Please enter the width & length for the Universe as a number followed by a comma then a number (e.g. '0,0')";
 
             var result = formatter.FormatRequestForDimensions();
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void WhenGameHasEnded_FormatEndGameMessage()
+        {
+            var formatter = new OutputFormatter();
+            var expected = "Game of Life has ended.";
+
+            var result = formatter.FormatEndGameMessage();
 
             Assert.Equal(expected, result);
         }
