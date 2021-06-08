@@ -6,7 +6,7 @@ namespace ConwaysGameOfLife
 
         // * Any dead cell with exactly three live neighbours becomes a live cell.
 
-        public bool ShouldSwitchCellState(int x, int y)
+        public bool ShouldSwitchCellState(int numberAliveNeighbours, CellState cellState)
         {
             throw new System.NotImplementedException();
         }

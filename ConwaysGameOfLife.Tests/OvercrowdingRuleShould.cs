@@ -1,18 +1,18 @@
 using System;
-using Moq;
 using Xunit;
 
 namespace ConwaysGameOfLife.Tests
 {
-    public class UnderpopulationRuleShould
+    public class OvercrowdingRuleShould
     {
         [Theory]
-        [InlineData(-1)]
-        [InlineData(0)]
-        [InlineData(1)]
-        public void WhenAnyLiveCellHasFewerThan2LiveNeighbours_ItDies(int numberAliveNeighbours)
+        [InlineData(8)]
+        [InlineData(4)]
+        [InlineData(6)]
+        public void WhenAnyLiveCellHasMoreThan3LiveNeighbours_ItDies(int numberAliveNeighbours)
         {
-            var rule = new UnderpopulationRule();
+            var rule = new OvercrowdingRule();
+
             var result = rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Alive);
 
             Assert.True(result);
@@ -21,10 +21,11 @@ namespace ConwaysGameOfLife.Tests
         [Theory]
         [InlineData(2)]
         [InlineData(3)]
-        [InlineData(8)]
-        public void WhenAnyLiveCellHas2OrMoreLiveNeighbours_ItDoesNotDie(int numberAliveNeighbours)
+        [InlineData(-1)]
+        public void WhenAnyLiveCellHasLessThanOrEqualTo3LiveNeighbours_ItDoesNotDie(int numberAliveNeighbours)
         {
-            var rule = new UnderpopulationRule();
+            var rule = new OvercrowdingRule();
+
             var result = rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Alive);
 
             Assert.False(result);
@@ -37,7 +38,7 @@ namespace ConwaysGameOfLife.Tests
         [InlineData(8)]
         public void WhenAnyDeadCellHasAnyLiveNeighbours_ItShouldNeverSwitchState(int numberAliveNeighbours)
         {
-            var rule = new UnderpopulationRule();
+            var rule = new OvercrowdingRule();
 
             var result = rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Dead);
 

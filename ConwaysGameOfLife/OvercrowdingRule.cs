@@ -1,14 +1,14 @@
 namespace ConwaysGameOfLife
 {
-    public class Overcrowding : IRule
+    public class OvercrowdingRule : IRule
     {
         // responsible for validating overcrowding rule
 
         // * Any live cell with more than three live neighbours dies, as if by overcrowding.
 
-        public bool ShouldSwitchCellState(int x, int y)
+        public bool ShouldSwitchCellState(int numberAliveNeighbours, CellState cellState)
         {
-            throw new System.NotImplementedException();
+            return cellState == CellState.Alive && numberAliveNeighbours > 3;
         }
     }
 }

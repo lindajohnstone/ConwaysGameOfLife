@@ -6,7 +6,7 @@ namespace ConwaysGameOfLife
 
         // * Any live cell with two or three live neighbours lives on to the next generation.
 
-        public bool ShouldSwitchCellState(int x, int y)
+        public bool ShouldSwitchCellState(int numberAliveNeighbours, CellState cellState)
         {
             throw new System.NotImplementedException();
         }
