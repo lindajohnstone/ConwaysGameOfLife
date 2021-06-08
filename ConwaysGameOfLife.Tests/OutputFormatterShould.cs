@@ -67,5 +67,16 @@ namespace ConwaysGameOfLife.Tests
 
             Assert.Equal(expected, result);
         }
+
+        [Fact]
+        public void WhenUserWantsToQuitGame_FormatQForQuit()
+        {
+            var formatter = new OutputFormatter();
+            var expected = "Enter 'q' to quit Game.";
+
+            var result = formatter.FormatQForQuit();
+
+            Assert.Equal(expected, result);
+        }
     }
 }

@@ -56,6 +56,9 @@ namespace ConwaysGameOfLife
             return "Game of Life has ended.";
         }
 
-        // print press q to quit
+        public string FormatQForQuit()
+        {
+            return "Enter 'q' to quit Game.";
+        }
     }
 }
