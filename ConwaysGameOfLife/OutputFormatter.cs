@@ -24,9 +24,26 @@ namespace ConwaysGameOfLife
             return "Welcome to Game of Life!";
         }
 
-        public string FormatUniverse() // universe created with user input - dimensions & live cells ?? - needed??
+        public string FormatUniverse(Universe universe) // universe created with user input - dimensions & live cells ?? - needed??
         {
-            throw new NotImplementedException();
+            var format = "";
+            for (var x = 0; x < universe.GridWidth; x++)
+            {
+                for (var y = 0; y < universe.GridLength; y++)
+                {
+                    var state = universe.GetCellAtLocation(x, y).CellState;
+                    if (state == CellState.Dead)
+                    {
+                        format = format + ". ";
+                    }
+                    if (state == CellState.Alive)
+                    {
+                        format = format + "* ";
+                    }
+                }
+                format = format + Environment.NewLine;
+            }
+            return format;
         }
 
         // print method to ask user for universe dimensions

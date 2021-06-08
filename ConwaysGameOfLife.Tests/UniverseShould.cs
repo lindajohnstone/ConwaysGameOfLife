@@ -66,11 +66,11 @@ namespace ConwaysGameOfLife.Tests
         [InlineData("XXX", "OXX", "XXX", 1, 1, 1 )]
         [InlineData("OOO", "OOO", "OOO", 1, 1, 8)]
         [InlineData("OXX", "XXX", "XXO", 1, 1, 2)]
-        public void WhenInitialized_ReturnsCountOfLiveNeighbours(string row1, string row2, string row3, int x, int y, int expected) 
+        public void WhenInitialized_ReturnsCountOfLiveNeighbours(string col1, string col2, string col3, int x, int y, int expected) 
         {
-            var initData =  row1 + Environment.NewLine +
-                            row2 + Environment.NewLine +
-                            row3;
+            var initData =  col1 + Environment.NewLine +
+                            col2 + Environment.NewLine +
+                            col3;
             var universe = UniverseHelper.InitializeUniverse(initData);
             var cell = universe.GetCellAtLocation(x, y);
 
