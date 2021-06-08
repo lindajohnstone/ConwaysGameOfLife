@@ -21,15 +21,14 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void WhenAnyLiveCellHas2LiveNeighbours_ItDoesNotDie()
+        public void WhenAnyDeadCellHasFewerThan2LiveNeighbours_ItDoesNotDie()
         {
-            var initData =  "XXO" + Environment.NewLine +
-                            "XOX" + Environment.NewLine +
-                            "XXO";
+            var initData =  "OXX" + Environment.NewLine +
+                            "XXX" + Environment.NewLine +
+                            "XXX";
             var rules = new Underpopulation(UniverseHelper.InitializeUniverse(initData));
             var x = 1;
             var y = 1;
-
             var result = rules.Check(x, y);
 
             Assert.False(result);
