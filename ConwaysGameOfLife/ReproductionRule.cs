@@ -1,10 +1,10 @@
 namespace ConwaysGameOfLife
 {
-    public class Survival : IRule
+    public class ReproductionRule : IRule
     {
-        // responsible for validating survival rule
+        // responsible for validating reproduction rule
 
-        // * Any live cell with two or three live neighbours lives on to the next generation.
+        // * Any dead cell with exactly three live neighbours becomes a live cell.
 
         public bool ShouldSwitchCellState(int numberAliveNeighbours, CellState cellState)
         {
