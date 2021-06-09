@@ -5,12 +5,16 @@ namespace ConwaysGameOfLife.Tests
 {
     public class OutputFormatterShould
     {
+        OutputFormatter formatter;
+        public OutputFormatterShould()
+        {
+            formatter = new OutputFormatter();
+        }
         [Theory]
         [InlineData(3, 3, ". . . \n. . . \n. . . \n")]
         [InlineData(4, 3, ". . . \n. . . \n. . . \n. . . \n")]
         public void WhenGivenDimensions_FormatUniverseAllDeadCells(int gridWidth, int gridLength, string expected)
         {
-            var formatter = new OutputFormatter();
             var universe = new Universe(gridWidth, gridLength);
 
             var result = formatter.FormatInitialUniverse(universe);
@@ -24,7 +28,6 @@ namespace ConwaysGameOfLife.Tests
         [InlineData("OXX", "OXX", "OXX", "* . . \n* . . \n* . . \n")]
         public void WhenGivenDimensionsFromUser_FormatUniverse(string row1, string row2, string row3, string expected)
         {
-            var formatter = new OutputFormatter();
             var initData =  row1 + Environment.NewLine +
                             row2 + Environment.NewLine +
                             row3;

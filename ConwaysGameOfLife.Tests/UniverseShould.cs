@@ -92,7 +92,7 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void WhenGivenALocation_ReturnsCell()
+        public void WhenGivenALocation_ReturnCorrectCell()
         {
             var gridWidth = 4;
             var gridLength = 4;
