@@ -18,17 +18,6 @@ namespace ConwaysGameOfLife.Tests
             Assert.Equal(expected, result);
         }
 
-        [Fact]
-        public void WhenGameStarts_WriteWelcomeMessage()
-        {
-            var formatter = new OutputFormatter();
-            var expected = "Welcome to Game of Life!";
-            
-            var result = formatter.FormatWelcomeMessage();
-            
-            Assert.Equal(expected, result);
-        }
-
         [Theory]
         [InlineData("XXX", "XXX", "XXX", ". . . \n. . . \n. . . \n")]
         [InlineData("XXX", "OXX", "XXX", ". * . \n. . . \n. . . \n")]
@@ -42,39 +31,6 @@ namespace ConwaysGameOfLife.Tests
             var universe = UniverseHelper.InitializeUniverse(initData);
 
             var result = formatter.FormatUniverse(universe);
-
-            Assert.Equal(expected, result);
-        }
-
-        [Fact]
-        public void GivenUniverseNeedsToBeInstantiated_FormatMessageAskingUserForDimensions()
-        {
-            var formatter = new OutputFormatter();
-            var expected = "Please enter the width & length for the Universe as a number followed by a comma then a number (e.g. '0,0')";
-
-            var result = formatter.FormatRequestForDimensions();
-
-            Assert.Equal(expected, result);
-        }
-
-        [Fact]
-        public void WhenGameHasEnded_FormatEndGameMessage()
-        {
-            var formatter = new OutputFormatter();
-            var expected = "Game of Life has ended.";
-
-            var result = formatter.FormatEndGameMessage();
-
-            Assert.Equal(expected, result);
-        }
-
-        [Fact]
-        public void WhenUserWantsToQuitGame_FormatQForQuit()
-        {
-            var formatter = new OutputFormatter();
-            var expected = "Enter 'q' to quit Game.";
-
-            var result = formatter.FormatQForQuit();
 
             Assert.Equal(expected, result);
         }

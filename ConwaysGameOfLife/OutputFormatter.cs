@@ -2,9 +2,10 @@ using System;
 
 namespace ConwaysGameOfLife
 {
-    public class OutputFormatter
+    public class OutputFormatter 
     {
         // displays universe & instructions
+        // TODO: try StringBuilder 
         public string FormatInitialUniverse(Universe universe)
         {
             var format = "";
@@ -17,11 +18,6 @@ namespace ConwaysGameOfLife
                 format = format + Environment.NewLine;
             }
             return format;
-        }
-
-        public string FormatWelcomeMessage()
-        {
-            return "Welcome to Game of Life!";
         }
 
         public string FormatUniverse(Universe universe) // universe created with user input - dimensions & live cells ?? - needed??
@@ -44,26 +40,6 @@ namespace ConwaysGameOfLife
                 format = format + Environment.NewLine;
             }
             return format;
-        }
-
-        public string FormatRequestForDimensions()
-        {
-            return "Please enter the width & length for the Universe as a number followed by a comma then a number (e.g. '0,0')";
-        }
-
-        public string FormatEndGameMessage()
-        {
-            return "Game of Life has ended.";
-        }
-
-        public string FormatQForQuit()
-        {
-            return "Enter 'q' to quit Game.";
-        }
-
-        public string FormatRequestForLiveCells()
-        {
-            throw new NotImplementedException();
         }
     }
 }
