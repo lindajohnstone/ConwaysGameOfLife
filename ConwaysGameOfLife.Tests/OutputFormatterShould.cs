@@ -20,14 +20,14 @@ namespace ConwaysGameOfLife.Tests
 
         [Theory]
         [InlineData("XXX", "XXX", "XXX", ". . . \n. . . \n. . . \n")]
-        [InlineData("XXX", "OXX", "XXX", ". * . \n. . . \n. . . \n")]
-        [InlineData("OXX", "OXX", "OXX", "* * * \n. . . \n. . . \n")]
-        public void WhenGivenDimensionsFromUser_FormatUniverse(string col1, string col2, string col3, string expected)
+        [InlineData("XXX", "OXX", "XXX", ". . . \n* . . \n. . . \n")]
+        [InlineData("OXX", "OXX", "OXX", "* . . \n* . . \n* . . \n")]
+        public void WhenGivenDimensionsFromUser_FormatUniverse(string row1, string row2, string row3, string expected)
         {
             var formatter = new OutputFormatter();
-            var initData =  col1 + Environment.NewLine +
-                            col2 + Environment.NewLine +
-                            col3;
+            var initData =  row1 + Environment.NewLine +
+                            row2 + Environment.NewLine +
+                            row3;
             var universe = UniverseHelper.InitializeUniverse(initData);
 
             var result = formatter.FormatUniverse(universe);
