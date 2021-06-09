@@ -53,5 +53,18 @@ namespace ConwaysGameOfLife.Tests
 
             Assert.True(UniverseHelper.ListsOfLocationsAreEqual(expected, result));
         }
+
+        [Fact]
+        public void WhenUserEntersUniverseGridWidthAndGridLength_ReturnNewUniverse()
+        {
+            var parser = new InputParser();
+            var userInput = "3,4";
+            var expected = new Universe(3, 4);
+
+            var result = parser.ParseUniverse(userInput);
+
+            Assert.True(UniverseHelper.UniversesAreEqual(expected, result));
+            Assert.Equal(12, result.Cells.Count);
+        }
     }
 }

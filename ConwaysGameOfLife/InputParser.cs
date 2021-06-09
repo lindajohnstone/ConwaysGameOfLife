@@ -16,7 +16,7 @@ namespace ConwaysGameOfLife
 
                 liveCellLocations.Add(new Location(ParseInput(location[0]), ParseInput(location[1])));
             }
-                return liveCellLocations;
+            return liveCellLocations;
         }
 
         private static string[] SplitInput(string input, string delimiter)
@@ -31,6 +31,12 @@ namespace ConwaysGameOfLife
                 return number;
             }
             return -1;
+        }
+
+        public Universe ParseUniverse(string userInput)
+        {
+            var universe = SplitInput(userInput, ",");
+            return new Universe(ParseInput(universe[0]), ParseInput(universe[1]));
         }
     }
 }

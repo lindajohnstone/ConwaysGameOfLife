@@ -14,7 +14,7 @@ namespace ConwaysGameOfLife.Tests
                 return false;
             }
             
-            for (var x = 0; x < universe1.GridLength; x++)
+            for (var x = 0; x < universe1.GridWidth; x++)
             {
                 for (var y = 0; y < universe1.GridLength; y++)
                 {
