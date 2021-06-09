@@ -44,7 +44,8 @@ namespace ConwaysGameOfLife.Tests
         [Theory]
         [InlineData(CellState.Dead, 0, 1, CellState.Dead, 0, 1, true)]
         [InlineData(CellState.Dead, 0, 1, CellState.Alive, 0, 1, false)]
-        public void WhenCellStateAndLocationAreSame_BeEqual(CellState state1, int x1, int y1,  CellState state2, int x2, int y2, bool expected) // TODO: rename method
+        public void GivenTwoCells_CellStateAndLocationAreEqual(CellState state1, int x1, int y1,  CellState state2, int x2, int y2, bool expected) 
+        // TODO: rename method 9/6
         {
             var one = new Cell(state1, x1, y1);
             var two = new Cell(state2, x2, y2);

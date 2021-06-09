@@ -8,7 +8,7 @@ namespace ConwaysGameOfLife.Tests
     {
         [Theory]
         [InlineData(0, 0, 0, 0)]
-        public void WhenTwoLocationsInstantiated_BeEqual(int x1, int y1, int x2, int y2)
+        public void GivenTwoIdenticalLocations_BeEqual(int x1, int y1, int x2, int y2) // TODO: name very close to test on line 34 9/6
         {
             var location1 = new Location(x1, y1);
             var location2 = new Location(x2, y2);
@@ -20,7 +20,7 @@ namespace ConwaysGameOfLife.Tests
 
         [Theory]
         [InlineData(0, 0, 1, 0)]
-        public void WhenTwoLocationsInstantiated_NotBeEqual(int x1, int y1, int x2, int y2)
+        public void GivenTwoNonIdenticalLocations_NotBeEqual(int x1, int y1, int x2, int y2)
         {
             var location1 = new Location(x1, y1);
             var location2 = new Location(x2, y2);
@@ -31,7 +31,7 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void GivenTwoListsOfLocations_AreEqual()
+        public void GivenTwoIdenticalListsOfLocations_BeEqual() // TODO: rename 9/6
         {
             var expected = new List<Location>(){
                 new Location(0, 0),
@@ -59,7 +59,7 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void GivenTwoListsOfLocations_AreNotEqual()
+        public void GivenTwoNonIdenticalListsOfLocations_NotBeEqual()
         {
             var expected = new List<Location>(){
                 new Location(0, 0),
