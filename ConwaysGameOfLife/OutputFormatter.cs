@@ -6,26 +6,13 @@ namespace ConwaysGameOfLife
     {
         // displays universe & instructions
         // TODO: try StringBuilder 
-        public string FormatInitialUniverse(Universe universe)
-        {
-            var format = "";
-            for (var x = 0; x < universe.GridWidth; x++)
-            {
-                for (var y = 0; y < universe.GridLength; y++)
-                {
-                    format = format + ". ";
-                }
-                format = format + Environment.NewLine;
-            }
-            return format;
-        }
 
         public string FormatUniverse(Universe universe) // universe created with user input - dimensions & live cells ?? - needed??
         {
             var format = "";
-            for (var x = 0; x < universe.GridWidth; x++)
+            for (var y = 0; y < universe.GridLength; y++)
             {
-                for (var y = 0; y < universe.GridLength; y++)
+                for (var x = 0; x < universe.GridWidth; x++)
                 {
                     var state = universe.GetCellAtLocation(x, y).CellState;
                     if (state == CellState.Dead)

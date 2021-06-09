@@ -84,7 +84,7 @@ namespace ConwaysGameOfLife.Tests
                 for (var x = 0; x < gridWidth; x++)
                 {
                     var currentCell = row[x];
-                    cells.Add(new Cell(GetSourceDataCellState(currentCell), y, x));
+                    cells.Add(new Cell(GetSourceDataCellState(currentCell), x, y));
                 }
             }
             return new Universe(gridWidth, gridLength, cells);

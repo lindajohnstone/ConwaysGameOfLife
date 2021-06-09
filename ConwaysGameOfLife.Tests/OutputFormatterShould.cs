@@ -12,12 +12,12 @@ namespace ConwaysGameOfLife.Tests
         }
         [Theory]
         [InlineData(3, 3, ". . . \n. . . \n. . . \n")]
-        [InlineData(4, 3, ". . . \n. . . \n. . . \n. . . \n")]
+        [InlineData(4, 3, ". . . . \n. . . . \n. . . . \n")]
         public void WhenGivenDimensions_FormatUniverseAllDeadCells(int gridWidth, int gridLength, string expected)
         {
             var universe = new Universe(gridWidth, gridLength);
 
-            var result = formatter.FormatInitialUniverse(universe);
+            var result = formatter.FormatUniverse(universe);
             
             Assert.Equal(expected, result);
         }
@@ -26,6 +26,7 @@ namespace ConwaysGameOfLife.Tests
         [InlineData("XXX", "XXX", "XXX", ". . . \n. . . \n. . . \n")]
         [InlineData("XXX", "OXX", "XXX", ". . . \n* . . \n. . . \n")]
         [InlineData("OXX", "OXX", "OXX", "* . . \n* . . \n* . . \n")]
+        [InlineData("XXXO", "XXXX", "XXXX", ". . . * \n. . . . \n. . . . \n")]
         public void WhenGivenDimensionsFromUser_FormatUniverse(string row1, string row2, string row3, string expected)
         {
             var initData =  row1 + Environment.NewLine +
