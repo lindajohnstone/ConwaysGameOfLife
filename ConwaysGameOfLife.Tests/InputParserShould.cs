@@ -17,7 +17,7 @@ namespace ConwaysGameOfLife.Tests
                 new Location(x, y)
             };
 
-            var result = parser.ParseLocations(userInput);
+            var result = parser.ParseListOfLocationsFromUserInput(userInput);
 
             Assert.True(UniverseHelper.ListsOfLocationsAreEqual(expected, result));
         }
@@ -33,21 +33,23 @@ namespace ConwaysGameOfLife.Tests
                 new Location(0,2)
             };
 
-            var result = parser.ParseLocations(userInput);
+            var result = parser.ParseListOfLocationsFromUserInput(userInput);
 
             Assert.True(UniverseHelper.ListsOfLocationsAreEqual(expected, result));
         }
 
-        [Fact]
-        public void testName()
+        [Theory]
+        [InlineData("a,0", -1, 0)]
+        [InlineData("p,s", -1, -1)]
+        [InlineData("3,p", 3, -1)]
+        public void WhenUserInputsNonNumericAsLocations_ReturnsListOfLocationValues(string userInput, int x, int y)
         {
             var parser = new InputParser();
-            var userInput = "a,0";
             var expected = new List<Location>() {
-                new Location(-1, 0)
+                new Location(x, y)
             };
             
-            var result = parser.ParseLocations(userInput);
+            var result = parser.ParseListOfLocationsFromUserInput(userInput);
 
             Assert.True(UniverseHelper.ListsOfLocationsAreEqual(expected, result));
         }
