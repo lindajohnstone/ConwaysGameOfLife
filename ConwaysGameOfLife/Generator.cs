@@ -11,6 +11,7 @@ namespace ConwaysGameOfLife
             universe initialized
             initial universe printed to console
             user asked for location of alive cells
+            input parsed/validated
             universe set up with live cells
             universe printed
             game plays
