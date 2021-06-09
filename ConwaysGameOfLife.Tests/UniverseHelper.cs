@@ -14,7 +14,7 @@ namespace ConwaysGameOfLife.Tests
                 return false;
             }
             
-            for (var x = 0; x < universe1.GridLength; x++)
+            for (var x = 0; x < universe1.GridWidth; x++)
             {
                 for (var y = 0; y < universe1.GridLength; y++)
                 {
@@ -84,15 +84,15 @@ namespace ConwaysGameOfLife.Tests
                 for (var x = 0; x < gridWidth; x++)
                 {
                     var currentCell = row[x];
-                    cells.Add(new Cell(GetSourceDataCellState(currentCell), x, y));
+                    cells.Add(new Cell(GetCellState(currentCell), x, y));
                 }
             }
             return new Universe(gridWidth, gridLength, cells);
         }
 
-        private static CellState GetSourceDataCellState(char value) // TODO: rename method and parameter
+        private static CellState GetCellState(char input) // TODO: rename method and parameter 9/6
         {
-            if (value == 'X')
+            if (input == 'X')
             {
                 return CellState.Dead;
             }

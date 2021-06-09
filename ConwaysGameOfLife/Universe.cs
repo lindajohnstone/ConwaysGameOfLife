@@ -71,7 +71,6 @@ namespace ConwaysGameOfLife
         public int CountLiveNeighbours(Cell cell)
         {
             var aliveNeighbours = 0;
-            ThrowsExceptionIfObjectIsNull(cell); // TODO: check if cell is null before calling // use try / catch or not call exception return false
             var neighbourLocations = GetCellNeighbourLocations(cell);
             foreach (var neighbour in neighbourLocations)
             {

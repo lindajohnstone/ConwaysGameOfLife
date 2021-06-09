@@ -6,13 +6,17 @@ namespace ConwaysGameOfLife.Tests
 {
     public class UnderpopulationRuleShould
     {
+        UnderpopulationRule rule;
+        public UnderpopulationRuleShould()
+        {
+            rule = new UnderpopulationRule();
+        }
         [Theory]
         [InlineData(-1)]
         [InlineData(0)]
         [InlineData(1)]
         public void WhenAnyLiveCellHasFewerThan2LiveNeighbours_ItDies(int numberAliveNeighbours)
         {
-            var rule = new UnderpopulationRule();
             var result = rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Alive);
 
             Assert.True(result);
@@ -24,7 +28,6 @@ namespace ConwaysGameOfLife.Tests
         [InlineData(8)]
         public void WhenAnyLiveCellHas2OrMoreLiveNeighbours_ItDoesNotDie(int numberAliveNeighbours)
         {
-            var rule = new UnderpopulationRule();
             var result = rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Alive);
 
             Assert.False(result);
@@ -37,8 +40,6 @@ namespace ConwaysGameOfLife.Tests
         [InlineData(8)]
         public void WhenAnyDeadCellHasAnyLiveNeighbours_ItShouldNeverSwitchState(int numberAliveNeighbours)
         {
-            var rule = new UnderpopulationRule();
-
             var result = rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Dead);
 
             Assert.False(result);
