@@ -5,17 +5,17 @@ namespace ConwaysGameOfLife.Tests
 {
     public class ReproductionRuleShould 
     {
-        ReproductionRule rule;
+        ReproductionRule _rule;
         public ReproductionRuleShould()
         {
-            rule = new ReproductionRule();
+            _rule = new ReproductionRule();
         }
 
         [Theory]
         [InlineData(3)]
         public void WhenAnyDeadCellHasExactly3LiveNeighbours_ItLives(int numberAliveNeighbours)
         {
-            var result = rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Dead);
+            var result = _rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Dead);
 
             Assert.True(result);
         }
@@ -26,7 +26,7 @@ namespace ConwaysGameOfLife.Tests
         [InlineData(8)]
         public void WhenAnyDeadCellHasMoreOrLessThan3LiveNeighbours_ItDies(int numberAliveNeighbours)
         {
-            var result = rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Alive);
+            var result = _rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Alive);
 
             Assert.False(result);
         }
@@ -38,7 +38,7 @@ namespace ConwaysGameOfLife.Tests
         [InlineData(8)]
         public void WhenAnyLiveCellHasAnyLiveNeighbours_ItShouldNeverSwitchState(int numberAliveNeighbours)
         {
-            var result = rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Alive);
+            var result = _rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Alive);
 
             Assert.False(result);
         }

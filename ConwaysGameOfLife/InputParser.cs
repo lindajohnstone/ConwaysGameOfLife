@@ -6,7 +6,7 @@ namespace ConwaysGameOfLife
     public class InputParser
     {
         // parses the input received 
-        public List<Location> ParseListOfLocationsFromUserInput(string userInput)
+        public List<Location> ParseLocations(string userInput)
         {
             var liveCellLocations = new List<Location>();
             var locationStringArray = SplitInput(userInput, " ");
