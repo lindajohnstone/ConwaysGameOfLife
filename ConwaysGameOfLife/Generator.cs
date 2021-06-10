@@ -30,14 +30,18 @@ namespace ConwaysGameOfLife
         */
         Universe _universe;
 
-        public Generator()
+        
+
+        public Generator(Universe universe)
         {
-            _universe = new Universe(3, 3);
+            _universe = universe;
+            
         }
 
         public void DisplayUniverse(IOutput output, OutputFormatter formatter)
         {
             output.WriteLine(formatter.FormatUniverse(_universe));
         }
+
     }
 }

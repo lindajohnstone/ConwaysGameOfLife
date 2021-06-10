@@ -8,7 +8,7 @@ namespace ConwaysGameOfLife.Tests
         Generator _generator;
         public GeneratorShould()
         {
-            _generator = new Generator();
+            _generator = new Generator(new Universe(3, 3));
         }
         [Fact]
         public void WhenInitialized_DisplayUniverse()
