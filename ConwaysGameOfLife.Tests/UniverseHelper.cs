@@ -84,19 +84,16 @@ namespace ConwaysGameOfLife.Tests
                 for (var x = 0; x < gridWidth; x++)
                 {
                     var currentCell = row[x];
-                    cells.Add(new Cell(GetCellState(currentCell), x, y));
+                    var cellState = GetCellState(currentCell);
+                    cells.Add(new Cell(cellState, x, y));
                 }
             }
             return new Universe(gridWidth, gridLength, cells);
         }
 
-        private static CellState GetCellState(char input) // TODO: rename method and parameter 9/6
+        private static CellState GetCellState(char input) 
         {
-            if (input == 'X')
-            {
-                return CellState.Dead;
-            }
-            return CellState.Alive;
+            return input == 'O' ? CellState.Alive : CellState.Dead;
         }
         private static string[] SplitInput(string input, string delimiter)
         {

@@ -5,10 +5,10 @@ namespace ConwaysGameOfLife.Tests
 {
     public class OutputFormatterShould
     {
-        OutputFormatter formatter;
+        OutputFormatter _formatter;
         public OutputFormatterShould()
         {
-            formatter = new OutputFormatter();
+            _formatter = new OutputFormatter();
         }
         [Theory]
         [InlineData(3, 3, ". . . \n. . . \n. . . \n")]
@@ -17,7 +17,7 @@ namespace ConwaysGameOfLife.Tests
         {
             var universe = new Universe(gridWidth, gridLength);
 
-            var result = formatter.FormatUniverse(universe);
+            var result = _formatter.FormatUniverse(universe);
             
             Assert.Equal(expected, result);
         }
@@ -34,7 +34,7 @@ namespace ConwaysGameOfLife.Tests
                             row3;
             var universe = UniverseHelper.InitializeUniverse(initData);
 
-            var result = formatter.FormatUniverse(universe);
+            var result = _formatter.FormatUniverse(universe);
 
             Assert.Equal(expected, result);
         }

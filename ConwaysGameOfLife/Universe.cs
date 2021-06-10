@@ -46,7 +46,7 @@ namespace ConwaysGameOfLife
             return Cells.All((cell) => !cell.IsAlive());
         }
 
-        public List<Location> GetCellNeighbourLocations(Cell cell)
+        private List<Location> GetCellNeighbourLocations(Cell cell)
         {
             var x = cell.Location.X;
             var y = cell.Location.Y;

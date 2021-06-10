@@ -11,12 +11,12 @@ namespace ConwaysGameOfLife.Tests
         {
             _outputList = new List<string>();
         }
-        public void ConsoleWrite(string value)
+        public void Write(string value)
         {
             _outputList.Add(value);
         }
 
-        public void ConsoleWriteLine(string value)
+        public void WriteLine(string value)
         {
             _outputList.Add(value);
         }

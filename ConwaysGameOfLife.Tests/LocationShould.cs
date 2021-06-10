@@ -7,11 +7,13 @@ namespace ConwaysGameOfLife.Tests
     public class LocationShould // TODO: all tests relate to universehelper methods ?? delete class?
     {
         [Theory]
-        [InlineData(0, 0, 0, 0)]
-        public void GivenTwoIdenticalLocations_BeEqual(int x1, int y1, int x2, int y2) // TODO: name very close to test on line 34 9/6
+        [InlineData(0, 0)]
+        [InlineData(-1, 7)]
+        [InlineData(5, 1)]
+        public void BeEqual_GivenTwoIdenticalLocations(int x, int y) 
         {
-            var location1 = new Location(x1, y1);
-            var location2 = new Location(x2, y2);
+            var location1 = new Location(x, y);
+            var location2 = new Location(x, y);
 
             var result = UniverseHelper.LocationsAreEqual(location1, location2);
 
@@ -20,7 +22,7 @@ namespace ConwaysGameOfLife.Tests
 
         [Theory]
         [InlineData(0, 0, 1, 0)]
-        public void GivenTwoNonIdenticalLocations_NotBeEqual(int x1, int y1, int x2, int y2)
+        public void NotBeEqual_GivenLocationsOfDifferingCoordinates(int x1, int y1, int x2, int y2)
         {
             var location1 = new Location(x1, y1);
             var location2 = new Location(x2, y2);
@@ -31,7 +33,7 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void GivenTwoIdenticalListsOfLocations_BeEqual() // TODO: rename 9/6
+        public void BeEqual_GivenTwoIdenticalListsOfLocations() 
         {
             var expected = new List<Location>(){
                 new Location(0, 0),
@@ -59,7 +61,7 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void GivenTwoNonIdenticalListsOfLocations_NotBeEqual()
+        public void NotBeEqual_GivenTwoListsOfLocationsWithDifferingLocations()
         {
             var expected = new List<Location>(){
                 new Location(0, 0),

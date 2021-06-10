@@ -5,10 +5,10 @@ namespace ConwaysGameOfLife.Tests
 {
     public class OvercrowdingRuleShould
     {
-        OvercrowdingRule rule;
+        OvercrowdingRule _rule;
         public OvercrowdingRuleShould()
         {
-            rule = new OvercrowdingRule();
+            _rule = new OvercrowdingRule();
         }
         [Theory]
         [InlineData(8)]
@@ -16,7 +16,7 @@ namespace ConwaysGameOfLife.Tests
         [InlineData(6)]
         public void WhenAnyLiveCellHasMoreThan3LiveNeighbours_ItDies(int numberAliveNeighbours)
         {
-            var result = rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Alive);
+            var result = _rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Alive);
 
             Assert.True(result);
         }
@@ -27,7 +27,7 @@ namespace ConwaysGameOfLife.Tests
         [InlineData(-1)]
         public void WhenAnyLiveCellHasLessThanOrEqualTo3LiveNeighbours_ItDoesNotDie(int numberAliveNeighbours)
         {
-            var result = rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Alive);
+            var result = _rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Alive);
 
             Assert.False(result);
         }
@@ -39,7 +39,7 @@ namespace ConwaysGameOfLife.Tests
         [InlineData(8)]
         public void WhenAnyDeadCellHasAnyLiveNeighbours_ItShouldNeverSwitchState(int numberAliveNeighbours)
         {
-            var result = rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Dead);
+            var result = _rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Dead);
 
             Assert.False(result);
         }

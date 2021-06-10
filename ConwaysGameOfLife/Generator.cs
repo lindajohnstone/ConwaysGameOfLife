@@ -1,3 +1,5 @@
+using System;
+
 namespace ConwaysGameOfLife
 {
     public class Generator
@@ -23,6 +25,23 @@ namespace ConwaysGameOfLife
             output
             universe
             rules
+            inputparser
+            outputformatter
         */
+        Universe _universe;
+
+        
+
+        public Generator(Universe universe)
+        {
+            _universe = universe;
+            
+        }
+
+        public void DisplayUniverse(IOutput output, OutputFormatter formatter)
+        {
+            output.WriteLine(formatter.FormatUniverse(_universe));
+        }
+
     }
 }

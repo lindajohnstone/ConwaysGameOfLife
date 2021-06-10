@@ -5,10 +5,10 @@ namespace ConwaysGameOfLife.Tests
 {
     public class SurvivalRuleShould 
     {
-        SurvivalRule rule;
+        SurvivalRule _rule;
         public SurvivalRuleShould()
         {
-            rule = new SurvivalRule();
+            _rule = new SurvivalRule();
         }
         [Theory]
         [InlineData(4)]
@@ -16,7 +16,7 @@ namespace ConwaysGameOfLife.Tests
         [InlineData(8)]
         public void WhenAnyLiveCellDoesNotHave2Or3LiveNeighbours_ItDies(int numberAliveNeighbours)
         {
-            var result = rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Alive);
+            var result = _rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Alive);
 
             Assert.True(result);
         }
@@ -26,7 +26,7 @@ namespace ConwaysGameOfLife.Tests
         [InlineData(3)]
         public void WhenAnyLiveCellHas2Or3LiveNeighbours_ItDoesNotDie(int numberAliveNeighbours)
         {
-            var result = rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Alive);
+            var result = _rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Alive);
 
             Assert.False(result);
         }
@@ -38,7 +38,7 @@ namespace ConwaysGameOfLife.Tests
         [InlineData(8)]
         public void WhenAnyDeadCellHasAnyLiveNeighbours_ItShouldNeverSwitchState(int numberAliveNeighbours)
         {
-            var result = rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Dead);
+            var result = _rule.ShouldSwitchCellState(numberAliveNeighbours, CellState.Dead);
 
             Assert.False(result);
         }
