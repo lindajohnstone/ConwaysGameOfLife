@@ -12,7 +12,7 @@ namespace ConwaysGameOfLife
             var universe = SplitInput(userInput, ",");
             var gridWidth = ParseInput(universe[0]);
             var gridLength = ParseInput(universe[1]);
-            ThrowException(gridWidth, gridLength, 1);
+            ThrowException(gridWidth, gridLength);
             return new Universe(ParseInput(universe[0]), ParseInput(universe[1]));
         }
 
@@ -21,13 +21,13 @@ namespace ConwaysGameOfLife
             var location = SplitInput(input, ",");
             var x = ParseInput(location[0]);
             var y = ParseInput(location[1]);
-            ThrowException(x, y, 0);
+            ThrowException(x, y);
             return new Location(x, y);
         }
 
-        private static void ThrowException(int x, int y, int minimum)
+        private static void ThrowException(int x, int y)
         {
-            var message = String.Format($"String should only contain numbers greater than or equal to {0}.", minimum);
+            var message = String.Format("String should only contain numbers greater than or equal to 0.");
             if (x < 0 || y < 0) throw new ArgumentException(message);
         }
 

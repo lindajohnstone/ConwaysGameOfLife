@@ -39,11 +39,11 @@ namespace ConwaysGameOfLife.Tests
             Assert.True(UniverseHelper.UniversesAreEqual(expected, result));
         }
 
-        [Fact]
-        public void NotReturnNewUniverse_FromInvalidString()
+        [Theory]
+        [InlineData("a,4")]
+        [InlineData("-1,3")]
+        public void NotReturnNewUniverse_FromInvalidString(string input)
         {
-            var input = "a,4";
-
             Assert.Throws<ArgumentException>(() => InputParser.ParseUniverse(input));
         }
     }

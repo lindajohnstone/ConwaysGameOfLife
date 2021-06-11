@@ -12,7 +12,7 @@ namespace ConwaysGameOfLife
 
         public bool IsLocation(Location input, int gridWidth, int gridLength)
         {
-            return input.X < gridWidth && input.Y < gridLength && input.X >= 0 && input.Y >= 0;
+            return input.X < gridWidth && input.Y < gridLength;
         }
     }
 }

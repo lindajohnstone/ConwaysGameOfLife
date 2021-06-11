@@ -14,7 +14,7 @@ namespace ConwaysGameOfLife.Tests
         public void WhenInitialized_DisplayUniverse()
         {
             var output = new StubOutput();
-            var expected = ". . . \n. . . \n. . . \n";
+            var expected = "💀💀💀\n💀💀💀\n💀💀💀\n";
 
             _generator.DisplayUniverse(output);
 

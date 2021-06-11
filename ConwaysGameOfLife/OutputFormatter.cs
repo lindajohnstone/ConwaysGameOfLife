@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 namespace ConwaysGameOfLife
 {
@@ -9,7 +10,7 @@ namespace ConwaysGameOfLife
 
         public static string FormatUniverse(Universe universe) // universe created with user input - dimensions & live cells ?? - needed??
         {
-            var format = "";
+            StringBuilder format = new StringBuilder();
             for (var y = 0; y < universe.GridLength; y++)
             {
                 for (var x = 0; x < universe.GridWidth; x++)
@@ -17,16 +18,16 @@ namespace ConwaysGameOfLife
                     var state = universe.GetCellAtLocation(x, y).CellState;
                     if (state == CellState.Dead)
                     {
-                        format = format + ". ";
+                        format.Append("💀");
                     }
                     if (state == CellState.Alive)
                     {
-                        format = format + "* ";
+                        format.Append("💟");
                     }
                 }
-                format = format + Environment.NewLine;
+                format.Append(Environment.NewLine);
             }
-            return format;
+            return format.ToString();
         }
     }
 }
