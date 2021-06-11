@@ -13,12 +13,7 @@ namespace ConwaysGameOfLife.Tests
         }
         [Theory]
         [InlineData("0,0", 0, 0)]
-        [InlineData("-1,-1", -1, -1)]
         [InlineData("100,8", 100, 8)]
-        [InlineData("a,0", -1, 0)]
-        [InlineData("p,s", -1, -1)]
-        [InlineData("3,p", 3, -1)]
-        [InlineData("*,2", -1, 2)]
         public void ReturnLocation_GivenAStringOfOneLocation(string input, int x, int y) 
         {
             var expected = new Location(x, y);
@@ -29,28 +24,16 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void ReturnLocations_GivenAStringOfLocations()
+        public void NotReturnNewLocation_FromInvalidString()
         {
-            var input = "0,0 0,1 0,2";
-            var expected = new List<Location>() {
-                new Location(0,0),
-                new Location(0,1),
-                new Location(0,2)
-            };
+            var input = "a,4";
 
-            var result = _parser.ParseLocations(input);
-
-            Assert.True(UniverseHelper.ListsOfLocationsAreEqual(expected, result));
+            Assert.Throws<ArgumentException>(() => _parser.ParseLocation(input));
         }
 
         [Theory]
         [InlineData("3,4", 3, 4)]
-        [InlineData("a,4", -1, 4)]
-        [InlineData("10,a", 10, -1)]
-        [InlineData("a,0", -1, 0)]
-        [InlineData("p,s", -1, -1)]
-        [InlineData("3,p", 3, -1)]
-        [InlineData("*,2", -1, 2)]
+        [InlineData("4,4", 4, 4)]
         public void ReturnNewUniverse_FromString(string input, int x, int y)
         {
             var expected = new Universe(x, y);
@@ -61,14 +44,11 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void ReturnNewUniverse_FromInvalidString()
+        public void NotReturnNewUniverse_FromInvalidString()
         {
             var input = "a,4";
-            var expected = new Universe(-1, 4);
 
-            var result = _parser.ParseUniverse(input);
-
-            Assert.True(UniverseHelper.UniversesAreEqual(expected, result));
+            Assert.Throws<ArgumentException>(() => _parser.ParseUniverse(input));
         }
     }
 }
