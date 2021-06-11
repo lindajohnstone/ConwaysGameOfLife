@@ -2,12 +2,12 @@ using System;
 
 namespace ConwaysGameOfLife
 {
-    public class OutputFormatter 
+    public static class OutputFormatter 
     {
-        // displays universe & instructions
+        // formats universe display
         // TODO: try StringBuilder 
 
-        public string FormatUniverse(Universe universe) // universe created with user input - dimensions & live cells ?? - needed??
+        public static string FormatUniverse(Universe universe) // universe created with user input - dimensions & live cells ?? - needed??
         {
             var format = "";
             for (var y = 0; y < universe.GridLength; y++)

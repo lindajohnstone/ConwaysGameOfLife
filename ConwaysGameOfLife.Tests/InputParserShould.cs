@@ -6,11 +6,7 @@ namespace ConwaysGameOfLife.Tests
 {
     public class InputParserShould
     {
-        InputParser _parser;
-        public InputParserShould()
-        {
-            _parser = new InputParser();
-        }
+        
         [Theory]
         [InlineData("0,0", 0, 0)]
         [InlineData("100,8", 100, 8)]
@@ -18,7 +14,7 @@ namespace ConwaysGameOfLife.Tests
         {
             var expected = new Location(x, y);
 
-            var result = _parser.ParseLocation(input);
+            var result = InputParser.ParseLocation(input);
 
             Assert.True(UniverseHelper.LocationsAreEqual(expected, result));
         }
@@ -28,7 +24,7 @@ namespace ConwaysGameOfLife.Tests
         {
             var input = "a,4";
 
-            Assert.Throws<ArgumentException>(() => _parser.ParseLocation(input));
+            Assert.Throws<ArgumentException>(() => InputParser.ParseLocation(input));
         }
 
         [Theory]
@@ -38,7 +34,7 @@ namespace ConwaysGameOfLife.Tests
         {
             var expected = new Universe(x, y);
 
-            var result = _parser.ParseUniverse(input);
+            var result = InputParser.ParseUniverse(input);
 
             Assert.True(UniverseHelper.UniversesAreEqual(expected, result));
         }
@@ -48,7 +44,7 @@ namespace ConwaysGameOfLife.Tests
         {
             var input = "a,4";
 
-            Assert.Throws<ArgumentException>(() => _parser.ParseUniverse(input));
+            Assert.Throws<ArgumentException>(() => InputParser.ParseUniverse(input));
         }
     }
 }

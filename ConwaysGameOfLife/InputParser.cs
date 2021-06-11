@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace ConwaysGameOfLife
 {
-    public class InputParser
+    public static class InputParser
     {
         // parses the input received 
 
-        public Universe ParseUniverse(string userInput)
+        public static Universe ParseUniverse(string userInput)
         {
             var universe = SplitInput(userInput, ",");
             var gridWidth = ParseInput(universe[0]);
@@ -16,7 +16,7 @@ namespace ConwaysGameOfLife
             return new Universe(ParseInput(universe[0]), ParseInput(universe[1]));
         }
 
-        public Location ParseLocation(string input)
+        public static Location ParseLocation(string input)
         {
             var location = SplitInput(input, ",");
             var x = ParseInput(location[0]);

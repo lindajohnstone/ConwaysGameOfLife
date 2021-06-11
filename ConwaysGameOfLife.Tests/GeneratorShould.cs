@@ -14,10 +14,9 @@ namespace ConwaysGameOfLife.Tests
         public void WhenInitialized_DisplayUniverse()
         {
             var output = new StubOutput();
-            var formatter = new OutputFormatter();
             var expected = ". . . \n. . . \n. . . \n";
 
-            _generator.DisplayUniverse(output, formatter);
+            _generator.DisplayUniverse(output);
 
             Assert.Equal(expected, output.GetWriteLine());
         }
