@@ -5,8 +5,7 @@ namespace ConwaysGameOfLife
 {
     public static class OutputFormatter 
     {
-        // formats universe display
-        // TODO: try StringBuilder 
+        // formats universe display 
 
         public static string FormatUniverse(Universe universe) // universe created with user input - dimensions & live cells ?? - needed??
         {
