@@ -11,7 +11,7 @@ namespace ConwaysGameOfLife.Tests
             _validator = new Validator();
         }
         [Fact]
-        public void WhenValidParsedInput_IsUniverse()
+        public void AcceptUniverse_WhenInputIsValid()
         {
             var input = new Universe(3, 3);
 
@@ -20,25 +20,10 @@ namespace ConwaysGameOfLife.Tests
             Assert.True(result);
         }
 
-        [Theory]
-        [InlineData(0, 3)]
-        [InlineData(3, 0)]
-        public void WhenValidParsedInput_IsNotUniverse(int x, int y)
+        [Fact]
+        public void NotAcceptUniverse_WhenInputIsInvalid()
         {
-            var input = new Universe(x, y);
-
-            var result = _validator.IsUniverse(input);
-
-            Assert.False(result);
-        }
-
-        [Theory]
-        [InlineData(-1, 10)]
-        [InlineData(-1, -1)]
-        [InlineData(3, -1)]
-        public void WhenInvalidParsedInput_IsNotUniverse(int x, int y)
-        {
-            var input = new Universe(x, y);
+            var input = new Universe(0, 3);
 
             var result = _validator.IsUniverse(input);
 
@@ -48,7 +33,7 @@ namespace ConwaysGameOfLife.Tests
         [Theory]
         [InlineData(0, 0, 3, 3)]
         [InlineData(2, 1, 3, 3)]
-        public void WhenValidParsedInput_IsLocation(int x, int y, int gridWidth, int gridLength)
+        public void AcceptLocation_WhenInputIsValid(int x, int y, int gridWidth, int gridLength)
         {
             var input = new Location(x, y);
 
@@ -59,8 +44,9 @@ namespace ConwaysGameOfLife.Tests
 
         [Theory]
         [InlineData(3, 0, 3, 3)]
-        [InlineData(2, 4, 3, 3)]
-        public void WhenValidParsedInput_IsNotLocation(int x, int y, int gridWidth, int gridLength)
+        [InlineData(3, 1, 3, 3)]
+        [InlineData(0, 4, 3, 3)]
+        public void NotAcceptLocation_WhenInputIsInvalid(int x, int y, int gridWidth, int gridLength)
         {
             var input = new Location(x, y);
 

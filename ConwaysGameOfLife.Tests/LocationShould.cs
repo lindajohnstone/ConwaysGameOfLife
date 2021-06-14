@@ -22,6 +22,8 @@ namespace ConwaysGameOfLife.Tests
 
         [Theory]
         [InlineData(0, 0, 1, 0)]
+        [InlineData(-1, 0, 1, 0)]
+        [InlineData(2, 3, 4, 5)]
         public void NotBeEqual_GivenLocationsOfDifferingCoordinates(int x1, int y1, int x2, int y2)
         {
             var location1 = new Location(x1, y1);

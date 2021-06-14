@@ -38,9 +38,9 @@ namespace ConwaysGameOfLife
             
         }
 
-        public void DisplayUniverse(IOutput output, OutputFormatter formatter)
+        public void DisplayUniverse(IOutput output)
         {
-            output.WriteLine(formatter.FormatUniverse(_universe));
+            output.WriteLine(OutputFormatter.FormatUniverse(_universe));
         }
 
     }
