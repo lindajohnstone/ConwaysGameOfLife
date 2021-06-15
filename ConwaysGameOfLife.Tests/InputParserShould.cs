@@ -1,50 +1,33 @@
-using System;
-using System.Collections.Generic;
 using Xunit;
 
 namespace ConwaysGameOfLife.Tests
 {
     public class InputParserShould
     {
-        
         [Theory]
         [InlineData("0,0", 0, 0)]
         [InlineData("100,8", 100, 8)]
-        public void ReturnLocation_GivenAStringOfOneLocation(string input, int x, int y) 
+        public void ReturnLocation_GivenValidString(string input, int x, int y) 
         {
             var expected = new Location(x, y);
 
             var result = InputParser.ParseLocation(input);
 
+            Assert.IsType<Location>(result);
             Assert.True(UniverseHelper.LocationsAreEqual(expected, result));
-        }
-
-        [Fact]
-        public void NotReturnNewLocation_FromInvalidString()
-        {
-            var input = "a,4";
-
-            Assert.Throws<ArgumentException>(() => InputParser.ParseLocation(input));
         }
 
         [Theory]
         [InlineData("3,4", 3, 4)]
         [InlineData("4,4", 4, 4)]
-        public void ReturnNewUniverse_FromString(string input, int x, int y)
+        public void ReturnUniverse_GivenValidString(string input, int x, int y)
         {
             var expected = new Universe(x, y);
 
             var result = InputParser.ParseUniverse(input);
 
+            Assert.IsType<Universe>(result);
             Assert.True(UniverseHelper.UniversesAreEqual(expected, result));
-        }
-
-        [Theory]
-        [InlineData("a,4")]
-        [InlineData("-1,3")]
-        public void NotReturnNewUniverse_FromInvalidString(string input)
-        {
-            Assert.Throws<ArgumentException>(() => InputParser.ParseUniverse(input));
         }
     }
 }

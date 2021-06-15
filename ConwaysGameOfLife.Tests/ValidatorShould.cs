@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 
 namespace ConwaysGameOfLife.Tests
@@ -10,47 +9,55 @@ namespace ConwaysGameOfLife.Tests
         {
             _validator = new Validator();
         }
+
         [Fact]
         public void AcceptUniverse_WhenInputIsValid()
         {
-            var input = new Universe(3, 3);
+            var input = "3,3";
 
-            var result = _validator.IsUniverse(input);
+            var result = _validator.IsValidUniverse(input);
 
             Assert.True(result);
         }
 
-        [Fact]
-        public void NotAcceptUniverse_WhenInputIsInvalid()
+        [Theory]
+        [InlineData("0,3")]
+        [InlineData("4 4")]
+        [InlineData(",,")]
+        [InlineData("3,3,")]
+        [InlineData("3,3,3")]
+        [InlineData("a,b")]
+        [InlineData("-1,4")]
+        public void NotAcceptUniverse_WhenInputIsInvalid(string input)
         {
-            var input = new Universe(0, 3);
-
-            var result = _validator.IsUniverse(input);
+            var result = _validator.IsValidUniverse(input);
 
             Assert.False(result);
         }
 
         [Theory]
-        [InlineData(0, 0, 3, 3)]
-        [InlineData(2, 1, 3, 3)]
-        public void AcceptLocation_WhenInputIsValid(int x, int y, int gridWidth, int gridLength)
+        [InlineData("0,0", 3, 3)]
+        [InlineData("2,1", 3, 3)]
+        public void AcceptLocation_WhenInputIsValid(string input, int gridWidth, int gridLength)
         {
-            var input = new Location(x, y);
-
-            var result = _validator.IsLocation(input, gridWidth, gridLength);
+            var result = _validator.IsValidLocation(input, gridWidth, gridLength);
 
             Assert.True(result);
         }
 
         [Theory]
-        [InlineData(3, 0, 3, 3)]
-        [InlineData(3, 1, 3, 3)]
-        [InlineData(0, 4, 3, 3)]
-        public void NotAcceptLocation_WhenInputIsInvalid(int x, int y, int gridWidth, int gridLength)
+        [InlineData("0,3", 3, 3)]
+        [InlineData("3,0", 3, 3)]
+        [InlineData("4 4", 4, 3)]
+        [InlineData(",,", 3, 3)]
+        [InlineData("3,3,", 4, 3)]
+        [InlineData("3,3,3", 4, 3)]
+        [InlineData("a,b", 3, 3)]
+        [InlineData("-1,4", 3, 3)]
+        [InlineData("4,-1", 3, 3)]
+        public void NotAcceptLocation_WhenInputIsInvalid(string input, int gridWidth, int gridLength)
         {
-            var input = new Location(x, y);
-
-            var result = _validator.IsLocation(input, gridWidth, gridLength);
+            var result = _validator.IsValidLocation(input, gridWidth, gridLength);
 
             Assert.False(result);
         }

@@ -10,6 +10,7 @@ namespace ConwaysGameOfLife
         /*
             welcome message
             user asked for universe dimensions
+            dimensions parsed
             universe initialized
             initial universe printed to console
             user asked for location of alive cells
@@ -29,19 +30,32 @@ namespace ConwaysGameOfLife
             outputformatter
         */
         Universe _universe;
+        IOutput _output;
 
-        
 
         public Generator(Universe universe)
         {
             _universe = universe;
-            
+            _output = new ConsoleOutput();
         }
 
-        public void DisplayUniverse(IOutput output)
+        public void DisplayUniverse(IOutput output) // TODO: how to remove parameter without test failing
         {
             output.WriteLine(OutputFormatter.FormatUniverse(_universe));
         }
 
+        public void Run()
+        {
+            _output.WriteLine(Messages.Welcome);
+
+            try
+            {
+                
+            }
+            catch (InvalidFormatException ex)
+            {
+
+            }
+        }
     }
 }

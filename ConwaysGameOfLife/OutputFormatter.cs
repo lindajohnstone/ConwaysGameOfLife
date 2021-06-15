@@ -9,7 +9,7 @@ namespace ConwaysGameOfLife
 
         public static string FormatUniverse(Universe universe) // universe created with user input - dimensions & live cells ?? - needed??
         {
-            StringBuilder format = new StringBuilder();
+            StringBuilder stringBuilder = new StringBuilder();
             for (var y = 0; y < universe.GridLength; y++)
             {
                 for (var x = 0; x < universe.GridWidth; x++)
@@ -17,16 +17,16 @@ namespace ConwaysGameOfLife
                     var state = universe.GetCellAtLocation(x, y).CellState;
                     if (state == CellState.Dead)
                     {
-                        format.Append("💀");
+                        stringBuilder.Append("💀");
                     }
                     if (state == CellState.Alive)
                     {
-                        format.Append("💟");
+                        stringBuilder.Append("💟");
                     }
                 }
-                format.Append(Environment.NewLine);
+                stringBuilder.Append(Environment.NewLine);
             }
-            return format.ToString();
+            return stringBuilder.ToString();
         }
     }
 }
