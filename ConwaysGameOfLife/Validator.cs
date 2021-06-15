@@ -18,12 +18,12 @@ namespace ConwaysGameOfLife
         public bool IsValidUniverse(string input)
         {
             var isNumber = SplitInput(input, ",");
-            return !input.Contains(",") 
-                && input.Length > 3 
-                && isNumber.Length != 2 
-                && !ParseInput(isNumber[0]) 
-                && !ParseInput(isNumber[1]) 
-                && Int32.Parse(isNumber[0]) <= 0;
+            if (!input.Contains(",")) return false;
+            if (input.Length > 3) return false;
+            if (isNumber.Length != 2) return false;
+            if (!ParseInput(isNumber[0]) || !ParseInput(isNumber[1])) return false;
+            if (Int32.Parse(isNumber[0]) <= 0) return false;
+            return true;
         }
 
         public bool IsValidLocation(string input, int gridWidth, int gridLength)
