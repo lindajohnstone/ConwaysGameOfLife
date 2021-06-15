@@ -44,7 +44,9 @@ namespace ConwaysGameOfLife.Tests
         [InlineData("XXX", "OXX", "XXX", 1, 1, 1 )]
         [InlineData("OOO", "OOO", "OOO", 1, 1, 8)]
         [InlineData("OXX", "XXX", "XXO", 1, 1, 2)]
-        //TODO: test cases with different dimensions
+        [InlineData("XOOX", "XXXX", "XXXX", 1, 1, 2)]
+        [InlineData("XXXX", "XXXX", "XXXX", 1, 1, 0)]
+        [InlineData("XXXX", "OXXX", "XXXX", 1, 1, 1)]
         public void ReturnCountOfLiveNeighbours_GivenNonBoundaryCoordinates(string row1, string row2, string row3, int x, int y, int expected) 
         {
             var initData =  row1 + Environment.NewLine +
@@ -63,7 +65,9 @@ namespace ConwaysGameOfLife.Tests
         [InlineData("XXX", "OXX", "XXX", 1, 2, 1)]
         [InlineData("OOO", "OOO", "OOO", 2, 1, 8)]
         [InlineData("OXX", "XXX", "XXO", 2, 1, 2)]
-        //TODO: test cases with different dimensions
+        [InlineData("XOXX", "XXXX", "XOXX", 0, 0, 2)]
+        [InlineData("XXXX", "XXXX", "XXXX", 3, 0, 0)]
+        [InlineData("XXXX", "OXXX", "XXXX", 1, 0, 1)]
         public void ReturnCountOfLiveNeighbours_GivenBoundaryCoordinates(string row1, string row2, string row3, int x, int y, int expected)
         {
             var initData = row1 + Environment.NewLine +

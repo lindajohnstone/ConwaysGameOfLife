@@ -39,7 +39,7 @@ namespace ConwaysGameOfLife
             _output = new ConsoleOutput();
         }
 
-        public void DisplayUniverse(IOutput output)
+        public void DisplayUniverse(IOutput output) // TODO: how to remove parameter without test failing
         {
             output.WriteLine(OutputFormatter.FormatUniverse(_universe));
         }

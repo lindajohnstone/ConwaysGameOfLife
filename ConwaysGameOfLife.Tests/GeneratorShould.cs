@@ -12,7 +12,7 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void WhenUniverseCreatedInitially_DisplayUniverse()
+        public void WhenUniverseCreatedInitially_DisplayUniverse() // TODO: if parameter on line 19 is removed, test fails
         {
             var output = new StubOutput();
             var expected = "💀💀💀\n💀💀💀\n💀💀💀\n";
