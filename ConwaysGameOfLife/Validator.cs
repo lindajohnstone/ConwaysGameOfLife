@@ -28,10 +28,6 @@ namespace ConwaysGameOfLife
 
         public bool IsValidLocation(string input, int gridWidth, int gridLength)
         {
-            // check if exactly 1 comma
-            // check that the two dimensions are able to be parsed to int 
-            // check that the parsed integer dimensions are both >= 0 
-            // check that split[0] < gridwidth && split[1] < gridlength 
             var isNumber = SplitInput(input, ","); 
             if (!input.Contains(",")) return false;
             if (input.Length > 3) return false;
@@ -43,10 +39,6 @@ namespace ConwaysGameOfLife
             if (Int32.Parse(isNumber[0]) >= gridWidth) return false;
             if (Int32.Parse(isNumber[1]) >= gridLength) return false;
             return true;
-        }
-        private static void ThrowException(int x, int y)
-        {
-            if (x < 0 || y < 0) throw new ArgumentException("String should only contain numbers greater than or equal to 0.");
         }
 
         private static string[] SplitInput(string input, string delimiter)
