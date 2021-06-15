@@ -8,7 +8,7 @@ namespace ConwaysGameOfLife.Tests
         [Theory]
         [InlineData(3, 3, "💀💀💀\n💀💀💀\n💀💀💀\n")]
         [InlineData(4, 3, "💀💀💀💀\n💀💀💀💀\n💀💀💀💀\n")]
-        public void WhenGivenDimensions_FormatUniverseAllDeadCells(int gridWidth, int gridLength, string expected)
+        public void WhenUniverseCreatedInitially_FormatUniverseAllDeadCells(int gridWidth, int gridLength, string expected)
         {
             var universe = new Universe(gridWidth, gridLength);
 
@@ -22,7 +22,7 @@ namespace ConwaysGameOfLife.Tests
         [InlineData("XXX", "OXX", "XXX", "💀💀💀\n💟💀💀\n💀💀💀\n")]
         [InlineData("OXX", "OXX", "OXX", "💟💀💀\n💟💀💀\n💟💀💀\n")]
         [InlineData("XXXO", "XXXX", "XXXX", "💀💀💀💟\n💀💀💀💀\n💀💀💀💀\n")]
-        public void WhenGivenDimensions_FormatUniverse(string row1, string row2, string row3, string expected)
+        public void WhenUniverseRecreated_FormatUniverse(string row1, string row2, string row3, string expected)
         {
             var initData =  row1 + Environment.NewLine +
                             row2 + Environment.NewLine +

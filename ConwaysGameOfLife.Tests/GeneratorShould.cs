@@ -10,8 +10,9 @@ namespace ConwaysGameOfLife.Tests
         {
             _generator = new Generator(new Universe(3, 3));
         }
+
         [Fact]
-        public void WhenInitialized_DisplayUniverse()
+        public void WhenUniverseCreatedInitially_DisplayUniverse()
         {
             var output = new StubOutput();
             var expected = "💀💀💀\n💀💀💀\n💀💀💀\n";
