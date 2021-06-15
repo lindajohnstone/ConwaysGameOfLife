@@ -10,22 +10,28 @@ namespace ConwaysGameOfLife.Tests
         {
             _validator = new Validator();
         }
+
         [Fact]
         public void AcceptUniverse_WhenInputIsValid()
         {
-            var input = new Universe(3, 3);
+            var input = "3,3";
 
-            var result = _validator.IsUniverse(input);
+            var result = _validator.IsValidUniverse(input);
 
             Assert.True(result);
         }
 
-        [Fact]
-        public void NotAcceptUniverse_WhenInputIsInvalid()
+        [Theory]
+        [InlineData("0,3")]
+        [InlineData("4 4")]
+        [InlineData(",,")]
+        [InlineData("3,3,")]
+        [InlineData("3,3,3")]
+        [InlineData("a,b")]
+        [InlineData("-1,4")]
+        public void NotAcceptUniverse_WhenInputIsInvalid(string input)
         {
-            var input = new Universe(0, 3);
-
-            var result = _validator.IsUniverse(input);
+            var result = _validator.IsValidUniverse(input);
 
             Assert.False(result);
         }
