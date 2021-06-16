@@ -20,15 +20,7 @@ namespace ConwaysGameOfLife.Tests
         }  
 
         [Theory]
-        [InlineData(CellState.Dead, 0, 0)]
-        [InlineData(CellState.Dead, 0, 1)]
-        [InlineData(CellState.Dead, 0, 2)]
-        [InlineData(CellState.Dead, 1, 0)]
-        [InlineData(CellState.Dead, 1, 1)]
-        [InlineData(CellState.Dead, 1, 2)]
-        [InlineData(CellState.Dead, 2, 0)]
-        [InlineData(CellState.Dead, 2, 1)]
-        [InlineData(CellState.Dead, 2, 2)]
+        [MemberData(nameof(GetCellFromDataGenerator))]
         public void WhenInitialized_FindCellStateOfCell(CellState state, int x, int y)
         {
             var universe = new Universe(3, 3);
@@ -116,6 +108,46 @@ namespace ConwaysGameOfLife.Tests
             var universe = new Universe(3, 3);
 
             Assert.Throws<NullReferenceException>(() => universe.CountLiveNeighbours(cell));
+        }
+
+        public static IEnumerable<object[]> GetCellFromDataGenerator()
+        {
+            yield return new object[]
+            {
+                CellState.Dead, 0, 0
+            };
+            yield return new object[]
+            {
+                CellState.Dead, 0, 1
+            };
+            yield return new object[]
+            {
+                CellState.Dead, 0, 2
+            };
+            yield return new object[]
+            {
+                CellState.Dead, 1, 0
+            };
+            yield return new object[]
+            {
+                CellState.Dead, 1, 1
+            };
+            yield return new object[]
+            {
+                CellState.Dead, 1, 2
+            };
+            yield return new object[]
+            {
+                CellState.Dead, 2, 0
+            };
+            yield return new object[]
+            {
+                CellState.Dead, 2, 1
+            };
+            yield return new object[]
+            {
+                CellState.Dead, 2, 2
+            };
         }
     }
 }

@@ -6,20 +6,21 @@ namespace ConwaysGameOfLife.Tests
     public class GeneratorShould
     {
         Generator _generator;
+        StubOutput _output;
         public GeneratorShould()
         {
-            _generator = new Generator(new Universe(3, 3));
+            _output = new StubOutput();
+            _generator = new Generator(new Universe(3, 3), _output);
         }
 
         [Fact]
-        public void WhenUniverseCreatedInitially_DisplayUniverse() // TODO: if parameter on line 19 is removed, test fails
+        public void FormatUniverse_GivenUniverseOfAllDeadCells() 
         {
-            var output = new StubOutput();
             var expected = "💀💀💀\n💀💀💀\n💀💀💀\n";
 
-            _generator.DisplayUniverse(output);
+            _generator.DisplayUniverse();
 
-            Assert.Equal(expected, output.GetWriteLine());
+            Assert.Equal(expected, _output.GetWriteLine());
         }
     }
 }

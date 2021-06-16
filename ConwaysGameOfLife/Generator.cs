@@ -26,22 +26,20 @@ namespace ConwaysGameOfLife
             output
             universe
             rules
-            inputparser
-            outputformatter
         */
         Universe _universe;
         IOutput _output;
 
 
-        public Generator(Universe universe)
+        public Generator(Universe universe, IOutput output)
         {
             _universe = universe;
-            _output = new ConsoleOutput();
+            _output = output;
         }
 
-        public void DisplayUniverse(IOutput output) // TODO: how to remove parameter without test failing
+        public void DisplayUniverse() 
         {
-            output.WriteLine(OutputFormatter.FormatUniverse(_universe));
+            _output.WriteLine(OutputFormatter.FormatUniverse(_universe));
         }
 
         public void Run()

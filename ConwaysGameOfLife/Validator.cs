@@ -6,44 +6,26 @@ namespace ConwaysGameOfLife
     {
         // validates input
 
-        public static bool ParseInput(string numberInput)
-        {
-            if (Int32.TryParse(numberInput, out var number))
-            {
-                return true;
-            }
-            return false;
-        }
-        
         public bool IsValidUniverse(string input)
         {
-            var isNumber = SplitInput(input, ",");
-            if (!input.Contains(",")) return false;
-            if (input.Length > 3) return false;
-            if (isNumber.Length != 2) return false;
-            if (!ParseInput(isNumber[0]) || !ParseInput(isNumber[1])) return false;
-            if (Int32.Parse(isNumber[0]) <= 0) return false;
-            return true;
+            var inputElements = input.Split(',');
+            var hasTwoElements = inputElements.Length == 2;
+            if (!hasTwoElements) return false;
+            
+            var gridWidthIsValid = Int32.TryParse(inputElements[0], out var gridWidth) && gridWidth > 0;
+            var gridLengthIsValid = Int32.TryParse(inputElements[1], out var gridLength) && gridLength > 0;
+            return gridWidthIsValid && gridLengthIsValid;
         }
 
         public bool IsValidLocation(string input, int gridWidth, int gridLength)
         {
-            var isNumber = SplitInput(input, ","); 
-            if (!input.Contains(",")) return false;
-            if (input.Length > 3) return false;
-            if (isNumber.Length != 2) return false;
-            if (!ParseInput(isNumber[0])) return false;
-            if (!ParseInput(isNumber[1])) return false;
-            if (Int32.Parse(isNumber[0]) < 0) return false;
-            if (Int32.Parse(isNumber[1]) < 0) return false;
-            if (Int32.Parse(isNumber[0]) >= gridWidth) return false;
-            if (Int32.Parse(isNumber[1]) >= gridLength) return false;
-            return true;
-        }
+            var inputElements = input.Split(',');
+            var hasTwoInputElements = inputElements.Length == 2;
+            if (!hasTwoInputElements) return false;
 
-        private static string[] SplitInput(string input, string delimiter)
-        {
-            return input.Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
+            var xIsValid = Int32.TryParse(inputElements[0], out var x) && x >= 0 && x < gridWidth;
+            var yIsValid = Int32.TryParse(inputElements[1], out var y) && y >= 0 && y < gridLength;
+            return xIsValid && yIsValid;
         }
     }
 }
