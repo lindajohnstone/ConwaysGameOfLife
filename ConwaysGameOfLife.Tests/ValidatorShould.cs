@@ -47,15 +47,15 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Theory]
-        // [InlineData("0,3", 3, 3)]
-        // [InlineData("3,0", 3, 3)]
+        [InlineData("0,3", 3, 3)]
+        [InlineData("3,0", 3, 3)]
         [InlineData("4 4", 4, 3)]
-        // [InlineData(",,", 3, 3)]
-        // [InlineData("3,3,", 4, 3)]
-        // [InlineData("3,3,3", 4, 3)]
-        // [InlineData("a,b", 3, 3)]
-        // [InlineData("-1,4", 3, 3)]
-        // [InlineData("4,-1", 3, 3)]
+        [InlineData(",,", 3, 3)]
+        [InlineData("3,3,", 4, 3)]
+        [InlineData("3,3,3", 4, 3)]
+        [InlineData("a,b", 3, 3)]
+        [InlineData("-1,4", 3, 3)]
+        [InlineData("4,-1", 3, 3)]
         public void ReturnFalse_GivenInvalidLocationInput(string input, int gridWidth, int gridLength)
         {
             var result = _validator.IsValidLocation(input, gridWidth, gridLength);
