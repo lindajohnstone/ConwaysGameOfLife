@@ -26,17 +26,15 @@ namespace ConwaysGameOfLife
             output
             universe
             rules
-            inputparser
-            outputformatter
         */
         Universe _universe;
         IOutput _output;
 
 
-        public Generator(Universe universe)
+        public Generator(Universe universe, IOutput output)
         {
             _universe = universe;
-            _output = new ConsoleOutput();
+            _output = output;
         }
 
         public void DisplayUniverse() 
