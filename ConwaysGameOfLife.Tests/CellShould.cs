@@ -42,26 +42,26 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Theory]
-        [InlineData(CellState.Dead, 0, 1, CellState.Dead, 0, 1)]
-        [InlineData(CellState.Alive, 0, 1, CellState.Alive, 0, 1)]
-        public void GivenTwoCells_CellStateAndLocationAreEqual(CellState state1, int x1, int y1,  CellState state2, int x2, int y2) 
+        [InlineData(CellState.Dead, 0, 1)]
+        [InlineData(CellState.Alive, 0, 1)]
+        public void BeEquivalent_GivenSameStateAndLocation(CellState state, int x, int y) 
         {
-            var one = new Cell(state1, x1, y1);
-            var two = new Cell(state2, x2, y2);
+            var cell1 = new Cell(state, x, y);
+            var cell2 = new Cell(state, x, y);
 
-            var result = UniverseHelper.CellsAreEqual(one, two);
+            var result = UniverseHelper.CellsAreEqual(cell1, cell2);
 
             Assert.True(result);
         }
 
         [Theory]
         [MemberData(nameof(GetCellFromDataGenerator))]
-        public void GivenTwoCells_CellStateAndLocation_AreEqual(CellState state1, int x1, int y1, CellState state2, int x2, int y2)
+        public void BeEquivalent_GivenSameCellStateAndLocation(CellState state1, int x1, int y1, CellState state2, int x2, int y2) // TODO: how is this not testing for equivalence
         {
-            var one = new Cell(state1, x1, y1);
-            var two = new Cell(state2, x2, y2);
+            var cell1 = new Cell(state1, x1, y1);
+            var cell2 = new Cell(state2, x2, y2);
 
-            var result = UniverseHelper.CellsAreEqual(one, two);
+            var result = UniverseHelper.CellsAreEqual(cell1, cell2);
 
             Assert.False(result);
         }
