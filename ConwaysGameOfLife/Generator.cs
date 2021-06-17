@@ -28,13 +28,20 @@ namespace ConwaysGameOfLife
             rules
         */
         Universe _universe;
+
+        public object EndGame(string userInput)
+        {
+            throw new NotImplementedException();
+        }
+
         IOutput _output;
 
-
-        public Generator(Universe universe, IOutput output)
+        IInput _input; 
+        public Generator(Universe universe, IOutput output, IInput input)
         {
             _universe = universe;
             _output = output;
+            _input = input;
         }
 
         public void DisplayUniverse() 

@@ -8,40 +8,40 @@ namespace ConwaysGameOfLife.Tests
     public class UniverseShould
     {
         [Fact]
-        public void WhenInitialized_BePopulatedWithAllDeadCells() 
+        public void WhenInitialized_BePopulatedWithAllDeadCells()
         {
             var gridWidth = 4;
             var gridLength = 4;
             var universe = new Universe(gridWidth, gridLength);
 
             var result = universe.AreAllCellsDead();
-            
+
             Assert.True(result);
-        }  
+        }
 
         [Theory]
-        [MemberData(nameof(GetCellFromDataGenerator))]
-        public void WhenInitialized_FindCellStateOfCell(CellState state, int x, int y)
+        [MemberData(nameof(UniverseMemberData.CellsInUniverse), MemberType = typeof(UniverseMemberData))]
+        public void WhenInitialized_FindCellStateOfCell(Cell cell)
         {
             var universe = new Universe(3, 3);
-            var expected = state;
+            var expected = CellState.Dead;
 
-            var result = universe.GetCellAtLocation(x, y).CellState;
+            var result = universe.GetCellAtLocation(cell.Location.X, cell.Location.Y).CellState;
 
             Assert.Equal(expected, result);
         }
 
         [Theory]
         [InlineData("XXX", "XXX", "XXX", 1, 1, 0)]
-        [InlineData("XXX", "OXX", "XXX", 1, 1, 1 )]
+        [InlineData("XXX", "OXX", "XXX", 1, 1, 1)]
         [InlineData("OOO", "OOO", "OOO", 1, 1, 8)]
         [InlineData("OXX", "XXX", "XXO", 1, 1, 2)]
         [InlineData("XOOX", "XXXX", "XXXX", 1, 1, 2)]
         [InlineData("XXXX", "XXXX", "XXXX", 1, 1, 0)]
         [InlineData("XXXX", "OXXX", "XXXX", 1, 1, 1)]
-        public void ReturnCountOfLiveNeighbours_GivenNonBoundaryCoordinates(string row1, string row2, string row3, int x, int y, int expected) 
+        public void ReturnCountOfLiveNeighbours_GivenNonBoundaryCoordinates(string row1, string row2, string row3, int x, int y, int expected)
         {
-            var initData =  row1 + Environment.NewLine +
+            var initData = row1 + Environment.NewLine +
                             row2 + Environment.NewLine +
                             row3;
             var universe = UniverseHelper.InitializeUniverse(initData);
@@ -93,7 +93,7 @@ namespace ConwaysGameOfLife.Tests
             var x = 0;
             var y = 0;
             var universe = new Universe(gridWidth, gridLength);
-            
+
             var result = universe.GetCellAtLocation(x, y);
 
             Assert.Equal(0, result.Location.X);
@@ -108,46 +108,6 @@ namespace ConwaysGameOfLife.Tests
             var universe = new Universe(3, 3);
 
             Assert.Throws<NullReferenceException>(() => universe.CountLiveNeighbours(cell));
-        }
-
-        public static IEnumerable<object[]> GetCellFromDataGenerator()
-        {
-            yield return new object[]
-            {
-                CellState.Dead, 0, 0
-            };
-            yield return new object[]
-            {
-                CellState.Dead, 0, 1
-            };
-            yield return new object[]
-            {
-                CellState.Dead, 0, 2
-            };
-            yield return new object[]
-            {
-                CellState.Dead, 1, 0
-            };
-            yield return new object[]
-            {
-                CellState.Dead, 1, 1
-            };
-            yield return new object[]
-            {
-                CellState.Dead, 1, 2
-            };
-            yield return new object[]
-            {
-                CellState.Dead, 2, 0
-            };
-            yield return new object[]
-            {
-                CellState.Dead, 2, 1
-            };
-            yield return new object[]
-            {
-                CellState.Dead, 2, 2
-            };
         }
     }
 }

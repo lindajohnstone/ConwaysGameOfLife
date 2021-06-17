@@ -7,10 +7,12 @@ namespace ConwaysGameOfLife.Tests
     {
         Generator _generator;
         StubOutput _output;
+        StubInput _input;
         public GeneratorShould()
         {
             _output = new StubOutput();
-            _generator = new Generator(new Universe(3, 3), _output);
+            _input = new StubInput();
+            _generator = new Generator(new Universe(3, 3), _output, _input);
         }
 
         [Fact]
@@ -21,6 +23,16 @@ namespace ConwaysGameOfLife.Tests
             _generator.DisplayUniverse();
 
             Assert.Equal(expected, _output.GetWriteLine());
+        }
+
+        [Fact]
+        public void testName()
+        {
+            var userInput = "q";
+
+            var result = _generator.EndGame(userInput);
+
+            
         }
     }
 }
