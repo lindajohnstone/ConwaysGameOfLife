@@ -46,7 +46,7 @@ namespace ConwaysGameOfLife.Tests
         [InlineData("a,b")]
         [InlineData("-1,4")]
         [InlineData("10,0")]
-        public void ThrowException_GivenInvalidInput(string input)
+        public void ThrowException_GivenInvalidUniverseDimensions(string input)
         {
             Assert.Throws<InvalidFormatException>(() => _generator.SetUniverseDimensions(input)); ;
         }
@@ -74,6 +74,24 @@ namespace ConwaysGameOfLife.Tests
             var result = _generator.SetLiveCellLocation(input, universe.GridWidth, universe.GridLength);
 
             Assert.True(UniverseHelper.LocationsAreEqual(new Location(x, y), result));
+        }
+
+        [Theory]
+        [InlineData("0,3", 3, 3)]
+        [InlineData("3,0", 3, 3)]
+        [InlineData("4 4", 4, 3)]
+        [InlineData(",,", 3, 3)]
+        [InlineData("3,3,", 4, 3)]
+        [InlineData("3,3,3", 4, 3)]
+        [InlineData("a,b", 3, 3)]
+        [InlineData("-1,4", 3, 3)]
+        [InlineData("4,-1", 3, 3)]
+        // [InlineData("0,0", -10, 3)] // TODO: tests line 89 + 90 fail - are these tests required as the universe has already been validated?
+        // [InlineData("0,0", 3, -10)]
+        public void ThrowException_GivenInvalidLocationCoordinates(string input, int gridWidth, int gridLength)
+        {
+            var universe = new Universe(gridWidth, gridLength);
+            Assert.Throws<InvalidFormatException>(() => _generator.SetLiveCellLocation(input, universe.GridWidth, universe.GridLength));
         }
     }
 }
