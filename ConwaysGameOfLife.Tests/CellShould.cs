@@ -56,7 +56,7 @@ namespace ConwaysGameOfLife.Tests
 
         [Theory]
         [MemberData(nameof(GetCellFromDataGenerator))]
-        public void BeEquivalent_GivenSameCellStateAndLocation(CellState state1, int x1, int y1, CellState state2, int x2, int y2) // TODO: how is this not testing for equivalence
+        public void NotBeEquivalent_GivenDifferentCellStateAndLocation(CellState state1, int x1, int y1, CellState state2, int x2, int y2)
         {
             var cell1 = new Cell(state1, x1, y1);
             var cell2 = new Cell(state2, x2, y2);

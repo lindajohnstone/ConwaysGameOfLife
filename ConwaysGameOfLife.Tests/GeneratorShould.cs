@@ -28,7 +28,7 @@ namespace ConwaysGameOfLife.Tests
         [Theory]
         [InlineData("3,3", 3, 3)]
         [InlineData("10,10", 10, 10)]
-        public void SetUniverseDimensions_FromValidUserInput(string input, int x, int y)
+        public void SetUniverseDimensions_GivenValidInput(string input, int x, int y)
         {
             var result = _generator.SetUniverseDimensions(input);
 
@@ -44,9 +44,21 @@ namespace ConwaysGameOfLife.Tests
         [InlineData("a,b")]
         [InlineData("-1,4")]
         [InlineData("10,0")]
-        public void ReturnFalse_GivenInvalidUniverseInput(string input)
+        public void ThrowException_GivenInvalidInput(string input)
         {
             Assert.Throws<InvalidFormatException>(() => _generator.SetUniverseDimensions(input)); ;
+        }
+
+        [Fact]
+        public void FormatUniverse_FromValidInput()
+        {
+            var input = "3,3";
+            _generator.SetUniverseDimensions(input);
+            var expected = "💀💀💀\n💀💀💀\n💀💀💀\n";
+
+            _generator.DisplayUniverse();
+
+            Assert.Equal(expected, _output.GetWriteLine());
         }
     }
 }
