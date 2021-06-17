@@ -4,6 +4,6 @@ namespace ConwaysGameOfLife
     {
         // leave open for extension - file input instead of console input
 
-        
+        public string ReadLine();
     }
 }

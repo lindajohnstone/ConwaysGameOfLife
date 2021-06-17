@@ -2,11 +2,11 @@ using System;
 
 namespace ConwaysGameOfLife
 {
-    public class Validator
+    public static class Validator
     {
         // validates input
 
-        public bool IsValidUniverse(string input)
+        public static bool IsValidUniverse(string input)
         {
             var inputElements = input.Split(',');
             var hasTwoElements = inputElements.Length == 2;
@@ -17,7 +17,7 @@ namespace ConwaysGameOfLife
             return gridWidthIsValid && gridLengthIsValid;
         }
 
-        public bool IsValidLocation(string input, int gridWidth, int gridLength)
+        public static bool IsValidLocation(string input, int gridWidth, int gridLength)
         {
             var inputElements = input.Split(',');
             var hasTwoInputElements = inputElements.Length == 2;

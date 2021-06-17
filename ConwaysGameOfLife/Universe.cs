@@ -83,14 +83,6 @@ namespace ConwaysGameOfLife
             return aliveNeighbours;
         }
 
-        private static void ThrowsExceptionIfObjectIsNull(Object obj)
-        {
-            if (obj == null)
-            {
-                throw new NullReferenceException();
-            }
-        }
-
         public Cell SwitchCellState(Cell cell) // changes the state of the cell // TODO: rename. 
         // NB should universe check state of cell & neighbours against the rules then create a new universe?
         {

@@ -27,19 +27,33 @@ namespace ConwaysGameOfLife
             universe
             rules
         */
-        Universe _universe;
+        public Universe Universe { get; set; }
+        
         IOutput _output;
 
-
-        public Generator(Universe universe, IOutput output)
+        IInput _input; 
+        public Generator(Universe universe, IOutput output, IInput input)
         {
-            _universe = universe;
+            Universe = universe;
             _output = output;
+            _input = input;
         }
 
+        public void GenerateUniverse()
+        // if lines uncommented, both tests (line 44) fail. is this method doing too much? how to test? - does it need to be tested
+        {
+            _output.WriteLine(Messages.RequestDimensions);
+            var universeInput = _input.ReadLine();
+            var universe = SetUniverseDimensions(universeInput);
+            // _output.WriteLine(Messages.RequestLiveCell);
+            // var locationInput = _input.ReadLine();
+            // var location = SetLiveCellLocation(locationInput, universe.GridWidth, universe.GridLength);
+            // universe.SwitchCellState(universe.GetCellAtLocation(location.X, location.Y));
+            // DisplayUniverse();
+        }
         public void DisplayUniverse() 
         {
-            _output.WriteLine(OutputFormatter.FormatUniverse(_universe));
+            _output.WriteLine(OutputFormatter.FormatUniverse(Universe));
         }
 
         public void Run()
@@ -54,6 +68,21 @@ namespace ConwaysGameOfLife
             {
 
             }
+        }
+
+        public Universe SetUniverseDimensions(string input)
+        {
+            var isValidUniverse = Validator.IsValidUniverse(input);
+            if (isValidUniverse) return InputParser.ParseUniverse(input);
+            throw new InvalidFormatException(String.Format("Invalid input. Please try again." + Environment.NewLine + Messages.RequestDimensions));
+        }
+
+        public Location SetLiveCellLocation(string input, int gridWidth, int gridLength)
+        {
+            
+            var isValidLocation = Validator.IsValidLocation(input, Universe.GridWidth, Universe.GridLength);
+            if (isValidLocation) return InputParser.ParseLocation(input);
+            throw new InvalidFormatException(String.Format("Invalid input. Please try again." + Environment.NewLine + Messages.RequestLiveCell));
         }
     }
 }
