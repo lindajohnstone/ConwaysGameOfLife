@@ -63,14 +63,17 @@ namespace ConwaysGameOfLife.Tests
             Assert.Equal(expected, _output.GetWriteLine());
         }
 
-        [Fact]
-        public void SetAliveCellLocation_GivenValidInput()
+        [Theory]
+        [InlineData("0,0", 0, 0, 3, 3)]
+        [InlineData("0,0", 0, 0, 4, 3)]
+        [InlineData("2,1", 2, 1, 10, 5)]
+        [InlineData("2,1", 2, 1, 4, 6)]
+        public void SetAliveCellLocation_GivenValidInput(string input, int x, int y, int gridWidth, int gridLength)
         {
-            var input = "0,0";
+            var universe = new Universe(gridWidth, gridLength);
+            var result = _generator.SetLiveCellLocation(input, universe.GridWidth, universe.GridLength);
 
-            var result = _generator.SetLiveCellLocation(input);
-
-            Assert.True(UniverseHelper.LocationsAreEqual(new Location(0, 0), result));
+            Assert.True(UniverseHelper.LocationsAreEqual(new Location(x, y), result));
         }
     }
 }
