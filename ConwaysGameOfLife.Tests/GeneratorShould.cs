@@ -33,6 +33,8 @@ namespace ConwaysGameOfLife.Tests
             var result = _generator.SetUniverseDimensions(input);
 
             Assert.True(UniverseHelper.UniversesAreEqual(new Universe(x, y), result));
+            Assert.Equal(x, result.GridWidth);
+            Assert.Equal(y, result.GridLength);
         }
 
         [Theory]
@@ -59,6 +61,16 @@ namespace ConwaysGameOfLife.Tests
             _generator.DisplayUniverse();
 
             Assert.Equal(expected, _output.GetWriteLine());
+        }
+
+        [Fact]
+        public void SetAliveCellLocation_GivenValidInput()
+        {
+            var input = "0,0";
+
+            var result = _generator.SetLiveCellLocation(input);
+
+            Assert.True(UniverseHelper.LocationsAreEqual(new Location(0, 0), result));
         }
     }
 }

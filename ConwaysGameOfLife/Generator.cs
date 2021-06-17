@@ -64,5 +64,12 @@ namespace ConwaysGameOfLife
             if (isValidUniverse) return InputParser.ParseUniverse(userInput);
             throw new InvalidFormatException(String.Format("Invalid input. Please try again." + Environment.NewLine + Messages.RequestDimensions));
         }
+
+        public Location SetLiveCellLocation(string input)
+        {
+            var isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
+            if (isValidLocation) return InputParser.ParseLocation(input);
+            throw new InvalidFormatException(String.Format("Invalid input. Please try again." + Environment.NewLine + Messages.RequestLiveCells));
+        }
     }
 }
