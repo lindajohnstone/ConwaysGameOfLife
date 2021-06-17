@@ -28,13 +28,27 @@ namespace ConwaysGameOfLife.Tests
         [Theory]
         [InlineData("3,3", 3, 3)]
         [InlineData("10,10", 10, 10)]
-        public void SetUniverseDimensions_GivenValidInput(string input, int x, int y)
+        public void SetUniverseDimensions_GivenValidInput(string input, int gridWidth, int gridLength)
         {
+            _input.WithReadLine(input);
             var result = _generator.SetUniverseDimensions(input);
 
-            Assert.True(UniverseHelper.UniversesAreEqual(new Universe(x, y), result));
-            Assert.Equal(x, result.GridWidth);
-            Assert.Equal(y, result.GridLength);
+            Assert.True(UniverseHelper.UniversesAreEqual(new Universe(gridWidth, gridLength), result));
+            Assert.Equal(gridWidth, result.GridWidth);
+            Assert.Equal(gridLength, result.GridLength);
+        }
+
+        [Theory]
+        [InlineData("3,3", 3, 3)]
+        [InlineData("5,5", 5, 5)] // TODO: this is failing 
+        public void SetUniverseDimensionsInGenerateUniverse_GivenValidInput(string input, int gridWidth, int gridLength)
+        {
+            _input.WithReadLine(input);
+            _generator.GenerateUniverse();
+
+            Assert.True(UniverseHelper.UniversesAreEqual(new Universe(gridLength, gridLength), _generator.Universe));
+            Assert.Equal(gridWidth, _generator.Universe.GridWidth);
+            Assert.Equal(gridLength, _generator.Universe.GridLength);
         }
 
         [Theory]
