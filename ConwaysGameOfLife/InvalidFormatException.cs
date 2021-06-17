@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace ConwaysGameOfLife
 {
     [Serializable]
-    internal class InvalidFormatException : Exception
+    public class InvalidFormatException : Exception
     {
         public InvalidFormatException()
         {
