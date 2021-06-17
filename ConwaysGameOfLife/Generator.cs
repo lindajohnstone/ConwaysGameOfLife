@@ -29,11 +29,6 @@ namespace ConwaysGameOfLife
         */
         Universe _universe;
 
-        public object EndGame(string userInput)
-        {
-            throw new NotImplementedException();
-        }
-
         IOutput _output;
 
         IInput _input; 
@@ -61,6 +56,13 @@ namespace ConwaysGameOfLife
             {
 
             }
+        }
+
+        public Universe SetUniverseDimensions(string userInput)
+        {
+            var isValidUniverse = Validator.IsValidUniverse(userInput);
+            if (isValidUniverse) return InputParser.ParseUniverse(userInput);
+            throw new InvalidFormatException(String.Format("Invalid input. Please try again." + Environment.NewLine + Messages.RequestDimensions));
         }
     }
 }

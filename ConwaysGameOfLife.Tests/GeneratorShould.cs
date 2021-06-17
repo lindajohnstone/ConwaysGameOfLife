@@ -26,13 +26,13 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void testName()
+        public void SetUniverseDimensions_FromValidUserInput()
         {
-            var userInput = "q";
+            var userInput = "3,3";
 
-            var result = _generator.EndGame(userInput);
+            var result = _generator.SetUniverseDimensions(userInput);
 
-            
+            Assert.True(UniverseHelper.UniversesAreEqual(new Universe(3, 3), result));
         }
     }
 }
