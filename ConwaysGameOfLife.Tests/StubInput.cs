@@ -16,7 +16,7 @@ namespace ConwaysGameOfLife.Tests
             return _queue.Dequeue();
         }
         
-        public void WithReadLine(string value)
+        public void GetReadLine(string value)
         {
             _queue.Enqueue(value);
         }

@@ -41,17 +41,25 @@ namespace ConwaysGameOfLife
         }
 
         public void CreateInitialUniverse()
-        // if lines uncommented, both tests (line 44) fail. is this method doing too much? how to test? - does it need to be tested
         {
             _output.WriteLine(Messages.RequestDimensions);
             var input = CreateValidUniverseString();
             InputParser.ParseUniverse(input);
-            // _output.WriteLine(Messages.RequestLiveCell);
+            DisplayUniverse();
+        }
+
+        public void PopulateUniverseWithLiveCells()
+        {
+            // _output.Write(Messages.RequestLiveCell);
+            // _output.WriteLine($"Or {Messages.Play});
+            // loop
             // var locationInput = _input.ReadLine();
             // var location = SetLiveCellLocation(locationInput, universe.GridWidth, universe.GridLength);
             // universe.SwitchCellState(universe.GetCellAtLocation(location.X, location.Y));
             // DisplayUniverse();
+            throw new NotImplementedException();
         }
+
         public void DisplayUniverse() 
         {
             _output.WriteLine(OutputFormatter.FormatUniverse(_universe));
@@ -60,25 +68,18 @@ namespace ConwaysGameOfLife
         public void Run()
         {
             _output.WriteLine(Messages.Welcome);
-            // create 
-            try
-            {
-                
-            }
-            catch (InvalidFormatException ex)
-            {
-
-            }
+            // create initial universe
+            CreateInitialUniverse();
+            // add live cells to universe until user presses 'p' to play
+            // generator checks all cells if change of state required & creates next universe
+            // loop last step until user presses 'q' to quit or all cells are dead
         }
-        // TODO: method asks for universe input, validates, returns string
-        // same for location
-
         
         public string CreateValidUniverseString()
         {
             var input = _input.ReadLine();
             var isValidUniverse = Validator.IsValidUniverse(input);
-            if(!isValidUniverse)
+            while (!isValidUniverse)
             {
                 InvalidUniverseString(input);
             }
@@ -95,7 +96,7 @@ namespace ConwaysGameOfLife
         {
             var input = _input.ReadLine();
             var isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
-            if (!isValidLocation) 
+            while (!isValidLocation) 
             {
                 InvalidLocationString(input);
             }

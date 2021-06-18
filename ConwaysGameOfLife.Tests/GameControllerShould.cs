@@ -33,7 +33,7 @@ namespace ConwaysGameOfLife.Tests
         {
             var universe = new Universe(gridWidth, gridLength);
             var controller = new GameController(universe, _output, _input);
-            _input.WithReadLine(input);
+            _input.GetReadLine(input);
             var expected = input;
 
             var result = controller.CreateValidUniverseString();
@@ -52,7 +52,7 @@ namespace ConwaysGameOfLife.Tests
         {
             var universe = new Universe(gridWidth, gridLength);
             var controller = new GameController(universe, _output, _input);
-            _input.WithReadLine(input);
+            _input.GetReadLine(input);
             var expected = input;
 
             var result = controller.CreateValidLocationString();
@@ -61,5 +61,12 @@ namespace ConwaysGameOfLife.Tests
         }
 
         //TODO: how to test error message in CreateValidLocationString
+
+        [Fact]
+        public void testName()
+        {
+            var universe = new Universe(3, 3);
+            Assert.Equal(3, universe.GridWidth);
+        }
     }
 }
