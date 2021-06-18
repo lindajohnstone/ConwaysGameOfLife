@@ -29,7 +29,7 @@ namespace ConwaysGameOfLife.Tests
         [Theory]
         [InlineData("3,3", 3, 3)]
         [InlineData("10,10", 10, 10)]
-        public void ReturnValidUniverseString_GivenValidInput(string input, int gridWidth, int gridLength)
+        public void ReturnUniverseString_GivenValidInput(string input, int gridWidth, int gridLength)
         {
             var universe = new Universe(gridWidth, gridLength);
             var controller = new GameController(universe, _output, _input);
@@ -44,20 +44,22 @@ namespace ConwaysGameOfLife.Tests
         //TODO: how to test error message in CreateValidUniverseString
 
         [Theory]
-        [InlineData("0,0", 0, 0, 3, 3)]
-        [InlineData("0,0", 0, 0, 4, 3)]
-        [InlineData("2,1", 2, 1, 10, 5)]
-        [InlineData("2,1", 2, 1, 4, 6)]
-        public void SetAliveCellLocation_GivenValidInput(string userInput, int x, int y, int gridWidth, int gridLength)
+        [InlineData("0,0", 3, 3)]
+        [InlineData("0,0", 4, 3)]
+        [InlineData("2,1", 10, 5)]
+        [InlineData("2,1", 4, 6)]
+        public void ReturnLocationString_GivenValidInput(string input, int gridWidth, int gridLength)
         {
             var universe = new Universe(gridWidth, gridLength);
             var controller = new GameController(universe, _output, _input);
-            
-            var result = controller.SetLiveCellLocation(userInput);
+            _input.WithReadLine(input);
+            var expected = input;
 
-            Assert.True(UniverseHelper.LocationsAreEqual(new Location(x, y), result));
+            var result = controller.CreateValidLocationString();
+
+            Assert.Equal(expected, result);
         }
-
+        
         [Theory]
         [InlineData("0,3", 3, 3)]
         [InlineData("3,0", 3, 3)]
@@ -68,14 +70,18 @@ namespace ConwaysGameOfLife.Tests
         [InlineData("a,b", 3, 3)]
         [InlineData("-1,4", 3, 3)]
         [InlineData("4,-1", 3, 3)]
-        // [InlineData("0,0", -10, 3)] // TODO: tests line 89 + 90 fail - are these tests required as the universe has already been validated?
-        // [InlineData("0,0", 3, -10)]
-        public void ThrowException_GivenInvalidLocationCoordinates(string userInput, int gridWidth, int gridLength)
+        [InlineData("0,0", -10, 3)] 
+        [InlineData("0,0", 3, -10)]
+        public void ReturnErrorMessage_GivenInvalidLocationString(string input, int gridWidth, int gridLength)
         {
             var universe = new Universe(gridWidth, gridLength);
             var controller = new GameController(universe, _output, _input);
+            _input.WithReadLine(input);
+            var expected = $"Invalid input. Please try again.{Environment.NewLine}{Messages.RequestLiveCell}";
 
-            Assert.Throws<InvalidFormatException>(() => controller.SetLiveCellLocation(userInput));
+            var result = controller.CreateValidLocationString();
+
+            Assert.Equal(expected, result);
         }
     }
 }
