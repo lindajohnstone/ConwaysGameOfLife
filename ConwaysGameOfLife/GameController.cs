@@ -95,8 +95,17 @@ namespace ConwaysGameOfLife
         {
             var input = _input.ReadLine();
             var isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
-            if (!isValidLocation) return $"Invalid input. Please try again.{Environment.NewLine}{Messages.RequestLiveCell}";
+            if (!isValidLocation) 
+            {
+                InvalidLocationString(input);
+            }
             return input;
+        }
+
+        private void InvalidLocationString(string input)
+        {
+            _output.WriteLine($"Invalid input. Please try again.{Environment.NewLine}{Messages.RequestLiveCell}");
+            CreateValidLocationString();
         }
     }
 }
