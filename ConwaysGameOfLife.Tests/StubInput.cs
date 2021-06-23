@@ -20,5 +20,13 @@ namespace ConwaysGameOfLife.Tests
         {
             _queue.Enqueue(value);
         }
+
+        public void GetReadLine(IEnumerable<string> values)
+        {
+            foreach (var value in values)
+            {
+                GetReadLine(value);
+            }
+        }
     }
 }

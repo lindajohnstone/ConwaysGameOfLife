@@ -4,7 +4,7 @@ namespace ConwaysGameOfLife
     {
         public const string Welcome = "Welcome to Game of Life!";
 
-        public const string RequestDimensions = "Please enter the width & length for the Universe as a number followed by a comma then a number (e.g. '0,0')";
+        public const string RequestDimensions = "Please enter the width & length for the Universe as a number followed by a comma then a number (e.g. '0,0').";
 
         public const string GameEnd = "Game of Life has ended.";
 
