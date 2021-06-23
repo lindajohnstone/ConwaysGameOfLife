@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ConwaysGameOfLife.Tests
 {
@@ -29,6 +30,11 @@ namespace ConwaysGameOfLife.Tests
         public string GetWriteLine(int i)
         {
             return _outputList[i];
+        }
+
+        public string GetLastWriteLine()
+        {
+            return _outputList.LastOrDefault();
         }
     }
 }

@@ -4,14 +4,16 @@ namespace ConwaysGameOfLife
     {
         public const string Welcome = "Welcome to Game of Life!";
 
-        public const string RequestDimensions = "Please enter the width & length for the Universe as a number followed by a comma then a number (e.g. '0,0')";
+        public const string RequestDimensions = "Please enter the width & length for the Universe as a number followed by a comma then a number (e.g. '0,0').";
 
         public const string GameEnd = "Game of Life has ended.";
 
-        public const string QuitGame = "Enter 'q' to quit Game.";
+        public const string QuitGame = "Tired of watching? Want it to end? Enter \"q\" to quit Game.";
+        
+        public const string RequestLiveCell = "Please enter the x, y coordinates for one live cell (e.g. '0,1')"; 
 
-        public const string Play = "enter 'p' to play game.";
+        public const string Play = "enter \"p\" to play game.";
 
-        public const string RequestLiveCell = "Please enter the x, y coordinates for one live cell (e.g. '0,1') "; 
+        public const string InvalidInput = "Invalid input. Please try again.";
     }
 }

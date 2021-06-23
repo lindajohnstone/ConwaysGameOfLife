@@ -29,34 +29,31 @@ namespace ConwaysGameOfLife
         */
         private Universe _universe;
 
-        private IOutput _output;
-
         private IInput _input;
 
-        public GameController(Universe universe, IOutput output, IInput input)
+        private IOutput _output;
+
+        public GameController(IInput input, IOutput output)
         {
-            _universe = universe;
-            _output = output;
             _input = input;
+            _output = output;
         }
 
         public void CreateInitialUniverse()
         {
             _output.WriteLine(Messages.RequestDimensions);
             var input = CreateValidUniverseString();
-            InputParser.ParseUniverse(input);
-            DisplayUniverse();
+            _universe = InputParser.ParseUniverse(input);
         }
 
         public void PopulateUniverseWithLiveCells()
         {
             // _output.Write(Messages.RequestLiveCell);
-            // _output.WriteLine($"Or {Messages.Play});
+            // _output.WriteLine($ or {Messages.Play});
             // loop
             // var locationInput = _input.ReadLine();
-            // var location = SetLiveCellLocation(locationInput, universe.GridWidth, universe.GridLength);
+            // var location = SetLiveCellLocation(locationInput, _universe.GridWidth, _universe.GridLength);
             // universe.SwitchCellState(universe.GetCellAtLocation(location.X, location.Y));
-            // DisplayUniverse();
             throw new NotImplementedException();
         }
 
@@ -70,43 +67,40 @@ namespace ConwaysGameOfLife
             _output.WriteLine(Messages.Welcome);
             // create initial universe
             CreateInitialUniverse();
+            DisplayUniverse();
             // add live cells to universe until user presses 'p' to play
+            // PopulateUniverseWithLiveCells();
+            // DisplayUniverse();
             // generator checks all cells if change of state required & creates next universe
             // loop last step until user presses 'q' to quit or all cells are dead
         }
-        
+
         public string CreateValidUniverseString()
         {
             var input = _input.ReadLine();
             var isValidUniverse = Validator.IsValidUniverse(input);
             while (!isValidUniverse)
             {
-                InvalidUniverseString(input);
+                _output.WriteLine(Messages.InvalidInput);
+                _output.WriteLine(Messages.RequestDimensions);
+                input = _input.ReadLine();
+                isValidUniverse = Validator.IsValidUniverse(input);
             }
             return input;
         }
 
-        private void InvalidUniverseString(string input)
-        {
-            _output.WriteLine($"Invalid input. Please try again.{Environment.NewLine}{Messages.RequestDimensions}");
-            CreateValidUniverseString();
-        }
-
-        public string CreateValidLocationString()
+        public string CreateValidLocationString(int gridWidth, int gridLength)
         {
             var input = _input.ReadLine();
-            var isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
+            var isValidLocation = Validator.IsValidLocation(input, gridWidth, gridLength);
             while (!isValidLocation) 
             {
-                InvalidLocationString(input);
+                _output.WriteLine(Messages.InvalidInput);
+                _output.WriteLine($"{Messages.RequestLiveCell}.");
+                input = _input.ReadLine();
+                isValidLocation = Validator.IsValidLocation(input, gridWidth, gridLength);
             }
             return input;
-        }
-
-        private void InvalidLocationString(string input)
-        {
-            _output.WriteLine($"Invalid input. Please try again.{Environment.NewLine}{Messages.RequestLiveCell}");
-            CreateValidLocationString();
         }
     }
 }
