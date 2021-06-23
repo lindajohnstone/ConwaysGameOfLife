@@ -9,22 +9,24 @@ namespace ConwaysGameOfLife.Tests
 
         StubInput _input;
 
+        GameController _controller;
         public GameControllerShould()
         {
             _output = new StubOutput();
             _input = new StubInput();
+            _controller = new GameController(_input, _output);
         }
         [Fact]
-        public void DisplayUniverse_GivenUniverseOfAllDeadCells() 
+        public void DisplayUniverse_GivenSuccessfulCreationOfInitialUniverse() 
         {
             var input = "3,3";
-            var controller = new GameController(_input, _output);
-            InputParser.ParseUniverse(input);
+            _input.GetReadLine(input);
+            _controller.CreateInitialUniverse();
             var expected = "💀💀💀\n💀💀💀\n💀💀💀\n";
 
-            controller.DisplayUniverse();
-
-            Assert.Equal(expected, _output.GetWriteLine());
+            _controller.DisplayUniverse();
+            var lastLine = _output.GetLastWriteLine();
+            Assert.Equal(expected, lastLine);
         }
 
         [Theory]
@@ -32,12 +34,11 @@ namespace ConwaysGameOfLife.Tests
         [InlineData("10,10")]
         public void ReturnUniverseString_GivenValidInput(string input)
         {
-            var controller = new GameController(_input, _output);
             InputParser.ParseUniverse(input);
             _input.GetReadLine(input);
             var expected = input;
 
-            var result = controller.CreateValidUniverseString();
+            var result = _controller.CreateValidUniverseString();
 
             Assert.Equal(expected, result);
         }
@@ -53,12 +54,11 @@ namespace ConwaysGameOfLife.Tests
         // [InlineData("10,0")]
         public void NotReturnUniverseString_GivenInvalidInput(string input)
         {
-            var controller = new GameController(_input, _output);
             InputParser.ParseUniverse(input);
             _input.GetReadLine(input);
-            var expected = input;
+            var expected = "Invalid input. Please try again. Please enter the x, y coordinates for one live cell (e.g. '0,1').";
 
-            var result = controller.CreateValidUniverseString();
+            var result = _controller.CreateValidUniverseString();
 
             Assert.Equal(expected, result);
         }
@@ -69,12 +69,11 @@ namespace ConwaysGameOfLife.Tests
         [InlineData("2,1", 4, 6)]
         public void ReturnLocationString_GivenValidInput(string input, int gridWidth, int gridLength)
         {
-            var controller = new GameController(_input, _output);
             InputParser.ParseUniverse(input);
             _input.GetReadLine(input);
             var expected = input;
 
-            var result = controller.CreateValidLocationString(gridWidth, gridLength);
+            var result = _controller.CreateValidLocationString(gridWidth, gridLength);
 
             Assert.Equal(expected, result);
         }

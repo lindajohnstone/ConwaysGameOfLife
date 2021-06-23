@@ -43,13 +43,13 @@ namespace ConwaysGameOfLife
         {
             _output.WriteLine(Messages.RequestDimensions);
             var input = CreateValidUniverseString();
-            InputParser.ParseUniverse(input);
+            _universe = InputParser.ParseUniverse(input);
         }
 
         public void PopulateUniverseWithLiveCells()
         {
             // _output.Write(Messages.RequestLiveCell);
-            // _output.WriteLine($"Or {Messages.Play});
+            // _output.WriteLine($ or {Messages.Play});
             // loop
             // var locationInput = _input.ReadLine();
             // var location = SetLiveCellLocation(locationInput, universe.GridWidth, universe.GridLength);
@@ -96,7 +96,7 @@ namespace ConwaysGameOfLife
             {
                 _output.WriteLine(Messages.InvalidInput);
                 _output.WriteLine($"{Messages.RequestLiveCell}.");
-                _input.ReadLine();
+                input = _input.ReadLine();
                 isValidLocation = Validator.IsValidLocation(input, gridWidth, gridLength);
             }
             return input;

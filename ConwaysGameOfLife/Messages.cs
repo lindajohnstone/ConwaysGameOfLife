@@ -10,7 +10,7 @@ namespace ConwaysGameOfLife
 
         public const string QuitGame = "Tired of watching? Want it to end? Enter \"q\" to quit Game.";
         
-        public const string RequestLiveCell = "Please enter the x, y coordinates for one live cell (e.g. '0,1') "; 
+        public const string RequestLiveCell = "Please enter the x, y coordinates for one live cell (e.g. '0,1')"; 
 
         public const string Play = "enter \"p\" to play game.";
 
