@@ -15,10 +15,11 @@ namespace ConwaysGameOfLife.Tests
             _input = new StubInput();
         }
         [Fact]
-        public void FormatUniverse_GivenUniverseOfAllDeadCells() 
+        public void DisplayUniverse_GivenUniverseOfAllDeadCells() 
         {
-            var universe = new Universe(3, 3);
-            var controller = new GameController(universe, _output, _input);
+            var input = "3,3";
+            var controller = new GameController(_input, _output);
+            InputParser.ParseUniverse(input);
             var expected = "💀💀💀\n💀💀💀\n💀💀💀\n";
 
             controller.DisplayUniverse();
@@ -27,12 +28,12 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Theory]
-        [InlineData("3,3", 3, 3)]
-        [InlineData("10,10", 10, 10)]
-        public void ReturnUniverseString_GivenValidInput(string input, int gridWidth, int gridLength)
+        [InlineData("3,3")]
+        [InlineData("10,10")]
+        public void ReturnUniverseString_GivenValidInput(string input)
         {
-            var universe = new Universe(gridWidth, gridLength);
-            var controller = new GameController(universe, _output, _input);
+            var controller = new GameController(_input, _output);
+            InputParser.ParseUniverse(input);
             _input.GetReadLine(input);
             var expected = input;
 
@@ -41,8 +42,26 @@ namespace ConwaysGameOfLife.Tests
             Assert.Equal(expected, result);
         }
 
-        //TODO: how to test error message in CreateValidUniverseString
+        [Theory]
+        [InlineData("0,3")]
+        // [InlineData("4 4")]
+        // [InlineData(",,")]
+        // [InlineData("3,3,")]
+        // [InlineData("3,3,3")]
+        // [InlineData("a,b")]
+        // [InlineData("-1,4")]
+        // [InlineData("10,0")]
+        public void NotReturnUniverseString_GivenInvalidInput(string input)
+        {
+            var controller = new GameController(_input, _output);
+            InputParser.ParseUniverse(input);
+            _input.GetReadLine(input);
+            var expected = input;
 
+            var result = controller.CreateValidUniverseString();
+
+            Assert.Equal(expected, result);
+        }
         [Theory]
         [InlineData("0,0", 3, 3)]
         [InlineData("0,0", 4, 3)]
@@ -50,23 +69,16 @@ namespace ConwaysGameOfLife.Tests
         [InlineData("2,1", 4, 6)]
         public void ReturnLocationString_GivenValidInput(string input, int gridWidth, int gridLength)
         {
-            var universe = new Universe(gridWidth, gridLength);
-            var controller = new GameController(universe, _output, _input);
+            var controller = new GameController(_input, _output);
+            InputParser.ParseUniverse(input);
             _input.GetReadLine(input);
             var expected = input;
 
-            var result = controller.CreateValidLocationString();
+            var result = controller.CreateValidLocationString(gridWidth, gridLength);
 
             Assert.Equal(expected, result);
         }
 
         //TODO: how to test error message in CreateValidLocationString
-
-        [Fact]
-        public void testName()
-        {
-            var universe = new Universe(3, 3);
-            Assert.Equal(3, universe.GridWidth);
-        }
     }
 }
