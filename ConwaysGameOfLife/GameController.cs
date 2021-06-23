@@ -52,9 +52,8 @@ namespace ConwaysGameOfLife
             // _output.WriteLine($ or {Messages.Play});
             // loop
             // var locationInput = _input.ReadLine();
-            // var location = SetLiveCellLocation(locationInput, universe.GridWidth, universe.GridLength);
+            // var location = SetLiveCellLocation(locationInput, _universe.GridWidth, _universe.GridLength);
             // universe.SwitchCellState(universe.GetCellAtLocation(location.X, location.Y));
-            // DisplayUniverse();
             throw new NotImplementedException();
         }
 
@@ -70,10 +69,12 @@ namespace ConwaysGameOfLife
             CreateInitialUniverse();
             DisplayUniverse();
             // add live cells to universe until user presses 'p' to play
+            // PopulateUniverseWithLiveCells();
+            // DisplayUniverse();
             // generator checks all cells if change of state required & creates next universe
             // loop last step until user presses 'q' to quit or all cells are dead
         }
-        
+
         public string CreateValidUniverseString()
         {
             var input = _input.ReadLine();

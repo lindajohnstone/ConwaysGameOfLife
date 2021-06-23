@@ -17,14 +17,15 @@ namespace ConwaysGameOfLife.Tests
             _input = new StubInput();
             _controller = new GameController(_input, _output);
         }
-        [Fact]
-        public void DisplayUniverse_GivenSuccessfulCreationOfInitialUniverse() // TODO: make theory test
+        [Theory]
+        [InlineData("3,3", "💀💀💀\n💀💀💀\n💀💀💀\n")]
+        [InlineData("3,2", "💀💀💀\n💀💀💀\n")]
+        [InlineData("9,9", "💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n")]
+        public void DisplayUniverse_GivenSuccessfulCreationOfInitialUniverse(string input, string expected) 
         {
-            var input = "3,3";
             _input.GetReadLine(input);
             _controller.CreateInitialUniverse();
-            var expected = "💀💀💀\n💀💀💀\n💀💀💀\n";
-
+            
             _controller.DisplayUniverse();
             var actual = _output.GetLastWriteLine();
             
@@ -47,13 +48,13 @@ namespace ConwaysGameOfLife.Tests
 
         [Theory]
         [InlineData(new string[] { "0,3", "3,0" }, "1,1")]
-        [InlineData(new string[] { "0,3", "3,0", "4 4" }, "3,3")]
-        [InlineData(new string[] { "0,3", "3,0", "4 4", ",," }, "10,10")]
-        [InlineData(new string[] { "0,3", "3,0", "4 4", ",,", "3,3," }, "10,10")]
-        [InlineData(new string[] { "0,3", "3,0", "4 4", ",,", "3,3,", "3,3,3" }, "3,3")]
-        [InlineData(new string[] { "0,3", "3,0", "4 4", ",,", "3,3,", "3,3,3", "a,b" }, "3,3")]
-        [InlineData(new string[] { "0,3", "3,0", "4 4", ",,", "3,3,", "3,3,3", "a,b", "-1,4" }, "3,3")]
-        [InlineData(new string[] { "0,3", "3,0", "4 4", ",,", "3,3,", "3,3,3", "a,b", "-1,4", "10,0" }, "3,3")]
+        [InlineData(new string[] { "0;3", "3-0", "4 4" }, "3,3")]
+        [InlineData(new string[] { ",," }, "10,10")]
+        [InlineData(new string[] { "3,3," }, "10,10")]
+        [InlineData(new string[] { "3,3,3", "3;3;" }, "3,3")]
+        [InlineData(new string[] { "a,b" }, "3,3")]
+        [InlineData(new string[] { "-1,4", "4,-1" }, "3,3")]
+        [InlineData(new string[] { "10,0", "0,10" }, "3,3")]
         public void ReturnUniverseString_GivenInvalidInputsFollowedByValidInput(IEnumerable<string> invalidInputs, string validInput)
         {
             _input.GetReadLine(invalidInputs);
@@ -90,16 +91,16 @@ namespace ConwaysGameOfLife.Tests
         [Theory]
         [InlineData(new string[] { "0,3" }, "2,2", "3,3", 3, 3)]
         [InlineData(new string[] { "3,0" }, "0,0", "3,3" , 3, 3)]
-        [InlineData(new string[] { ",," }, "2,2", "3,3", 3, 3)]
-        [InlineData(new string[] { "3,3," }, "3,2", "4,3", 4, 3)]
+        [InlineData(new string[] { ",,", ";;" }, "2,2", "3,3", 3, 3)]
+        [InlineData(new string[] { "3,3,", "3,4;" }, "3,2", "4,3", 4, 3)]
         [InlineData(new string[] { "3,3,3" },"3,2", "4,3", 4, 3)]
         [InlineData(new string[] { "a,b" }, "1,1", "3,3", 3, 3)]
         [InlineData(new string[] { "-1,4" }, "2,0", "3,3", 3, 3)]
         [InlineData(new string[] { "4,-1" }, "2,2", "3,3", 3, 3)]
         //[InlineData(new string[] { "4 4" }, "2,1", "4 3", 4, 3)] // ThrowOverflowOrFormatException
-        public void ReturnLocationString_GivenInvalidInputsFollowedByValidInput(IEnumerable<string> invalidInputs, string validInput, string universeString, int gridWidth, int gridLength)
+        public void ReturnLocationString_GivenInvalidInputsFollowedByValidInput(IEnumerable<string> invalidInputs, string validInput, string universeInput, int gridWidth, int gridLength)
         {
-            InputParser.ParseUniverse(universeString);
+            InputParser.ParseUniverse(universeInput);
             _input.GetReadLine(invalidInputs);
             _input.GetReadLine(validInput);
             var expectedOutputLine1 = "Invalid input. Please try again.";
