@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ConwaysGameOfLife.Tests
 {
@@ -21,7 +22,7 @@ namespace ConwaysGameOfLife.Tests
             _queue.Enqueue(value);
         }
 
-        public void GetReadLine(IEnumerable<string> values)
+        public void GetReadLine(IEnumerable<string> values) // TODO: change to linq 
         {
             foreach (var value in values)
             {

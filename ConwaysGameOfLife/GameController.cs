@@ -52,7 +52,8 @@ namespace ConwaysGameOfLife
             // _output.WriteLine($ or {Messages.Play});
             // loop
             // var locationInput = _input.ReadLine();
-            // var location = SetLiveCellLocation(locationInput, _universe.GridWidth, _universe.GridLength);
+            // CreateValidLocationString();
+            // var location = SetLiveCellLocation(locationInput);
             // universe.SwitchCellState(universe.GetCellAtLocation(location.X, location.Y));
             throw new NotImplementedException();
         }
@@ -89,16 +90,16 @@ namespace ConwaysGameOfLife
             return input;
         }
 
-        public string CreateValidLocationString(int gridWidth, int gridLength)
+        public string CreateValidLocationString()
         {
             var input = _input.ReadLine();
-            var isValidLocation = Validator.IsValidLocation(input, gridWidth, gridLength);
+            var isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
             while (!isValidLocation) 
             {
                 _output.WriteLine(Messages.InvalidInput);
                 _output.WriteLine($"{Messages.RequestLiveCell}.");
                 input = _input.ReadLine();
-                isValidLocation = Validator.IsValidLocation(input, gridWidth, gridLength);
+                isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
             }
             return input;
         }

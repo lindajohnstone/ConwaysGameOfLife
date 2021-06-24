@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace ConwaysGameOfLife.Tests
@@ -37,7 +38,6 @@ namespace ConwaysGameOfLife.Tests
         [InlineData("10,10")]
         public void ReturnUniverseString_GivenValidInput(string input)
         {
-            InputParser.ParseUniverse(input);
             _input.GetReadLine(input);
             var expected = input;
 
@@ -63,7 +63,7 @@ namespace ConwaysGameOfLife.Tests
             var expectedOutputLine2 = "Please enter the width & length for the Universe as a number followed by a comma then a number (e.g. '0,0').";
 
             var result = _controller.CreateValidUniverseString();
-            var actualOutputLine1 = _output.GetWriteLine(0);
+            var actualOutputLine1 = _output.GetWriteLine(0);// TODO: dynamic indices
             var actualOutputLine2 = _output.GetWriteLine(1);
 
             Assert.Equal(validInput, result);
@@ -73,58 +73,53 @@ namespace ConwaysGameOfLife.Tests
 
 
         [Theory]
-        [InlineData("0,0", "3,3", 3, 3)]
-        [InlineData("0,0", "4,3", 4, 3)]
-        [InlineData("2,1", "10,5", 10, 5)]
-        [InlineData("2,1", "4,6", 4, 6)]
-        public void ReturnLocationString_GivenValidInput(string input, string universeInput, int gridWidth, int gridLength)
+        [InlineData("0,0", "3,3")]
+        [InlineData("0,0", "4,3")]
+        [InlineData("2,1", "10,5")]
+        [InlineData("2,1", "4,6")]
+        public void ReturnLocationString_GivenValidInput(string input, string universeInput)
         {
-            InputParser.ParseUniverse(universeInput);
+            _input.GetReadLine(universeInput);
+            _controller.CreateInitialUniverse();
             _input.GetReadLine(input);
             var expected = input;
 
-            var result = _controller.CreateValidLocationString(gridWidth, gridLength);
+            var result = _controller.CreateValidLocationString();
 
             Assert.Equal(expected, result);
         }
 
         [Theory]
-        [InlineData(new string[] { "0,3" }, "2,2", "3,3", 3, 3)]
-        [InlineData(new string[] { "3,0" }, "0,0", "3,3" , 3, 3)]
-        [InlineData(new string[] { ",,", ";;" }, "2,2", "3,3", 3, 3)]
-        [InlineData(new string[] { "3,3,", "3,4;" }, "3,2", "4,3", 4, 3)]
-        [InlineData(new string[] { "3,3,3" },"3,2", "4,3", 4, 3)]
-        [InlineData(new string[] { "a,b" }, "1,1", "3,3", 3, 3)]
-        [InlineData(new string[] { "-1,4" }, "2,0", "3,3", 3, 3)]
-        [InlineData(new string[] { "4,-1" }, "2,2", "3,3", 3, 3)]
-        //[InlineData(new string[] { "4 4" }, "2,1", "4 3", 4, 3)] // ThrowOverflowOrFormatException
-        public void ReturnLocationString_GivenInvalidInputsFollowedByValidInput(IEnumerable<string> invalidInputs, string validInput, string universeInput, int gridWidth, int gridLength)
+        [InlineData(new string[] { "0,3" }, "2,2", "3,3")]
+        [InlineData(new string[] { "3,0" }, "0,0", "3,3")]
+        [InlineData(new string[] { ",,", ";;" }, "2,2", "10,10")] // failing
+        [InlineData(new string[] { "3,3,", "3,4;" }, "3,2", "4,4")] // failing
+        [InlineData(new string[] { "3,3,3" },"3,2", "5,4")]
+        [InlineData(new string[] { "a,b", "0,a", "o,9" }, "1,1", "2,2")]
+        [InlineData(new string[] { "-1,4", "a,b", "0,a", "o,9" }, "2,0", "3,3")] // failing
+        [InlineData(new string[] { "4,-1" }, "2,2", "5,5")]
+        [InlineData(new string[] { "4 4" }, "2,1", "3,3")] 
+        public void ReturnLocationString_GivenInvalidInputsFollowedByValidInput(IEnumerable<string> invalidInputs, string validInput, string universeInput)
         {
-            InputParser.ParseUniverse(universeInput);
+            _input.GetReadLine(universeInput);
+            _controller.CreateInitialUniverse();
             _input.GetReadLine(invalidInputs);
             _input.GetReadLine(validInput);
-            var expectedOutputLine1 = "Invalid input. Please try again.";
-            var expectedOutputLine2 = "Please enter the x, y coordinates for one live cell (e.g. '0,1').";
+            var invalidOutputMessageLine1 = "Invalid input. Please try again.";
+            var invalidOutputMessageLine2 = "Please enter the x, y coordinates for one live cell (e.g. '0,1').";
+            var count = invalidInputs.Count();
 
-            var result = _controller.CreateValidLocationString(gridWidth, gridLength);
-            var actualOutputLine1 = _output.GetWriteLine(0);
-            var actualOutputLine2 = _output.GetWriteLine(1);
+            var result = _controller.CreateValidLocationString();
+
+            for (var i = 1; i <= count; i+=2)
+            {
+                var actualOutput = _output.GetWriteLine(i); 
+                Assert.Equal(invalidOutputMessageLine1, actualOutput);
+                var actualOutputLine2 = _output.GetWriteLine(i + 1); 
+                Assert.Equal(invalidOutputMessageLine2, actualOutputLine2);
+            }
 
             Assert.Equal(validInput, result);
-            Assert.Equal(expectedOutputLine1, actualOutputLine1);
-            Assert.Equal(expectedOutputLine2, actualOutputLine2);
-        }
-
-        [Theory]
-        [InlineData(new string[] { "0,0" }, "-9,0", "0,0", -10, 3)] 
-        [InlineData(new string[] { "0,0" }, "-9,0", "0,0", 3, -10)] 
-        public void ThrowInvalidOperationException_GivenInvalidLocationInputsFollowedByValidLocationInputWithInvalidUniverseInput(IEnumerable<string> invalidInputs, string validInput, string universeString, int gridWidth, int gridLength)
-        {
-            InputParser.ParseUniverse(universeString);
-            _input.GetReadLine(invalidInputs);
-            _input.GetReadLine(validInput);
-    
-            Assert.Throws<InvalidOperationException>(() => _controller.CreateValidLocationString(gridWidth, gridLength));
         }
     }
 }
