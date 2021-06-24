@@ -84,7 +84,6 @@ namespace ConwaysGameOfLife
         }
 
         public Cell SwitchCellState(Cell cell) // changes the state of the cell // TODO: rename. 
-        // NB should universe check state of cell & neighbours against the rules then create a new universe?
         {
             if (cell.IsAlive())
             {
