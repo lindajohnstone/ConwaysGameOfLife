@@ -39,34 +39,9 @@ namespace ConwaysGameOfLife
             _output = output;
         }
 
-        public void CreateInitialUniverse()
-        {
-            _output.WriteLine(Messages.RequestDimensions);
-            var input = CreateValidUniverseString();
-            _universe = InputParser.ParseUniverse(input);
-        }
-
-        public void PopulateUniverseWithLiveCells()
-        {
-            // _output.Write(Messages.RequestLiveCell);
-            // _output.WriteLine($ or {Messages.Play});
-            // loop
-            // var locationInput = _input.ReadLine();
-            // CreateValidLocationString();
-            // var location = SetLiveCellLocation(locationInput);
-            // universe.SwitchCellState(universe.GetCellAtLocation(location.X, location.Y));
-            throw new NotImplementedException();
-        }
-
-        public void DisplayUniverse() 
-        {
-            _output.WriteLine(OutputFormatter.FormatUniverse(_universe));
-        }
-
         public void Run()
         {
             _output.WriteLine(Messages.Welcome);
-            // create initial universe
             CreateInitialUniverse();
             DisplayUniverse();
             // add live cells to universe until user presses 'p' to play
@@ -75,6 +50,30 @@ namespace ConwaysGameOfLife
             // generator checks all cells if change of state required & creates next universe
             // loop last step until user presses 'q' to quit or all cells are dead
         }
+
+        public void CreateInitialUniverse()
+        {
+            _output.WriteLine(Messages.RequestDimensions);
+            var input = CreateValidUniverseString();
+            _universe = InputParser.ParseUniverse(input);
+        }
+
+        public void DisplayUniverse()
+        {
+            _output.WriteLine(OutputFormatter.FormatUniverse(_universe));
+        }
+
+        public void PopulateUniverseWithLiveCells()
+        {
+            _output.Write(Messages.RequestLiveCell);
+            _output.WriteLine($"or {Messages.Play}");
+            //loop until player presses "p" to play
+            var locationInput = CreateValidLocationString();
+            var location = InputParser.ParseLocation(locationInput);
+            _universe.SwitchCellState(_universe.GetCellAtLocation(location.X, location.Y));
+        }
+
+        
 
         public string CreateValidUniverseString()
         {
@@ -102,6 +101,13 @@ namespace ConwaysGameOfLife
                 isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
             }
             return input;
+        }
+
+        public Cell SetLiveCellLocation(Location location)
+        {
+            var cell = _universe.GetCellAtLocation(location.X, location.Y); 
+            cell = new Cell(CellState.Alive, location.X, location.Y);
+            return cell;
         }
     }
 }
