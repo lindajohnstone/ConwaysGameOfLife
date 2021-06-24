@@ -59,18 +59,22 @@ namespace ConwaysGameOfLife.Tests
         {
             _input.GetReadLine(invalidInputs);
             _input.GetReadLine(validInput);
-            var expectedOutputLine1 = "Invalid input. Please try again.";
-            var expectedOutputLine2 = "Please enter the width & length for the Universe as a number followed by a comma then a number (e.g. '0,0').";
+            var invalidOutputMessageLine1 = "Invalid input. Please try again.";
+            var invalidOutputMessageLine2 = "Please enter the width & length for the Universe as a number followed by a comma then a number (e.g. '0,0').";
+            var count = invalidInputs.Count();
 
             var result = _controller.CreateValidUniverseString();
-            var actualOutputLine1 = _output.GetWriteLine(0);// TODO: dynamic indices
-            var actualOutputLine2 = _output.GetWriteLine(1);
+
+            for (var i = 0; i <= count; i += 2)
+            {
+                var actualOutput = _output.GetWriteLine(i);
+                Assert.Equal(invalidOutputMessageLine1, actualOutput);
+                var actualOutputLine2 = _output.GetWriteLine(i + 1);
+                Assert.Equal(invalidOutputMessageLine2, actualOutputLine2);
+            }
 
             Assert.Equal(validInput, result);
-            Assert.Equal(expectedOutputLine1, actualOutputLine1);
-            Assert.Equal(expectedOutputLine2, actualOutputLine2);
         }
-
 
         [Theory]
         [InlineData("0,0", "3,3")]
