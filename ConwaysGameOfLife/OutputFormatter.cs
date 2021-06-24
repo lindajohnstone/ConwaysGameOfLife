@@ -14,7 +14,8 @@ namespace ConwaysGameOfLife
             {
                 for (var x = 0; x < universe.GridWidth; x++)
                 {
-                    var state = universe.GetCellAtLocation(x, y).CellState;
+                    var location = new Location(x, y);
+                    var state = universe.GetCellAtLocation(location).CellState;
                     if (state == CellState.Dead)
                     {
                         stringBuilder.Append("💀");

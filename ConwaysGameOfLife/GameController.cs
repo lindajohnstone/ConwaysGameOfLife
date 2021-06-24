@@ -70,7 +70,7 @@ namespace ConwaysGameOfLife
             //loop until player presses "p" to play
             var locationInput = CreateValidLocationString();
             var location = InputParser.ParseLocation(locationInput);
-            _universe.SwitchCellState(_universe.GetCellAtLocation(location.X, location.Y));
+            _universe.SwitchCellState(_universe.GetCellAtLocation(location));
         }
 
         
@@ -103,11 +103,12 @@ namespace ConwaysGameOfLife
             return input;
         }
 
-        public Cell SetLiveCellLocation(Location location)
+        public Universe ReturnUniverseAfterSettingLiveCellLocation(Location location)
         {
-            var cell = _universe.GetCellAtLocation(location.X, location.Y); 
-            cell = new Cell(CellState.Alive, location.X, location.Y);
-            return cell;
+            // var cell = _universe.GetCellAtLocation(location.X, location.Y); 
+            // cell = new Cell(CellState.Alive, location.X, location.Y);
+            // return cell;
+            throw new NotImplementedException();
         }
     }
 }

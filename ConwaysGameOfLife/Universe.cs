@@ -74,7 +74,7 @@ namespace ConwaysGameOfLife
             var neighbourLocations = GetCellNeighbourLocations(cell);
             foreach (var neighbour in neighbourLocations)
             {
-                var state = GetCellAtLocation(neighbour.X, neighbour.Y).CellState;
+                var state = GetCellAtLocation(neighbour).CellState;
                 if (state == CellState.Alive)
                 {
                     aliveNeighbours++;
@@ -92,9 +92,9 @@ namespace ConwaysGameOfLife
             return new Cell(CellState.Alive, cell.Location.X, cell.Location.Y);
         }
 
-        public Cell GetCellAtLocation(int x, int y)
+        public Cell GetCellAtLocation(Location location)
         {
-            return Cells.FirstOrDefault(cell => cell.Location.X == x && cell.Location.Y == y);
+            return Cells.FirstOrDefault(cell => cell.Location.X == location.X && cell.Location.Y == location.Y);
         }
     }
 }
