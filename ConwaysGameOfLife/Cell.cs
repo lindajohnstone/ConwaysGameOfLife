@@ -20,5 +20,10 @@ namespace ConwaysGameOfLife
         {
             return CellState == CellState.Alive;
         }
+
+        public void SwitchCellState()
+        {
+            CellState = IsAlive() ? CellState.Dead : CellState.Alive;
+        }
     }
 }

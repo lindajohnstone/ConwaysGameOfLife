@@ -127,7 +127,7 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void SetLiveCellLocation()
+        public void SetLiveCellLocation_GivenValidInput()
         {
             var universeInput = "3,3";
             var input = "1,2";
@@ -139,7 +139,7 @@ namespace ConwaysGameOfLife.Tests
 
             var result = _controller.ReturnUniverseAfterSettingLiveCellLocation(location);
 
-            //Assert.Equal(CellState.Alive, result.CellState);
+            Assert.Equal(CellState.Alive, result.GetCellAtLocation(location).CellState);
         }
     }
 }

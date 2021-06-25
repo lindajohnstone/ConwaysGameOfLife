@@ -105,10 +105,9 @@ namespace ConwaysGameOfLife
 
         public Universe ReturnUniverseAfterSettingLiveCellLocation(Location location)
         {
-            // var cell = _universe.GetCellAtLocation(location.X, location.Y); 
-            // cell = new Cell(CellState.Alive, location.X, location.Y);
-            // return cell;
-            throw new NotImplementedException();
+            var cell = _universe.GetCellAtLocation(location); 
+            cell.SwitchCellState();
+            return _universe;
         }
     }
 }
