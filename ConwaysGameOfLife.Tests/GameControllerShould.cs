@@ -33,38 +33,6 @@ namespace ConwaysGameOfLife.Tests
         //     Assert.Equal(expected, actual);
         // }
 
-        
-
-        // [Theory]
-        // [InlineData(new string[] { "0,3", "3,0" }, "1,1")]
-        // [InlineData(new string[] { "0;3", "3-0", "4 4" }, "3,3")]
-        // [InlineData(new string[] { ",," }, "10,10")]
-        // [InlineData(new string[] { "3,3," }, "10,10")]
-        // [InlineData(new string[] { "3,3,3", "3;3;" }, "3,3")]
-        // [InlineData(new string[] { "a,b" }, "3,3")]
-        // [InlineData(new string[] { "-1,4", "4,-1" }, "3,3")]
-        // [InlineData(new string[] { "10,0", "0,10" }, "3,3")]
-        // public void ReturnUniverseString_GivenInvalidInputsFollowedByValidInput(IEnumerable<string> invalidInputs, string validInput)
-        // {
-        //     _input.GetReadLine(invalidInputs);
-        //     _input.GetReadLine(validInput);
-        //     var invalidOutputMessageLine1 = "Invalid input. Please try again.";
-        //     var invalidOutputMessageLine2 = "Please enter the width & length for the Universe as a number followed by a comma then a number (e.g. '0,0').";
-        //     var count = invalidInputs.Count();
-
-        //     var result = _controller.CreateValidUniverseString();
-
-        //     for (var i = 0; i <= count; i += 2)
-        //     {
-        //         var actualOutput = _output.GetWriteLine(i);
-        //         Assert.Equal(invalidOutputMessageLine1, actualOutput);
-        //         var actualOutputLine2 = _output.GetWriteLine(i + 1);
-        //         Assert.Equal(invalidOutputMessageLine2, actualOutputLine2);
-        //     }
-
-        //     Assert.Equal(validInput, result);
-        // }
-
         // [Theory]
         // [InlineData("0,0", "3,3")]
         // [InlineData("0,0", "4,3")]
@@ -154,7 +122,27 @@ namespace ConwaysGameOfLife.Tests
             
             _controller.Run();
             var actual = _output.GetLastWriteLine();
-            Console.WriteLine(actual);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData(new string[] { "0,3", "3,0" }, "3,3", "💀💀💀\n💀💀💀\n💀💀💀\n")]
+        [InlineData(new string[] { "0;3", "3-0", "4 4" }, "3,3", "💀💀💀\n💀💀💀\n💀💀💀\n")]
+        [InlineData(new string[] { ",," }, "9,9", "💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n")]
+        [InlineData(new string[] { "3,3," }, "9,9", "💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n")]
+        [InlineData(new string[] { "3,3,3", "3;3;" }, "3,3", "💀💀💀\n💀💀💀\n💀💀💀\n")]
+        [InlineData(new string[] { "a,b" }, "3,3", "💀💀💀\n💀💀💀\n💀💀💀\n")]
+        [InlineData(new string[] { "-1,4", "4,-1" }, "3,3", "💀💀💀\n💀💀💀\n💀💀💀\n")]
+        [InlineData(new string[] { "10,0", "0,10" }, "3,3", "💀💀💀\n💀💀💀\n💀💀💀\n")]
+        public void DisplayUniverse_GivenInvalidInputsFollowedByValidInput(IEnumerable<string> invalidInputs, string validInput, string expected)
+        {
+            _input.GetReadLine(invalidInputs);
+            _input.GetReadLine(validInput);
+            _input.GetReadLine("q");
+
+            _controller.Run();
+            var actual = _output.GetLastWriteLine();
 
             Assert.Equal(expected, actual);
         }
