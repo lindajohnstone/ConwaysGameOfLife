@@ -42,8 +42,24 @@ namespace ConwaysGameOfLife
         public void Run()
         {
             _output.WriteLine(Messages.Welcome);
-            CreateInitialUniverse();
+            _output.WriteLine(Messages.RequestDimensions);
+            var input = _input.ReadLine();
+            
+            if (UserEndsGame(input)) return;
+            var isValidUniverse = Validator.IsValidUniverse(input);
+            while (!isValidUniverse)
+            {
+                _output.WriteLine(Messages.InvalidInput);
+                _output.WriteLine(Messages.RequestDimensions);
+                input = _input.ReadLine();
+                isValidUniverse = Validator.IsValidUniverse(input);
+            }
+            _universe = InputParser.ParseUniverse(input);
+            //CreateInitialUniverse(input);
             DisplayUniverse();
+            input = _input.ReadLine();
+
+            if (UserEndsGame(input)) return;
             // add live cells to universe until user presses 'p' to play
             // PopulateUniverseWithLiveCells();
             // DisplayUniverse();
@@ -51,12 +67,21 @@ namespace ConwaysGameOfLife
             // loop last step until user presses 'q' to quit or all cells are dead
         }
 
-        public void CreateInitialUniverse()
+        private bool UserEndsGame(string input)
         {
-            _output.WriteLine(Messages.RequestDimensions);
-            var input = CreateValidUniverseString();
-            _universe = InputParser.ParseUniverse(input);
+            if (input == "q")
+            {
+                return true;
+            }
+            return false;
         }
+
+        // public void CreateInitialUniverse(string input)
+        // {
+        //     _output.WriteLine(Messages.RequestDimensions);
+        //     var input = CreateValidUniverseString();
+        //     _universe = InputParser.ParseUniverse(input);
+        // }
 
         public void DisplayUniverse()
         {
