@@ -10,11 +10,11 @@ namespace ConwaysGameOfLife
         public static string FormatUniverse(Universe universe) // universe created with user input - dimensions & live cells ?? - needed??
         {
             StringBuilder stringBuilder = new StringBuilder();
-            for (var y = 0; y < universe.GridLength; y++)
+            for (var y = 0; y < universe.GridLength; y++)// TODO: problem here?? - should width be first loop?
             {
                 for (var x = 0; x < universe.GridWidth; x++)
                 {
-                    var location = new Location(x, y);
+                    var location = new Location(x, y); 
                     var state = universe.GetCellAtLocation(location).CellState;
                     if (state == CellState.Dead)
                     {

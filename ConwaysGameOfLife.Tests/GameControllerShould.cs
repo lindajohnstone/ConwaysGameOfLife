@@ -89,16 +89,16 @@ namespace ConwaysGameOfLife.Tests
         //     var universeInput = "3,3";
         //     var input = "1,2";
         //     _input.GetReadLine(universeInput);
-        //     _controller.CreateInitialUniverse();
+        //     _controller.CreateInitialUniverse(universeInput);
         //     _input.GetReadLine(input);
-        //     var locationString = _controller.CreateValidLocationString();
-        //     var location = InputParser.ParseLocation(locationString);
+        //     _controller.CreateValidLocationString(input);
+        //     var location = InputParser.ParseLocation(input);
 
         //     var result = _controller.ReturnUniverseAfterSettingLiveCellLocation(location);
 
         //     Assert.Equal(CellState.Alive, result.GetCellAtLocation(location).CellState);
-        // }
-
+        // }  
+             
         [Fact]
         public void EndRunImmediately_GivenQInput()
         {
@@ -115,6 +115,7 @@ namespace ConwaysGameOfLife.Tests
         [InlineData("3,3", "💀💀💀\n💀💀💀\n💀💀💀\n")]
         [InlineData("3,2", "💀💀💀\n💀💀💀\n")]
         [InlineData("9,9", "💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n")]
+        [InlineData("3,4", "💀💀💀\n💀💀💀\n💀💀💀\n💀💀💀\n")]
         public void DisplayUniverse_GivenValidUniverseString(string input, string expected)
         {
             _input.GetReadLine(input);
@@ -139,6 +140,22 @@ namespace ConwaysGameOfLife.Tests
         {
             _input.GetReadLine(invalidInputs);
             _input.GetReadLine(validInput);
+            _input.GetReadLine("q");
+
+            _controller.Run();
+            var actual = _output.GetLastWriteLine();
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData("3,3", "1,2", "💀💀💀\n💀💀💟\n💀💀💀\n")] // failing - displays live cell @ location 1,2
+        [InlineData("3,3", "2,0", "💀💀💀\n💀💀💀\n💟💀💀\n")] // failing - displays live cell @ location 0,2
+        [InlineData("3,2", "0,0", "💟💀💀\n💀💀💀\n")]
+        public void DisplayUniverse_GivenValidLocationString(string universeInput, string locationInput, string expected)
+        {
+            _input.GetReadLine(universeInput);
+            _input.GetReadLine(locationInput);
             _input.GetReadLine("q");
 
             _controller.Run();
