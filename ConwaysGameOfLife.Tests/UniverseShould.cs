@@ -26,7 +26,7 @@ namespace ConwaysGameOfLife.Tests
             var universe = new Universe(3, 3);
             var expected = CellState.Dead;
 
-            var result = universe.GetCellAtLocation(cell.Location.X, cell.Location.Y).CellState;
+            var result = universe.GetCellAtLocation(cell.Location).CellState;
 
             Assert.Equal(expected, result);
         }
@@ -45,7 +45,8 @@ namespace ConwaysGameOfLife.Tests
                             row2 + Environment.NewLine +
                             row3;
             var universe = UniverseHelper.InitializeUniverse(initData);
-            var cell = universe.GetCellAtLocation(x, y);
+            var location = new Location(x, y);
+            var cell = universe.GetCellAtLocation(location);
 
             var result = universe.CountLiveNeighbours(cell);
 
@@ -65,8 +66,9 @@ namespace ConwaysGameOfLife.Tests
             var initData = row1 + Environment.NewLine +
                             row2 + Environment.NewLine +
                             row3;
+            var location = new Location(x, y);
             var universe = UniverseHelper.InitializeUniverse(initData);
-            var cell = universe.GetCellAtLocation(x, y);
+            var cell = universe.GetCellAtLocation(location);
 
             var result = universe.CountLiveNeighbours(cell);
 
@@ -93,8 +95,9 @@ namespace ConwaysGameOfLife.Tests
             var x = 0;
             var y = 0;
             var universe = new Universe(gridWidth, gridLength);
+            var location = new Location(x, y);
 
-            var result = universe.GetCellAtLocation(x, y);
+            var result = universe.GetCellAtLocation(location);
 
             Assert.Equal(0, result.Location.X);
             Assert.Equal(0, result.Location.Y);

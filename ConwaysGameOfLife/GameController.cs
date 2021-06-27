@@ -42,8 +42,37 @@ namespace ConwaysGameOfLife
         public void Run()
         {
             _output.WriteLine(Messages.Welcome);
-            CreateInitialUniverse();
+            _output.WriteLine(Messages.RequestDimensions);
+            var input = _input.ReadLine();
+            
+            if (UserEndsGame(input)) return;
+
+            var isValidUniverse = Validator.IsValidUniverse(input);
+            while (!isValidUniverse)
+            {
+                _output.WriteLine(Messages.InvalidInput);
+                _output.WriteLine(Messages.RequestDimensions);
+                input = _input.ReadLine();
+                isValidUniverse = Validator.IsValidUniverse(input);
+            }
+            _universe = InputParser.ParseUniverse(input);
+            //CreateInitialUniverse(input);
             DisplayUniverse();
+            input = _input.ReadLine();
+
+            if (UserEndsGame(input)) return;
+
+            _output.Write(Messages.RequestLiveCell);
+            _output.WriteLine($"or {Messages.Play}");
+            var locationInput = CreateValidLocationString(input);
+            var location = InputParser.ParseLocation(locationInput);
+            var cell = _universe.GetCellAtLocation(location);
+            cell.SwitchCellState();
+            DisplayUniverse();
+
+            input = _input.ReadLine();
+
+            if (UserEndsGame(input)) return;
             // add live cells to universe until user presses 'p' to play
             // PopulateUniverseWithLiveCells();
             // DisplayUniverse();
@@ -51,10 +80,19 @@ namespace ConwaysGameOfLife
             // loop last step until user presses 'q' to quit or all cells are dead
         }
 
-        public void CreateInitialUniverse()
+        private bool UserEndsGame(string input)
+        {
+            if (input == "q")
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void CreateInitialUniverse(string input)
         {
             _output.WriteLine(Messages.RequestDimensions);
-            var input = CreateValidUniverseString();
+            input = CreateValidUniverseString();
             _universe = InputParser.ParseUniverse(input);
         }
 
@@ -63,17 +101,15 @@ namespace ConwaysGameOfLife
             _output.WriteLine(OutputFormatter.FormatUniverse(_universe));
         }
 
-        public void PopulateUniverseWithLiveCells()
-        {
-            _output.Write(Messages.RequestLiveCell);
-            _output.WriteLine($"or {Messages.Play}");
-            //loop until player presses "p" to play
-            var locationInput = CreateValidLocationString();
-            var location = InputParser.ParseLocation(locationInput);
-            _universe.SwitchCellState(_universe.GetCellAtLocation(location.X, location.Y));
-        }
-
-        
+        // public void PopulateUniverseWithLiveCells()
+        // {
+        //     _output.Write(Messages.RequestLiveCell);
+        //     _output.WriteLine($"or {Messages.Play}");
+        //     //loop until player presses "p" to play
+        //     var locationInput = CreateValidLocationString();
+        //     var location = InputParser.ParseLocation(locationInput);
+        //     _universe.SwitchCellState(_universe.GetCellAtLocation(location));
+        // }
 
         public string CreateValidUniverseString()
         {
@@ -89,9 +125,8 @@ namespace ConwaysGameOfLife
             return input;
         }
 
-        public string CreateValidLocationString()
+        public string CreateValidLocationString(string input)
         {
-            var input = _input.ReadLine();
             var isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
             while (!isValidLocation) 
             {
@@ -103,11 +138,11 @@ namespace ConwaysGameOfLife
             return input;
         }
 
-        public Cell SetLiveCellLocation(Location location)
+        public Universe ReturnUniverseAfterSettingLiveCellLocation(Location location)
         {
-            var cell = _universe.GetCellAtLocation(location.X, location.Y); 
-            cell = new Cell(CellState.Alive, location.X, location.Y);
-            return cell;
+            var cell = _universe.GetCellAtLocation(location); 
+            cell.SwitchCellState();
+            return _universe;
         }
     }
 }

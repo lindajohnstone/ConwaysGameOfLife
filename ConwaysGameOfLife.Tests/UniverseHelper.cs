@@ -18,8 +18,9 @@ namespace ConwaysGameOfLife.Tests
             {
                 for (var y = 0; y < universe1.GridLength; y++)
                 {
-                    var cell1 = universe1.GetCellAtLocation(x, y); 
-                    var cell2 = universe2.GetCellAtLocation(x, y);
+                    var location = new Location(x, y);
+                    var cell1 = universe1.GetCellAtLocation(location); 
+                    var cell2 = universe2.GetCellAtLocation(location);
                     if (cell1 == null || cell2 == null)
                     {
                         return false;
