@@ -67,6 +67,7 @@ namespace ConwaysGameOfLife
             _universe = InputParser.ParseUniverse(input);
             //CreateInitialUniverse(input);
             DisplayUniverse();
+            // loop starts here
             _output.Write(Messages.RequestLiveCell);
             _output.WriteLine($"or {Messages.Play}");
             // add live cells to universe until user presses 'p' to play
@@ -98,7 +99,7 @@ namespace ConwaysGameOfLife
             
             SetLiveCellLocation(location);
             DisplayUniverse();
-
+            // loop ends here
             input = _input.ReadLine();
 
             if (UserEndsGame(input))

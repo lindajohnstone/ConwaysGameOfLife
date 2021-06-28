@@ -22,9 +22,37 @@ namespace ConwaysGameOfLife.Tests
         [Fact]
         public void EndRunImmediately_GivenQInput()
         {
-            var expectedOutput = "Please enter the width & length for the Universe as a number followed by a comma then a number (e.g. '0,0').";
+            var expectedOutput = "Game of Life has ended.";
             var input = "q";
             _input.GetReadLine(input);
+
+            _controller.Run();
+
+            Assert.Equal(expectedOutput, _output.GetLastWriteLine());
+        }
+
+        [Theory]
+        [InlineData("3,3")]
+        [InlineData("0,3", "3,0")]
+        public void EndGame_GivenQInputDuringUniverseInput(params string[] inputs)
+        {
+            var expectedOutput = "Game of Life has ended.";
+            _input.GetReadLine(inputs);
+            _input.GetReadLine("q");
+
+            _controller.Run();
+
+            Assert.Equal(expectedOutput, _output.GetLastWriteLine());
+        }
+
+        [Theory]
+        [InlineData("5,5", "0,5")]
+        [InlineData("5,5", "0,4")]
+        public void EndGame_GivenQInputDuringLocationInput(string universeInput, params string[] inputs)
+        {
+            var expectedOutput = "Game of Life has ended.";
+            _input.GetReadLine(inputs);
+            _input.GetReadLine("q");
 
             _controller.Run();
 
@@ -42,7 +70,7 @@ namespace ConwaysGameOfLife.Tests
             _input.GetReadLine("q");
 
             _controller.Run();
-            var index = _output._outputList.Count - 2;
+            var index = _output.OutputList.Count - 4;
             var actual = _output.GetWriteLine(index);
 
             Assert.Equal(expected, actual);
@@ -64,7 +92,7 @@ namespace ConwaysGameOfLife.Tests
             _input.GetReadLine("q");
 
             _controller.Run();
-            var index = _output._outputList.Count - 2;
+            var index = _output.OutputList.Count - 4;
             var actual = _output.GetWriteLine(index);
 
             Assert.Equal(expected, actual);
@@ -81,39 +109,10 @@ namespace ConwaysGameOfLife.Tests
             _input.GetReadLine("q");
 
             _controller.Run();
-            var index = _output._outputList.Count - 2;
+            var index = _output.OutputList.Count - 2; // ?? 4 after loop
             var actual = _output.GetWriteLine(index);
 
             Assert.Equal(expected, actual);
-        }
-
-        [Theory]
-        [InlineData("3,3")]
-        [InlineData("0,3", "3,0")]
-        public void EndGame_GivenQInputDuringUniverseInput(params string[] inputs)
-        {
-            var expectedOutput = "Game of Life has ended.";
-            _input.GetReadLine(inputs);
-            _input.GetReadLine("q");
-
-            _controller.Run();
-
-            Assert.Equal(expectedOutput, _output.GetLastWriteLine());
-        }
-
-        [Theory]
-        [InlineData("5,5", "0,5")]
-        [InlineData("5,5", "0,4")]
-        //[InlineData("5,5", "0,5")]
-        public void EndGame_GivenQInputDuringLocationInput(string universeInput, params string[] inputs)
-        {
-            var expectedOutput = "Game of Life has ended.";
-            _input.GetReadLine(inputs);
-            _input.GetReadLine("q");
-
-            _controller.Run();
-
-            Assert.Equal(expectedOutput, _output.GetLastWriteLine());
         }
     }
 }

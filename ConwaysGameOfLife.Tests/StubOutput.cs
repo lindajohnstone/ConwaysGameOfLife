@@ -6,35 +6,31 @@ namespace ConwaysGameOfLife.Tests
 {
     public class StubOutput : IOutput
     {
-        public List<string> _outputList;
+        public List<string> OutputList { get; private set; } = new List<string>();
 
-        public StubOutput()
-        {
-            _outputList = new List<string>();
-        }
         public void Write(string value)
         {
-            _outputList.Add(value);
+            OutputList.Add(value);
         }
 
         public void WriteLine(string value)
         {
-            _outputList.Add(value);
+            OutputList.Add(value);
         }
 
         public string GetWriteLine()
         {
-            return String.Join("", _outputList);
+            return String.Join("", OutputList);
         }
 
         public string GetWriteLine(int i)
         {
-            return _outputList[i];
+            return OutputList[i];
         }
 
         public string GetLastWriteLine()
         {
-            return _outputList.LastOrDefault();
+            return OutputList.LastOrDefault();
         }
     }
 }
