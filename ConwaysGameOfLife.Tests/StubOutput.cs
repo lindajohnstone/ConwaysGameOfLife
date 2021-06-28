@@ -6,7 +6,7 @@ namespace ConwaysGameOfLife.Tests
 {
     public class StubOutput : IOutput
     {
-        List<string> _outputList;
+        public List<string> _outputList;
 
         public StubOutput()
         {

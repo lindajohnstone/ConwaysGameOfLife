@@ -47,7 +47,7 @@ namespace ConwaysGameOfLife
 
             if (UserEndsGame(input))
             {
-                //_output.WriteLine(Messages.GameEnd);
+                _output.WriteLine(Messages.GameEnd);
                 return;
             }
 
@@ -57,23 +57,45 @@ namespace ConwaysGameOfLife
                 _output.WriteLine(Messages.InvalidInput);
                 _output.WriteLine(Messages.RequestDimensions);
                 input = _input.ReadLine();
+                if (UserEndsGame(input))
+                {
+                    _output.WriteLine(Messages.GameEnd);
+                    return;
+                }
                 isValidUniverse = Validator.IsValidUniverse(input);
             }
             _universe = InputParser.ParseUniverse(input);
             //CreateInitialUniverse(input);
             DisplayUniverse();
+            _output.Write(Messages.RequestLiveCell);
+            _output.WriteLine($"or {Messages.Play}");
+            // add live cells to universe until user presses 'p' to play
+
             input = _input.ReadLine();
 
             if (UserEndsGame(input))
             {
-                //_output.WriteLine(Messages.GameEnd);
+                _output.WriteLine(Messages.GameEnd);
                 return;
             }
 
-            _output.Write(Messages.RequestLiveCell);
-            _output.WriteLine($"or {Messages.Play}");
-            var locationInput = CreateValidLocationString(input);
-            var location = InputParser.ParseLocation(locationInput);
+           
+            var isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
+            while (!isValidLocation)
+            {
+                _output.WriteLine(Messages.InvalidInput);
+                _output.WriteLine($"{Messages.RequestLiveCell}.");
+                input = _input.ReadLine();
+                
+                if (UserEndsGame(input))
+                {
+                    _output.WriteLine(Messages.GameEnd);
+                    return;
+                }
+                isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
+            }
+            var location = InputParser.ParseLocation(input);
+            
             SetLiveCellLocation(location);
             DisplayUniverse();
 
@@ -81,14 +103,22 @@ namespace ConwaysGameOfLife
 
             if (UserEndsGame(input))
             {
-                //_output.WriteLine(Messages.GameEnd);
+                _output.WriteLine(Messages.GameEnd);
                 return;
             }
-            // add live cells to universe until user presses 'p' to play
+            
             // PopulateUniverseWithLiveCells();
             // DisplayUniverse();
             // generator checks all cells if change of state required & creates next universe
             // loop last step until user presses 'q' to quit or all cells are dead
+        }
+
+        private void Play()
+        {
+            /*
+                Generator called to check rules & create new universe while game has not ended
+            */
+            throw new NotImplementedException();
         }
 
         private bool UserEndsGame(string input)
@@ -140,6 +170,7 @@ namespace ConwaysGameOfLife
                 _output.WriteLine(Messages.InvalidInput);
                 _output.WriteLine($"{Messages.RequestLiveCell}.");
                 input = _input.ReadLine();
+                
                 isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
             }
             return input;
