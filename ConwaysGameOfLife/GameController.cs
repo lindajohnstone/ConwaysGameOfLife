@@ -103,15 +103,8 @@ namespace ConwaysGameOfLife
             
             input = _input.ReadLine();
 
-            if (UserEndsGame(input))
-            {
-                _output.WriteLine(Messages.GameEnd);
-                return;
-            }
-            
-            // PopulateUniverseWithLiveCells();
-            // DisplayUniverse();
             // generator checks all cells if change of state required & creates next universe
+            
             // loop last step until user presses 'q' to quit or all cells are dead
         }
 

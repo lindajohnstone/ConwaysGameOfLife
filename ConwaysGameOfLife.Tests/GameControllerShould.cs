@@ -134,6 +134,7 @@ namespace ConwaysGameOfLife.Tests
         [InlineData("3,3", "💟💀💀\n💀💀💀\n💟💀💟\n", "0,2", "0,0", "0,3", "2,2")]
         [InlineData("3,2", "💟💟💀\n💟💀💀\n", "0,0", "0,1", "0,2", "1,0")]
         [InlineData("3,5", "💟💀💀\n💀💀💀\n💟💀💟\n💟💟💀\n💟💀💀\n", "0,0", "5,3", "5,0", "1,3", "0,4", "0,2", "0,3", "2,2")]
+        [InlineData("3,3", "💀💀💀\n💀💀💀\n💀💀💀\n", "0,0", "0,0")]
         public void DisplayUniverse_GivenValidAndInvalidLocationStrings(string universeInput, string expected, params string[] inputs)
         {
             _input.GetReadLine(universeInput);
