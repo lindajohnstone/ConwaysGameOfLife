@@ -28,7 +28,7 @@ namespace ConwaysGameOfLife.Tests
 
             _controller.Run();
 
-            Assert.Equal(expectedOutput, _output.GetLastWriteLine());
+            Assert.Equal(expectedOutput, _output.OutputList[^1]);
         }
 
         [Theory]
@@ -42,7 +42,7 @@ namespace ConwaysGameOfLife.Tests
 
             _controller.Run();
 
-            Assert.Equal(expectedOutput, _output.GetLastWriteLine());
+            Assert.Equal(expectedOutput, _output.OutputList[^1]);
         }
 
         [Theory]
@@ -51,12 +51,13 @@ namespace ConwaysGameOfLife.Tests
         public void EndGame_GivenQInputDuringLocationInput(string universeInput, params string[] inputs)
         {
             var expectedOutput = "Game of Life has ended.";
+            _input.GetReadLine(universeInput);
             _input.GetReadLine(inputs);
             _input.GetReadLine("q");
 
             _controller.Run();
 
-            Assert.Equal(expectedOutput, _output.GetLastWriteLine());
+            Assert.Equal(expectedOutput, _output.OutputList[^1]);
         }
 
         [Theory]
@@ -70,8 +71,7 @@ namespace ConwaysGameOfLife.Tests
             _input.GetReadLine("q");
 
             _controller.Run();
-            var index = _output.OutputList.Count - 4;
-            var actual = _output.GetWriteLine(index);
+            var actual = _output.OutputList[^4];
 
             Assert.Equal(expected, actual);
         }
@@ -92,8 +92,7 @@ namespace ConwaysGameOfLife.Tests
             _input.GetReadLine("q");
 
             _controller.Run();
-            var index = _output.OutputList.Count - 4;
-            var actual = _output.GetWriteLine(index);
+            var actual = _output.OutputList[^4];
 
             Assert.Equal(expected, actual);
         }
@@ -106,6 +105,39 @@ namespace ConwaysGameOfLife.Tests
         {
             _input.GetReadLine(universeInput);
             _input.GetReadLine(locationInput);
+            _input.GetReadLine("q");
+
+            _controller.Run();
+            var actual = _output.OutputList[^4];
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData("3,3", "💟💀💀\n💀💀💟\n💀💀💀\n", "2,1", "0,0")]
+        [InlineData("3,3", "💟💀💀\n💀💀💀\n💟💀💀\n", "0,2", "0,0")]
+        [InlineData("3,2", "💟💀💀\n💟💀💀\n", "0,0", "0,1")]
+        public void DisplayUniverse_GivenValidLocationStrings(string universeInput, string expected, params string[] inputs)
+        {
+            _input.GetReadLine(universeInput);
+            _input.GetReadLine(inputs);
+            _input.GetReadLine("q");
+
+            _controller.Run();
+            var actual = _output.OutputList[^4];
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData("3,3", "💟💀💀\n💀💀💟\n💀💀💀\n", "2,1", "0,3", "0,0")]
+        [InlineData("3,3", "💟💀💀\n💀💀💀\n💟💀💟\n", "0,2", "0,0", "0,3", "2,2")]
+        [InlineData("3,2", "💟💟💀\n💟💀💀\n", "0,0", "0,1", "0,2", "1,0")]
+        [InlineData("3,5", "💟💀💀\n💀💀💀\n💟💀💟\n💟💟💀\n💟💀💀\n", "0,0", "5,3", "5,0", "1,3", "0,4", "0,2", "0,3", "2,2")]
+        public void DisplayUniverse_GivenValidAndInvalidLocationStrings(string universeInput, string expected, params string[] inputs)
+        {
+            _input.GetReadLine(universeInput);
+            _input.GetReadLine(inputs);
             _input.GetReadLine("q");
 
             _controller.Run();

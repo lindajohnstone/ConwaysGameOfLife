@@ -17,20 +17,5 @@ namespace ConwaysGameOfLife.Tests
         {
             OutputList.Add(value);
         }
-
-        public string GetWriteLine()
-        {
-            return String.Join("", OutputList);
-        }
-
-        public string GetWriteLine(int i)
-        {
-            return OutputList[i];
-        }
-
-        public string GetLastWriteLine()
-        {
-            return OutputList.LastOrDefault();
-        }
     }
 }

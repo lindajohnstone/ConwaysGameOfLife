@@ -68,7 +68,7 @@ namespace ConwaysGameOfLife.Tests
             }
             return false;
         }
-        public static Universe InitializeUniverse(String sourceData) //TODO: rename?
+        public static Universe InitializeUniverse(String sourceData) 
         {
             var rows = SplitInput(sourceData, Environment.NewLine);
             var gridWidth = rows[0].Length;
