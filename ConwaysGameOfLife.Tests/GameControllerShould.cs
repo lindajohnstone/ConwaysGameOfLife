@@ -109,8 +109,7 @@ namespace ConwaysGameOfLife.Tests
             _input.GetReadLine("q");
 
             _controller.Run();
-            var index = _output.OutputList.Count - 2; // ?? 4 after loop
-            var actual = _output.GetWriteLine(index);
+            var actual = _output.OutputList[^4];
 
             Assert.Equal(expected, actual);
         }

@@ -68,37 +68,40 @@ namespace ConwaysGameOfLife
             //CreateInitialUniverse(input);
             DisplayUniverse();
             // loop starts here
-            _output.Write(Messages.RequestLiveCell);
-            _output.WriteLine($"or {Messages.Play}");
-            // add live cells to universe until user presses 'p' to play
-
-            input = _input.ReadLine();
-
-            if (UserEndsGame(input))
+            do
             {
-                _output.WriteLine(Messages.GameEnd);
-                return;
-            }
+                _output.Write(Messages.RequestLiveCell);
+                _output.WriteLine($"or {Messages.Play}");
+                // add live cells to universe until user presses 'p' to play
 
-           
-            var isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
-            while (!isValidLocation)
-            {
-                _output.WriteLine(Messages.InvalidInput);
-                _output.WriteLine($"{Messages.RequestLiveCell}.");
                 input = _input.ReadLine();
-                
+
                 if (UserEndsGame(input))
                 {
                     _output.WriteLine(Messages.GameEnd);
                     return;
                 }
-                isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
+
+                var isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
+                while (!isValidLocation)
+                {
+                    _output.WriteLine(Messages.InvalidInput);
+                    _output.WriteLine($"{Messages.RequestLiveCell}.");
+                    input = _input.ReadLine();
+
+                    if (UserEndsGame(input))
+                    {
+                        _output.WriteLine(Messages.GameEnd);
+                        return;
+                    }
+                    isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
+                }
+                var location = InputParser.ParseLocation(input);
+
+                SetLiveCellLocation(location);
+                DisplayUniverse();
             }
-            var location = InputParser.ParseLocation(input);
-            
-            SetLiveCellLocation(location);
-            DisplayUniverse();
+            while (input != "p");
             // loop ends here
             input = _input.ReadLine();
 
