@@ -74,7 +74,8 @@ namespace ConwaysGameOfLife
             var neighbourLocations = GetCellNeighbourLocations(cell);
             foreach (var neighbour in neighbourLocations)
             {
-                var state = GetCellAtLocation(neighbour).CellState;
+                var neighbouringCell = GetCellAtLocation(neighbour);
+                var state = neighbouringCell.CellState;
                 if (state == CellState.Alive)
                 {
                     aliveNeighbours++;

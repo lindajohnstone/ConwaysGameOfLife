@@ -26,7 +26,8 @@ namespace ConwaysGameOfLife.Tests
             var universe = new Universe(3, 3);
             var expected = CellState.Dead;
 
-            var result = universe.GetCellAtLocation(cell.Location).CellState;
+            var checkedCell = universe.GetCellAtLocation(cell.Location);
+            var result = checkedCell.CellState;
 
             Assert.Equal(expected, result);
         }

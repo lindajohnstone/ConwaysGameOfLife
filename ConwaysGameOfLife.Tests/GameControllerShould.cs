@@ -18,97 +18,46 @@ namespace ConwaysGameOfLife.Tests
             _input = new StubInput();
             _controller = new GameController(_input, _output);
         }
-        // [Theory]
-        // [InlineData("3,3", "💀💀💀\n💀💀💀\n💀💀💀\n")]
-        // [InlineData("3,2", "💀💀💀\n💀💀💀\n")]
-        // [InlineData("9,9", "💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n💀💀💀💀💀💀💀💀💀\n")]
-        // public void DisplayUniverse_GivenSuccessfulCreationOfInitialUniverse(string input, string expected)
-        // {
-        //     _input.GetReadLine(input);
-        //     _controller.CreateInitialUniverse();
-
-        //     _controller.DisplayUniverse();
-        //     var actual = _output.GetLastWriteLine();
-
-        //     Assert.Equal(expected, actual);
-        // }
-
-        // [Theory]
-        // [InlineData("0,0", "3,3")]
-        // [InlineData("0,0", "4,3")]
-        // [InlineData("2,1", "10,5")]
-        // [InlineData("2,1", "4,6")]
-        // public void ReturnLocationString_GivenValidInput(string input, string universeInput)
-        // {
-        //     _input.GetReadLine(universeInput);
-        //     _controller.CreateInitialUniverse();
-        //     _input.GetReadLine(input);
-        //     var expected = input;
-
-        //     var result = _controller.CreateValidLocationString();
-
-        //     Assert.Equal(expected, result);
-        // }
-
-        // [Theory]
-        // [InlineData(new string[] { "0,3" }, "2,2", "3,3")]
-        // [InlineData(new string[] { "3,0" }, "0,0", "3,3")]
-        // [InlineData(new string[] { ",,", ";;" }, "2,2", "10,10")] // failing
-        // [InlineData(new string[] { "3,3,", "3,4;" }, "3,2", "4,4")] // failing
-        // [InlineData(new string[] { "3,3,3" }, "3,2", "5,4")]
-        // [InlineData(new string[] { "a,b", "0,a", "o,9" }, "1,1", "2,2")]
-        // [InlineData(new string[] { "-1,4", "a,b", "0,a", "o,9" }, "2,0", "3,3")] // failing
-        // [InlineData(new string[] { "4,-1" }, "2,2", "5,5")]
-        // [InlineData(new string[] { "4 4" }, "2,1", "3,3")]
-        // public void ReturnLocationString_GivenInvalidInputsFollowedByValidInput(IEnumerable<string> invalidInputs, string validInput, string universeInput)
-        // {
-        //     _input.GetReadLine(universeInput);
-        //     _controller.CreateInitialUniverse();
-        //     _input.GetReadLine(invalidInputs);
-        //     _input.GetReadLine(validInput);
-        //     var invalidOutputMessageLine1 = "Invalid input. Please try again.";
-        //     var invalidOutputMessageLine2 = "Please enter the x, y coordinates for one live cell (e.g. '0,1').";
-        //     var count = invalidInputs.Count();
-
-        //     var result = _controller.CreateValidLocationString();
-
-        //     for (var i = 1; i <= count; i += 2)
-        //     {
-        //         var actualOutput = _output.GetWriteLine(i);
-        //         Assert.Equal(invalidOutputMessageLine1, actualOutput);
-        //         var actualOutputLine2 = _output.GetWriteLine(i + 1);
-        //         Assert.Equal(invalidOutputMessageLine2, actualOutputLine2);
-        //     }
-
-        //     Assert.Equal(validInput, result);
-        // }
-
-        // [Fact]
-        // public void SetLiveCellLocation_GivenValidInput()
-        // {
-        //     var universeInput = "3,3";
-        //     var input = "1,2";
-        //     _input.GetReadLine(universeInput);
-        //     _controller.CreateInitialUniverse(universeInput);
-        //     _input.GetReadLine(input);
-        //     _controller.CreateValidLocationString(input);
-        //     var location = InputParser.ParseLocation(input);
-
-        //     var result = _controller.ReturnUniverseAfterSettingLiveCellLocation(location);
-
-        //     Assert.Equal(CellState.Alive, result.GetCellAtLocation(location).CellState);
-        // }  
-             
+        
         [Fact]
         public void EndRunImmediately_GivenQInput()
         {
-            var expectedOutput = "Please enter the width & length for the Universe as a number followed by a comma then a number (e.g. '0,0').";
+            var expectedOutput = "Game of Life has ended.";
             var input = "q";
             _input.GetReadLine(input);
 
             _controller.Run();
 
-            Assert.Equal(expectedOutput, _output.GetLastWriteLine());
+            Assert.Equal(expectedOutput, _output.OutputList[^1]);
+        }
+
+        [Theory]
+        [InlineData("3,3")]
+        [InlineData("0,3", "3,0")]
+        public void EndGame_GivenQInputDuringUniverseInput(params string[] inputs)
+        {
+            var expectedOutput = "Game of Life has ended.";
+            _input.GetReadLine(inputs);
+            _input.GetReadLine("q");
+
+            _controller.Run();
+
+            Assert.Equal(expectedOutput, _output.OutputList[^1]);
+        }
+
+        [Theory]
+        [InlineData("5,5", "0,5")]
+        [InlineData("5,5", "0,4")]
+        public void EndGame_GivenQInputDuringLocationInput(string universeInput, params string[] inputs)
+        {
+            var expectedOutput = "Game of Life has ended.";
+            _input.GetReadLine(universeInput);
+            _input.GetReadLine(inputs);
+            _input.GetReadLine("q");
+
+            _controller.Run();
+
+            Assert.Equal(expectedOutput, _output.OutputList[^1]);
         }
 
         [Theory]
@@ -120,9 +69,9 @@ namespace ConwaysGameOfLife.Tests
         {
             _input.GetReadLine(input);
             _input.GetReadLine("q");
-            
+
             _controller.Run();
-            var actual = _output.GetLastWriteLine();
+            var actual = _output.OutputList[^4];
 
             Assert.Equal(expected, actual);
         }
@@ -136,21 +85,21 @@ namespace ConwaysGameOfLife.Tests
         [InlineData(new string[] { "a,b" }, "3,3", "💀💀💀\n💀💀💀\n💀💀💀\n")]
         [InlineData(new string[] { "-1,4", "4,-1" }, "3,3", "💀💀💀\n💀💀💀\n💀💀💀\n")]
         [InlineData(new string[] { "10,0", "0,10" }, "3,3", "💀💀💀\n💀💀💀\n💀💀💀\n")]
-        public void DisplayUniverse_GivenInvalidInputsFollowedByValidInput(IEnumerable<string> invalidInputs, string validInput, string expected)
+        public void CreateUniverse_GivenInvalidInputsFollowedByValidInput(IEnumerable<string> invalidInputs, string validInput, string expected)
         {
             _input.GetReadLine(invalidInputs);
             _input.GetReadLine(validInput);
             _input.GetReadLine("q");
 
             _controller.Run();
-            var actual = _output.GetLastWriteLine();
+            var actual = _output.OutputList[^4];
 
             Assert.Equal(expected, actual);
         }
 
         [Theory]
-        [InlineData("3,3", "1,2", "💀💀💀\n💀💀💟\n💀💀💀\n")] // failing - displays live cell @ location 1,2
-        [InlineData("3,3", "2,0", "💀💀💀\n💀💀💀\n💟💀💀\n")] // failing - displays live cell @ location 0,2
+        [InlineData("3,3", "2,1", "💀💀💀\n💀💀💟\n💀💀💀\n")] 
+        [InlineData("3,3", "0,2", "💀💀💀\n💀💀💀\n💟💀💀\n")] 
         [InlineData("3,2", "0,0", "💟💀💀\n💀💀💀\n")]
         public void DisplayUniverse_GivenValidLocationString(string universeInput, string locationInput, string expected)
         {
@@ -159,7 +108,41 @@ namespace ConwaysGameOfLife.Tests
             _input.GetReadLine("q");
 
             _controller.Run();
-            var actual = _output.GetLastWriteLine();
+            var actual = _output.OutputList[^4];
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData("3,3", "💟💀💀\n💀💀💟\n💀💀💀\n", "2,1", "0,0")]
+        [InlineData("3,3", "💟💀💀\n💀💀💀\n💟💀💀\n", "0,2", "0,0")]
+        [InlineData("3,2", "💟💀💀\n💟💀💀\n", "0,0", "0,1")]
+        public void DisplayUniverse_GivenValidLocationStrings(string universeInput, string expected, params string[] inputs)
+        {
+            _input.GetReadLine(universeInput);
+            _input.GetReadLine(inputs);
+            _input.GetReadLine("q");
+
+            _controller.Run();
+            var actual = _output.OutputList[^4];
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData("3,3", "💟💀💀\n💀💀💟\n💀💀💀\n", "2,1", "0,3", "0,0")]
+        [InlineData("3,3", "💟💀💀\n💀💀💀\n💟💀💟\n", "0,2", "0,0", "0,3", "2,2")]
+        [InlineData("3,2", "💟💟💀\n💟💀💀\n", "0,0", "0,1", "0,2", "1,0")]
+        [InlineData("3,5", "💟💀💀\n💀💀💀\n💟💀💟\n💟💟💀\n💟💀💀\n", "0,0", "5,3", "5,0", "1,3", "0,4", "0,2", "0,3", "2,2")]
+        [InlineData("3,3", "💀💀💀\n💀💀💀\n💀💀💀\n", "0,0", "0,0")]
+        public void DisplayUniverse_GivenValidAndInvalidLocationStrings(string universeInput, string expected, params string[] inputs)
+        {
+            _input.GetReadLine(universeInput);
+            _input.GetReadLine(inputs);
+            _input.GetReadLine("q");
+
+            _controller.Run();
+            var actual = _output.OutputList[^4];
 
             Assert.Equal(expected, actual);
         }
