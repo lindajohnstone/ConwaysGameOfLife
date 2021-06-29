@@ -56,7 +56,7 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Theory]
-        [MemberData(nameof(GetUniverseFromDataGenerator))]
+        [MemberData(nameof(UniverseMemberData.UniversesFromStrings), MemberType = typeof(UniverseMemberData))]
         public void CreateNewUniverse_FromUniverseWithLiveCells(string[] rows, string[] rowsNextUniverse)
         {
             var initData = String.Join(Environment.NewLine, rows);
