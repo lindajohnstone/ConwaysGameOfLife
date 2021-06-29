@@ -75,18 +75,6 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Fact]
-        public void WhenUniverseRegenerated_SwitchState() // TODO: rename once decision is made which class is responsible for this
-        {
-            var cell = new Cell(CellState.Dead, 0, 0);
-            var universe = new Universe(3, 3);
-            var expected = new Cell(CellState.Alive, 0, 0);
-
-            var result = universe.SwitchCellState(cell);
-
-            Assert.True(UniverseHelper.CellsAreEqual(expected, result));
-        }
-
-        [Fact]
         public void WhenGivenALocation_ReturnCorrectCell()
         {
             var gridWidth = 4;
