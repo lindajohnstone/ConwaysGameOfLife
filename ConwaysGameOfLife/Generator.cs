@@ -6,7 +6,9 @@ namespace ConwaysGameOfLife
     public class Generator
     {
         // checks rules then creates new universe
-        List<IRule> _rules;
+        private List<IRule> _rules;
+
+        private List<Cell> _cells;
 
         public Generator()
         {
@@ -28,13 +30,26 @@ namespace ConwaysGameOfLife
 
         */
 
-        public bool ShouldSwitchCellState()
+        private bool ShouldSwitchCellState()
         {
             throw new NotImplementedException();
         }
-        public Universe GenerateNewUniverse(Universe universe)
+
+        public void GenerateNewUniverse(Universe universe)
         {
-            throw new NotImplementedException();
+            var cells = universe.Cells;
+            AddCellsToList(cells);
+        }
+
+        public List<Cell> AddCellsToList(List<Cell> cells)
+        {
+            _cells = new List<Cell>();
+            foreach (var cell in cells)
+            {
+                // check rules
+                _cells.Add(cell);
+            }
+            return _cells;
         }
     }
 }

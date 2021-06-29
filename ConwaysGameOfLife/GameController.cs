@@ -50,7 +50,7 @@ namespace ConwaysGameOfLife
                 _output.WriteLine(Messages.GameEnd);
                 return;
             }
-
+            
             var isValidUniverse = Validator.IsValidUniverse(input);
             while (!isValidUniverse)
             {
@@ -100,18 +100,13 @@ namespace ConwaysGameOfLife
                 DisplayUniverse();
             }
             while (input != "p");
-            
-            input = _input.ReadLine();
-
-            // generator checks all cells if change of state required & creates next universe
-            
-            // loop last step until user presses 'q' to quit or all cells are dead
         }
 
         private void Play()
         {
             /*
                 Generator called to check rules & create new universe while game has not ended
+                loop last step until user presses 'q' to quit or all cells are dead
             */
             throw new NotImplementedException();
         }

@@ -28,7 +28,7 @@ namespace ConwaysGameOfLife.Tests
 
             _controller.Run();
 
-            Assert.Equal(expectedOutput, _output.OutputList[^1]);
+            Assert.Equal(expectedOutput, _output.GetLastOutput());
         }
 
         [Theory]
@@ -42,7 +42,7 @@ namespace ConwaysGameOfLife.Tests
 
             _controller.Run();
 
-            Assert.Equal(expectedOutput, _output.OutputList[^1]);
+            Assert.Equal(expectedOutput, _output.GetLastOutput());
         }
 
         [Theory]
@@ -57,7 +57,7 @@ namespace ConwaysGameOfLife.Tests
 
             _controller.Run();
 
-            Assert.Equal(expectedOutput, _output.OutputList[^1]);
+            Assert.Equal(expectedOutput, _output.GetLastOutput());
         }
 
         [Theory]
@@ -71,7 +71,7 @@ namespace ConwaysGameOfLife.Tests
             _input.GetReadLine("q");
 
             _controller.Run();
-            var actual = _output.OutputList[^4];
+            var actual = _output.GetLastUniverseOutput();
 
             Assert.Equal(expected, actual);
         }
@@ -92,7 +92,7 @@ namespace ConwaysGameOfLife.Tests
             _input.GetReadLine("q");
 
             _controller.Run();
-            var actual = _output.OutputList[^4];
+            var actual = _output.GetLastUniverseOutput();
 
             Assert.Equal(expected, actual);
         }
@@ -108,7 +108,7 @@ namespace ConwaysGameOfLife.Tests
             _input.GetReadLine("q");
 
             _controller.Run();
-            var actual = _output.OutputList[^4];
+            var actual = _output.GetLastUniverseOutput();
 
             Assert.Equal(expected, actual);
         }
@@ -124,7 +124,7 @@ namespace ConwaysGameOfLife.Tests
             _input.GetReadLine("q");
 
             _controller.Run();
-            var actual = _output.OutputList[^4];
+            var actual = _output.GetLastUniverseOutput();
 
             Assert.Equal(expected, actual);
         }
@@ -142,7 +142,7 @@ namespace ConwaysGameOfLife.Tests
             _input.GetReadLine("q");
 
             _controller.Run();
-            var actual = _output.OutputList[^4];
+            var actual = _output.GetLastUniverseOutput();
 
             Assert.Equal(expected, actual);
         }
