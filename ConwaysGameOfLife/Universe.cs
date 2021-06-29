@@ -84,15 +84,6 @@ namespace ConwaysGameOfLife
             return aliveNeighbours;
         }
 
-        public Cell SwitchCellState(Cell cell) // changes the state of the cell // TODO: rename. 
-        {
-            if (cell.IsAlive())
-            {
-                return new Cell(CellState.Dead, cell.Location.X, cell.Location.Y);
-            }
-            return new Cell(CellState.Alive, cell.Location.X, cell.Location.Y);
-        }
-
         public Cell GetCellAtLocation(Location location)
         {
             return Cells.FirstOrDefault(cell => cell.Location.X == location.X && cell.Location.Y == location.Y);

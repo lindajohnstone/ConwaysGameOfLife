@@ -1,15 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ConwaysGameOfLife
 {
     public class Generator
     {
         // checks rules then creates new universe
-        List<IRule> _rules;
+        private List<IRule> _rules;
 
-        public Generator()
+        private Universe _oldUniverse;
+
+        public Generator(Universe universe)
         {
+            _oldUniverse = universe;
             _rules = new List<IRule>()
             {
                 new OvercrowdingRule(),
@@ -28,13 +32,39 @@ namespace ConwaysGameOfLife
 
         */
 
-        public bool ShouldSwitchCellState()
+        public Universe GenerateNewUniverse()
         {
-            throw new NotImplementedException();
+            var oldCells = _oldUniverse.Cells;
+            var newCells = new List<Cell>();
+            foreach (var cell in oldCells)
+            {
+                GenerateCells(newCells, cell);
+            }
+            return new Universe(_oldUniverse.GridWidth, _oldUniverse.GridLength, newCells);
         }
-        public Universe GenerateNewUniverse(Universe universe)
+
+        private void GenerateCells(List<Cell> cells, Cell cell)
         {
-            throw new NotImplementedException();
+            var newCell = GenerateNewCell(cell);
+            cells.Add(newCell);
+        }
+
+        private Cell GenerateNewCell(Cell cell)
+        {
+            var numberOfLiveNeighbours = _oldUniverse.CountLiveNeighbours(cell);
+            var state = cell.CellState;
+            var newCell = new Cell(state, cell.Location.X, cell.Location.Y);
+            ShouldSwitchCellState(numberOfLiveNeighbours, state, newCell);
+            return newCell;
+        }
+
+        private void ShouldSwitchCellState(int numberOfLiveNeighbours, CellState state, Cell newCell)
+        {
+            var shouldNewCellHaveDifferentCellState = _rules.Any((rule) => rule.ShouldSwitchCellState(numberOfLiveNeighbours, state));
+            if (shouldNewCellHaveDifferentCellState)
+            {
+                newCell.SwitchCellState();
+            }
         }
     }
 }

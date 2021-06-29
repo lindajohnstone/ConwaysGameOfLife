@@ -17,5 +17,15 @@ namespace ConwaysGameOfLife.Tests
         {
             OutputList.Add(value);
         }
+
+        public string GetLastOutput()
+        {
+            return OutputList[^1];
+        }
+
+        public string GetLastUniverseOutput()
+        {
+            return OutputList[^4];
+        }
     }
 }

@@ -55,18 +55,16 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Theory]
-        [InlineData("XXX", "XXX", "XXX", 0, 1, 0)]
-        [InlineData("XXX", "OXX", "XXX", 1, 2, 1)]
-        [InlineData("OOO", "OOO", "OOO", 2, 1, 8)]
-        [InlineData("OXX", "XXX", "XXO", 2, 1, 2)]
-        [InlineData("XOXX", "XXXX", "XOXX", 0, 0, 2)]
-        [InlineData("XXXX", "XXXX", "XXXX", 3, 0, 0)]
-        [InlineData("XXXX", "OXXX", "XXXX", 1, 0, 1)]
-        public void ReturnCountOfLiveNeighbours_GivenBoundaryCoordinates(string row1, string row2, string row3, int x, int y, int expected)
+        [InlineData(0, 1, 0, "XXX", "XXX", "XXX")]
+        [InlineData(1, 2, 1, "XXX", "OXX", "XXX")]
+        [InlineData(2, 1, 8, "OOO", "OOO", "OOO")]
+        [InlineData(2, 1, 2, "OXX", "XXX", "XXO")]
+        [InlineData(0, 0, 2, "XOXX", "XXXX", "XOXX")]
+        [InlineData(3, 0, 0, "XXXX", "XXXX", "XXXX")]
+        [InlineData(1, 0, 1, "XXXX", "OXXX", "XXXX")]
+        public void ReturnCountOfLiveNeighbours_GivenBoundaryCoordinates(int x, int y, int expected, params string[] rows)
         {
-            var initData = row1 + Environment.NewLine +
-                            row2 + Environment.NewLine +
-                            row3;
+            var initData = String.Join(Environment.NewLine, rows);
             var location = new Location(x, y);
             var universe = UniverseHelper.InitializeUniverse(initData);
             var cell = universe.GetCellAtLocation(location);
@@ -74,18 +72,6 @@ namespace ConwaysGameOfLife.Tests
             var result = universe.CountLiveNeighbours(cell);
 
             Assert.Equal(expected, result);
-        }
-
-        [Fact]
-        public void WhenUniverseRegenerated_SwitchState() // TODO: rename once decision is made which class is responsible for this
-        {
-            var cell = new Cell(CellState.Dead, 0, 0);
-            var universe = new Universe(3, 3);
-            var expected = new Cell(CellState.Alive, 0, 0);
-
-            var result = universe.SwitchCellState(cell);
-
-            Assert.True(UniverseHelper.CellsAreEqual(expected, result));
         }
 
         [Fact]
