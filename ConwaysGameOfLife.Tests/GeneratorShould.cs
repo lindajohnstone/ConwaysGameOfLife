@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace ConwaysGameOfLife.Tests
@@ -54,24 +55,13 @@ namespace ConwaysGameOfLife.Tests
             Assert.True(UniverseHelper.UniversesAreEqual(expected, result));
         }
 
-        [Fact]
-        public void CreateNewUniverse_FromUniverseWithLiveCells()
+        [Theory]
+        [MemberData(nameof(GetUniverseFromDataGenerator))]
+        public void CreateNewUniverse_FromUniverseWithLiveCells(string[] rows, string[] rowsNextUniverse)
         {
-            var rows = new string[]
-            {
-                "OXX",
-                "OXX",
-                "OXX"
-            };
             var initData = String.Join(Environment.NewLine, rows);
             var universe = UniverseHelper.InitializeUniverse(initData);
             var generator = new Generator(universe);
-            var rowsNextUniverse = new string[]
-            {
-                "OOO",
-                "OOO",
-                "OOO"
-            };
             var initDataNextUniverse = String.Join(Environment.NewLine, rowsNextUniverse);
             var nextUniverse = UniverseHelper.InitializeUniverse(initDataNextUniverse);
             var expected = nextUniverse;
@@ -79,6 +69,25 @@ namespace ConwaysGameOfLife.Tests
             var result = generator.GenerateNewUniverse();
 
             Assert.True(UniverseHelper.UniversesAreEqual(expected, result));
+        }
+        
+        public static IEnumerable<object[]> GetUniverseFromDataGenerator()
+        {
+            yield return new object[]
+            {
+                new string[]
+                {
+                    "OXX",
+                    "OXX",
+                    "OXX"
+                },
+                new string[]
+                {
+                    "OOO",
+                    "OOO",
+                    "OOO"
+                }
+            };
         }
     }
 }

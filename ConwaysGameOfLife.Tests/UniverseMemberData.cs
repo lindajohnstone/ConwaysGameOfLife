@@ -17,5 +17,22 @@ namespace ConwaysGameOfLife.Tests
                 new Cell(CellState.Dead, 2, 1),
                 new Cell(CellState.Dead, 2, 2)
             };
+
+        public static TheoryData<string[]> UniversesFromStrings =
+            new TheoryData<string[]>
+            {
+                new string[]
+                {
+                    "OXX",
+                    "OXX",
+                    "OXX"
+                },
+                new string[]
+                {
+                    "OOO",
+                    "OOO",
+                    "OOO"
+                }
+            };
     }
 }
