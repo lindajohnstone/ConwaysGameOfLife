@@ -50,7 +50,7 @@ namespace ConwaysGameOfLife
                 _output.WriteLine(Messages.GameEnd);
                 return;
             }
-            
+
             var isValidUniverse = Validator.IsValidUniverse(input);
             while (!isValidUniverse)
             {
@@ -66,7 +66,7 @@ namespace ConwaysGameOfLife
             }
             _universe = InputParser.ParseUniverse(input);
             DisplayUniverse();
-            
+
             do
             {
                 _output.Write(Messages.RequestLiveCell);
@@ -100,10 +100,17 @@ namespace ConwaysGameOfLife
                 DisplayUniverse();
             }
             while (input != "p");
+            // call Play()
         }
 
         private void Play()
         {
+            //var generator = new Generator();
+
+            // loop until all cells are dead or user enters q
+            // var generator = new Generator(_universe);
+            // generator.generate(_universe)
+
             /*
                 Generator called to check rules & create new universe while game has not ended
                 loop last step until user presses 'q' to quit or all cells are dead
@@ -155,7 +162,7 @@ namespace ConwaysGameOfLife
         private void CreateValidLocationString(string input)
         {
             var isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
-            while (!isValidLocation) 
+            while (!isValidLocation)
             {
                 _output.WriteLine(Messages.InvalidInput);
                 _output.WriteLine($"{Messages.RequestLiveCell}.");

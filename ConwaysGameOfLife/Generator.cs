@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ConwaysGameOfLife
 {
@@ -10,15 +11,20 @@ namespace ConwaysGameOfLife
 
         private List<Cell> _cells;
 
-        public Generator()
+        private Universe _oldUniverse;
+
+        public Generator(Universe universe)
         {
+            _oldUniverse = universe;
             _rules = new List<IRule>()
-            {
+                        {
                 new OvercrowdingRule(),
                 new ReproductionRule(),
                 new SurvivalRule(),
                 new UnderpopulationRule()
-            };
+                        };
+
+            _cells = new List<Cell>();
         }
         /*
                 universe
@@ -30,20 +36,45 @@ namespace ConwaysGameOfLife
 
         */
 
-        private bool ShouldSwitchCellState()
+        private bool ShouldSwitchCellState(Cell cell)
         {
+            /*
+                need number of neighbours, cell state 
+                return _rules.Any(_ => _.ShouldSwitchCellState(numberOfLiveNeighbours, cellstate));
+            */
             throw new NotImplementedException();
         }
 
-        public void GenerateNewUniverse(Universe universe)
+        public Universe GenerateNewUniverse()
         {
-            var cells = universe.Cells;
-            AddCellsToList(cells);
+            var oldCells = _oldUniverse.Cells;
+            var newCells = new List<Cell>();
+            foreach (var cell in oldCells)
+            {
+                var numberOfLiveNeighbours = _oldUniverse.CountLiveNeighbours(cell);
+                var state = cell.CellState;
+
+                var newCell = new Cell(state, cell.Location.X, cell.Location.Y);
+                var shouldNewCellHaveDifferentCellState = _rules.Any((rule) => rule.ShouldSwitchCellState(numberOfLiveNeighbours, state));
+                if (shouldNewCellHaveDifferentCellState)
+                {
+                    newCell.SwitchCellState();
+                }
+                newCells.Add(newCell);
+            }
+
+            // GenerateCells(cells);
+            return new Universe(_oldUniverse.GridWidth, _oldUniverse.GridLength, newCells);
         }
 
-        public List<Cell> AddCellsToList(List<Cell> cells)
+        public Cell GenerateNewCell(Cell cell)
         {
-            _cells = new List<Cell>();
+            var generatedCell = new Cell(cell.CellState, cell.Location.X, cell.Location.Y);
+            return generatedCell;
+        }
+
+        public List<Cell> GenerateCells(List<Cell> cells)
+        {
             foreach (var cell in cells)
             {
                 // check rules
