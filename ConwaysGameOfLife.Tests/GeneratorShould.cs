@@ -7,12 +7,8 @@ namespace ConwaysGameOfLife.Tests
     {
         [Theory]
         [InlineData("XXX", "XXX", "XXX")]
-        [InlineData("XXX", "OXX", "XXX")]
-        [InlineData("OOO", "OOO", "OOO")]
-        [InlineData("OXX", "XXX", "XXO")]
-        [InlineData("XOXX", "XXXX", "XOXX")]
+        [InlineData("XX", "XX", "XX")]
         [InlineData("XXXX", "XXXX", "XXXX")]
-        [InlineData("XXXX", "OXXX", "XXXX")]
         public void ReturnNewListOfCells_FromOldUniverse(params string[] rows)
         {
             var initData = String.Join(Environment.NewLine, rows);
@@ -20,41 +16,10 @@ namespace ConwaysGameOfLife.Tests
             var generator = new Generator(universe);
             var expected = universe.Cells;
 
-            var result = generator.GenerateCells(universe.Cells);
+            var result = generator.GenerateNewUniverse();
 
-            Assert.True(UniverseHelper.ListsOfCellsAreEqual(expected, result));
+            Assert.True(UniverseHelper.ListsOfCellsAreEqual(expected, result.Cells));
         }
-
-        // [Theory]
-        // [InlineData(CellState.Dead, 0, 0)]
-        // [InlineData(CellState.Alive, 0, 1)]
-        // [InlineData(CellState.Dead, 0, 2)]
-        // [InlineData(CellState.Alive, 2, 0)]
-        // public void ReturnNewCell_GivenUniverse(CellState state, int x, int y)
-        // {
-
-        //     var cell = new Cell(state, x, y);
-        //     var expected = cell;
-
-        //     var result = _generator.GenerateNewCell(cell);
-
-        //     Assert.True(UniverseHelper.CellsAreEqual(expected, result));
-        // }
-
-        // [Fact]
-        // public void testName()
-        // {
-        //     var rows = new string[]
-        //     {
-        //         "XXX", "XXX", "XXX",
-        //     };
-        //     var initData = String.Join(Environment.NewLine, rows);
-        //     var universe = UniverseHelper.InitializeUniverse(initData);
-        //     var cell = universe.GetCellAtLocation(new Location(0, 0));
-        //     var numberOfLiveNeighbours = universe.CountLiveNeighbours(cell);
-        //     var state = cell.CellState;
-
-        // }
 
         [Theory]
         [InlineData(3, 3)]
