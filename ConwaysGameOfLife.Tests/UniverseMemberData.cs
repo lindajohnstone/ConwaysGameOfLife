@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Xunit;
 
 namespace ConwaysGameOfLife.Tests
@@ -36,5 +37,84 @@ namespace ConwaysGameOfLife.Tests
                     "OOO"
                 }
             };
+
+        public static IEnumerable<object[]> GetUniverseFromDataGenerator()
+        {
+            yield return new object[]
+            {
+                new string[]
+                {
+                    "OXX",
+                    "OXX",
+                    "OXX"
+                },
+                new string[]
+                {
+                    "OOO",
+                    "OOO",
+                    "OOO"
+                }
+            };
+            yield return new object[]
+            {
+                new string[]
+                {
+                    "OXXXX",
+                    "OXXXX",
+                    "OXXXX"
+                },
+                new string[]
+                {
+                    "OOXXO",
+                    "OOXXO",
+                    "OOXXO"
+                }
+            };
+            yield return new object[]
+            {
+                new string[]
+                {
+                    "OOO",
+                    "OOX",
+                    "OXX"
+                },
+                new string[]
+                {
+                    "XXX",
+                    "XXX",
+                    "XXX"
+                }
+            };
+            yield return new object[]
+            {
+                new string[]
+                {
+                    "XXX",
+                    "OXX",
+                    "OXX"
+                },
+                new string[]
+                {
+                    "XXX",
+                    "XXX",
+                    "XXX"
+                }
+            };
+            yield return new object[]
+            {
+                new string[]
+                {
+                    "XXX",
+                    "OOX",
+                    "OXX"
+                },
+                new string[]
+                {
+                    "OOO",
+                    "OOO",
+                    "OOO"
+                }
+            };
+        }
     }
 }

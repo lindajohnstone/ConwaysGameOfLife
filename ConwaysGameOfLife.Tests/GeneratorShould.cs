@@ -56,7 +56,7 @@ namespace ConwaysGameOfLife.Tests
         }
 
         [Theory]
-        [MemberData(nameof(GetUniverseFromDataGenerator))]
+        [MemberData(nameof(UniverseMemberData.GetUniverseFromDataGenerator), MemberType = typeof(UniverseMemberData))]
         //[MemberData(nameof(UniverseMemberData.UniversesFromStrings), MemberType = typeof(UniverseMemberData))]
         public void CreateNewUniverse_FromUniverseWithLiveCells(string[] rows, string[] rowsNextUniverse)
         {
@@ -70,25 +70,6 @@ namespace ConwaysGameOfLife.Tests
             var result = generator.GenerateNewUniverse();
 
             Assert.True(UniverseHelper.UniversesAreEqual(expected, result));
-        }
-        
-        public static IEnumerable<object[]> GetUniverseFromDataGenerator()
-        {
-            yield return new object[]
-            {
-                new string[]
-                {
-                    "OXX",
-                    "OXX",
-                    "OXX"
-                },
-                new string[]
-                {
-                    "OOO",
-                    "OOO",
-                    "OOO"
-                }
-            };
         }
     }
 }
