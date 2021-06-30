@@ -34,23 +34,6 @@ namespace ConwaysGameOfLife.Tests
             return true;
         }
 
-        public static bool ListsOfCellsAreEqual(List<Cell> cells1, List<Cell> cells2)
-        {
-            if (cells1.Count != cells2.Count)
-            {
-                return false;
-            }
-            
-            for (var i = 0; i < cells1.Count; i++)
-            {
-                if (!CellsAreEqual(cells1[i], cells2[i]))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
         public static bool CellsAreEqual(Cell cell1, Cell cell2)
         {
             var isLocationSame = (cell1.Location.X == cell2.Location.X) && (cell1.Location.Y == cell2.Location.Y);
@@ -85,7 +68,7 @@ namespace ConwaysGameOfLife.Tests
             }
             return false;
         }
-        public static Universe InitializeUniverse(String sourceData) 
+        public static Universe InitializeUniverse(String sourceData)  // TODO: possibly change to taking params string[] instead 
         {
             var rows = SplitInput(sourceData, Environment.NewLine);
             var gridWidth = rows[0].Length;

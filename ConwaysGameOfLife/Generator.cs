@@ -36,35 +36,37 @@ namespace ConwaysGameOfLife
         {
             var oldCells = _oldUniverse.Cells;
             var newCells = new List<Cell>();
-            foreach (var cell in oldCells)
-            {
-                GenerateCells(newCells, cell);
-            }
+            GenerateCells(oldCells, newCells);
             return new Universe(_oldUniverse.GridWidth, _oldUniverse.GridLength, newCells);
         }
 
-        private void GenerateCells(List<Cell> cells, Cell cell)
+        private List<Cell> GenerateCells(List<Cell> oldCells, List<Cell> newCells)
         {
-            var newCell = GenerateNewCell(cell);
-            cells.Add(newCell);
+            foreach (var cell in oldCells)
+            {
+                Cell newCell = GenerateNewCell(cell);
+                newCells.Add(newCell);
+            }
+            return newCells;
         }
 
         private Cell GenerateNewCell(Cell cell)
         {
             var numberOfLiveNeighbours = _oldUniverse.CountLiveNeighbours(cell);
             var state = cell.CellState;
-            var newCell = new Cell(state, cell.Location.X, cell.Location.Y);
-            ShouldSwitchCellState(numberOfLiveNeighbours, state, newCell);
-            return newCell;
-        }
 
-        private void ShouldSwitchCellState(int numberOfLiveNeighbours, CellState state, Cell newCell)
-        {
-            var shouldNewCellHaveDifferentCellState = _rules.Any((rule) => rule.ShouldSwitchCellState(numberOfLiveNeighbours, state));
-            if (shouldNewCellHaveDifferentCellState)
+            var newCell = new Cell(state, cell.Location.X, cell.Location.Y);
+            if (ShouldSwitchCellState(numberOfLiveNeighbours, state, newCell))
             {
                 newCell.SwitchCellState();
             }
+
+            return newCell;
+        }
+
+        private bool ShouldSwitchCellState(int numberOfLiveNeighbours, CellState state, Cell newCell)
+        {
+            return _rules.Any((rule) => rule.ShouldSwitchCellState(numberOfLiveNeighbours, state));
         }
     }
 }
