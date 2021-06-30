@@ -146,6 +146,20 @@ namespace ConwaysGameOfLife.Tests
 
             Assert.Equal(expected, actual);
         }
-        // TODO: user input, user plays 
+        
+        [Theory]
+        [InlineData("5,5", "💀💀💀💀💀\n💀💀💀💀💀\n💀💟💟💟💀\n💀💀💀💀💀\n💀💀💀💀💀\n", "1,2", "2,2", "3,2")]
+        [InlineData("4,4", "💀💀💀💀\n💀💟💟💀\n💀💟💟💀\n💀💀💀💀\n", "1,2", "1,1", "2,2", "2,1")]
+        public void DisplayUniverse_GivenPInput(string universeInput, string expected, params string[] inputs)
+        {
+            _input.GetReadLine(universeInput);
+            _input.GetReadLine(inputs);
+            _input.GetReadLine("q");
+
+            _controller.Run();
+            var actual = _output.GetLastUniverseOutput();
+
+            Assert.Equal(expected, actual);
+        }
     }
 }

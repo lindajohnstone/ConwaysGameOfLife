@@ -100,7 +100,7 @@ namespace ConwaysGameOfLife
                 DisplayUniverse();
             }
             while (input != "p");
-            // call Play()
+            Play();
         }
 
         private void Play()
@@ -108,14 +108,13 @@ namespace ConwaysGameOfLife
             //var generator = new Generator();
 
             // loop until all cells are dead or user enters q
-            // var generator = new Generator(_universe);
-            // generator.generate(_universe)
+            var generator = new Generator(_universe);
+            generator.GenerateNewUniverse();
 
             /*
                 Generator called to check rules & create new universe while game has not ended
                 loop last step until user presses 'q' to quit or all cells are dead
             */
-            throw new NotImplementedException();
         }
 
         private bool UserEndsGame(string input)

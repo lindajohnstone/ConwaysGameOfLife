@@ -19,28 +19,9 @@ namespace ConwaysGameOfLife.Tests
                 new Cell(CellState.Dead, 2, 2)
             };
 
-        public static TheoryData<string[]> UniversesFromStrings =
-            new TheoryData<string[]> 
-        // TODO: fails. 
-        // error: System.InvalidOperationException : The test method expected 2 parameter values, but 1 parameter value was provided.
-            {
-                new string[]
-                {
-                    "OXX",
-                    "OXX",
-                    "OXX"
-                },
-                new string[]
-                {
-                    "OOO",
-                    "OOO",
-                    "OOO"
-                }
-            };
-
-        public static IEnumerable<object[]> GetUniverseFromDataGenerator()
+        public static TheoryData<string[], string[]> UniversesFromStrings =
+            new TheoryData<string[], string[]>
         {
-            yield return new object[]
             {
                 new string[]
                 {
@@ -54,8 +35,7 @@ namespace ConwaysGameOfLife.Tests
                     "OOO",
                     "OOO"
                 }
-            };
-            yield return new object[]
+            },
             {
                 new string[]
                 {
@@ -69,8 +49,7 @@ namespace ConwaysGameOfLife.Tests
                     "OOXXO",
                     "OOXXO"
                 }
-            };
-            yield return new object[]
+            },
             {
                 new string[]
                 {
@@ -84,8 +63,7 @@ namespace ConwaysGameOfLife.Tests
                     "XXX",
                     "XXX"
                 }
-            };
-            yield return new object[]
+            },
             {
                 new string[]
                 {
@@ -99,8 +77,7 @@ namespace ConwaysGameOfLife.Tests
                     "XXX",
                     "XXX"
                 }
-            };
-            yield return new object[]
+            },
             {
                 new string[]
                 {
@@ -114,8 +91,7 @@ namespace ConwaysGameOfLife.Tests
                     "OOO",
                     "OOO"
                 }
-            };
-            yield return new object[]
+            },
             {
                 new string[]
                 {
@@ -131,8 +107,7 @@ namespace ConwaysGameOfLife.Tests
                     "XOOX",
                     "XXXX"
                 }
-            };
-            yield return new object[]
+            },
             {
                 new string[]
                 {
@@ -150,8 +125,7 @@ namespace ConwaysGameOfLife.Tests
                     "XXOOXX",
                     "XXXXXX"
                 }
-            };
-            yield return new object[]
+            },
             {
                 new string[]
                 {
@@ -171,8 +145,7 @@ namespace ConwaysGameOfLife.Tests
                     "XXOXXX",
                     "XXXXXX"
                 }
-            };
-            yield return new object[]
+            },
             {
                 new string[]
                 {
@@ -190,7 +163,7 @@ namespace ConwaysGameOfLife.Tests
                     "XXOXX",
                     "XXXXX"
                 }
-            };
-        }
+            }
+        };
     }
 }
