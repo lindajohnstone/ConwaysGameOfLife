@@ -115,6 +115,82 @@ namespace ConwaysGameOfLife.Tests
                     "OOO"
                 }
             };
+            yield return new object[]
+            {
+                new string[]
+                {
+                    "XXXX",
+                    "XOOX",
+                    "XOOX",
+                    "XXXX"
+                },
+                new string[]
+                {
+                    "XXXX",
+                    "XOOX",
+                    "XOOX",
+                    "XXXX"
+                }
+            };
+            yield return new object[]
+            {
+                new string[]
+                {
+                    "XXXXXX",
+                    "XXOOXX",
+                    "XOXXOX",
+                    "XXOOXX",
+                    "XXXXXX"
+                },
+                new string[]
+                {
+                    "XXXXXX",
+                    "XXOOXX",
+                    "XOXXOX",
+                    "XXOOXX",
+                    "XXXXXX"
+                }
+            };
+            yield return new object[]
+            {
+                new string[]
+                {
+                    "XXXXXX",
+                    "XXXXXX",
+                    "XXOOOX",
+                    "XOOOXX",
+                    "XXXXXX",
+                    "XXXXXX"
+                },
+                new string[]
+                {
+                    "XXXXXX",
+                    "XXXOXX",
+                    "XOXXOX",
+                    "XOXXOX",
+                    "XXOXXX",
+                    "XXXXXX"
+                }
+            };
+            yield return new object[]
+            {
+                new string[]
+                {
+                    "XXXXX",
+                    "XXXXX",
+                    "XOOOX",
+                    "XXXXX",
+                    "XXXXX"
+                },
+                new string[]
+                {
+                    "XXXXX",
+                    "XXOXX",
+                    "XXOXX",
+                    "XXOXX",
+                    "XXXXX"
+                }
+            };
         }
     }
 }

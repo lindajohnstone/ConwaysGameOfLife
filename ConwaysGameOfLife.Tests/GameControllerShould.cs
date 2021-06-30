@@ -146,5 +146,6 @@ namespace ConwaysGameOfLife.Tests
 
             Assert.Equal(expected, actual);
         }
+        // TODO: user input, user plays 
     }
 }
