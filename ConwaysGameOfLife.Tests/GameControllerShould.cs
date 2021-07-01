@@ -24,7 +24,7 @@ namespace ConwaysGameOfLife.Tests
         {
             var expectedOutput = "Game of Life has ended.";
             var input = "q";
-            _input.GetReadKey(input);
+            _input.GetReadLine(input);
 
             _controller.Run();
 
@@ -38,8 +38,8 @@ namespace ConwaysGameOfLife.Tests
         {
             var expectedOutput = "Game of Life has ended.";
             _input.GetReadLine(inputs);
-            _input.GetReadKey("q");
-            
+            _input.GetReadLine("q");
+
             _controller.Run();
 
             Assert.Equal(expectedOutput, _output.GetLastOutput());
@@ -53,7 +53,7 @@ namespace ConwaysGameOfLife.Tests
             var expectedOutput = "Game of Life has ended.";
             _input.GetReadLine(universeInput);
             _input.GetReadLine(inputs);
-            _input.GetReadKey("q");
+            _input.GetReadLine("q");
 
             _controller.Run();
 
@@ -68,7 +68,7 @@ namespace ConwaysGameOfLife.Tests
         public void DisplayUniverse_GivenValidUniverseString(string input, string expected)
         {
             _input.GetReadLine(input);
-            _input.GetReadKey("q");
+            _input.GetReadLine("q");
 
             _controller.Run();
             var actual = _output.GetLastUniverseOutput();
@@ -89,7 +89,7 @@ namespace ConwaysGameOfLife.Tests
         {
             _input.GetReadLine(invalidInputs);
             _input.GetReadLine(validInput);
-            _input.GetReadKey("q");
+            _input.GetReadLine("q");
 
             _controller.Run();
             var actual = _output.GetLastUniverseOutput();
@@ -105,7 +105,8 @@ namespace ConwaysGameOfLife.Tests
         {
             _input.GetReadLine(universeInput);
             _input.GetReadLine(locationInput);
-            _input.GetReadKey("q");
+            _input.GetReadLine("q");
+            
 
             _controller.Run();
             var actual = _output.GetLastUniverseOutput();
@@ -121,7 +122,7 @@ namespace ConwaysGameOfLife.Tests
         {
             _input.GetReadLine(universeInput);
             _input.GetReadLine(inputs);
-            _input.GetReadKey("q");
+            _input.GetReadLine("q");
 
             _controller.Run();
             var actual = _output.GetLastUniverseOutput();
@@ -139,7 +140,7 @@ namespace ConwaysGameOfLife.Tests
         {
             _input.GetReadLine(universeInput);
             _input.GetReadLine(inputs);
-            _input.GetReadKey("q");
+            _input.GetReadLine("q");
 
             _controller.Run();
             var actual = _output.GetLastUniverseOutput();
@@ -156,7 +157,8 @@ namespace ConwaysGameOfLife.Tests
             _input.GetReadLine(universeInput);
             _input.GetReadLine(inputs);
             _input.GetReadLine("p");
-            _input.GetReadKey("q");
+            _input.GetReadLine("q");
+            
 
             _controller.Run();
             var actual = _output.GetLastUniverseOutput();// returns Messages.Play
