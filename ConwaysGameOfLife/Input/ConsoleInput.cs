@@ -9,5 +9,15 @@ namespace ConwaysGameOfLife
         {
             return Console.ReadLine();
         }
+
+        public bool ConsoleKeyAvailable()
+        {
+            return Console.KeyAvailable;
+        }
+
+        public ConsoleKeyInfo ReadKey(bool value)
+        {
+            return Console.ReadKey(value);
+        }
     }
 }

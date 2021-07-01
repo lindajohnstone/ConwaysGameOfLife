@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,6 +29,21 @@ namespace ConwaysGameOfLife.Tests
             {
                 GetReadLine(value);
             }
+        }
+
+        public void GetReadKey(string input)
+        {
+            _queue.Enqueue(input);
+        }
+
+        public bool ConsoleKeyAvailable()
+        {
+            return true;
+        }
+
+        public ConsoleKeyInfo ReadKey(bool value)
+        {
+            return Console.ReadKey(true);
         }
     }
 }
