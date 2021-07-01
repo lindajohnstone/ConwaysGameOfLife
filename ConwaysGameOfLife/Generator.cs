@@ -56,7 +56,7 @@ namespace ConwaysGameOfLife
             var state = cell.CellState;
 
             var newCell = new Cell(state, cell.Location.X, cell.Location.Y);
-            if (ShouldSwitchCellState(numberOfLiveNeighbours, state, newCell))
+            if (ShouldSwitchCellState(numberOfLiveNeighbours, state))
             {
                 newCell.SwitchCellState();
             }
@@ -64,7 +64,7 @@ namespace ConwaysGameOfLife
             return newCell;
         }
 
-        private bool ShouldSwitchCellState(int numberOfLiveNeighbours, CellState state, Cell newCell)
+        private bool ShouldSwitchCellState(int numberOfLiveNeighbours, CellState state)
         {
             return _rules.Any((rule) => rule.ShouldSwitchCellState(numberOfLiveNeighbours, state));
         }

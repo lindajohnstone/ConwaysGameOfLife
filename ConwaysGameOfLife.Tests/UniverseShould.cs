@@ -90,14 +90,5 @@ namespace ConwaysGameOfLife.Tests
             Assert.Equal(0, result.Location.Y);
             Assert.Equal(CellState.Dead, result.CellState);
         }
-
-        [Fact]
-        public void WhenCellIsNull_ThrowException() // TODO: rename - if cell in GetCellNeighbourLocations is null & throws exception
-        {
-            Cell cell = null;
-            var universe = new Universe(3, 3);
-
-            Assert.Throws<NullReferenceException>(() => universe.CountLiveNeighbours(cell));
-        }
     }
 }
