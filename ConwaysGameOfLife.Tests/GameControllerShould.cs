@@ -23,8 +23,10 @@ namespace ConwaysGameOfLife.Tests
         public void EndRunImmediately_GivenQInput()
         {
             var expectedOutput = "Game of Life has ended.";
+            
             var input = "q";
-            _input.GetReadLine(input);
+            _input.GetReadLine("3,3");
+            _input.GetReadKey(input);
 
             _controller.Run();
 
@@ -106,7 +108,6 @@ namespace ConwaysGameOfLife.Tests
             _input.GetReadLine(universeInput);
             _input.GetReadLine(locationInput);
             _input.GetReadLine("q");
-            
 
             _controller.Run();
             var actual = _output.GetLastUniverseOutput();
@@ -158,10 +159,9 @@ namespace ConwaysGameOfLife.Tests
             _input.GetReadLine(inputs);
             _input.GetReadLine("p");
             _input.GetReadLine("q");
-            
 
             _controller.Run();
-            var actual = _output.GetLastUniverseOutput();// returns Messages.Play
+            var actual = _output.GetLastUniverseOutput();// returns Messages.Play 
 
             Assert.Equal(expected, actual);
         }

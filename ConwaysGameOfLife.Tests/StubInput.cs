@@ -43,7 +43,9 @@ namespace ConwaysGameOfLife.Tests
 
         public ConsoleKeyInfo ReadKey(bool value)
         {
-            return Console.ReadKey(true);
+           var lastInput = _queue.Dequeue();
+            Enum.TryParse<ConsoleKeyInfo>(lastInput, true, out var consoleKeyInfo);
+            return consoleKeyInfo;
         }
     }
 }
