@@ -53,7 +53,10 @@ namespace ConwaysGameOfLife
                         _output.WriteLine(Messages.GameEnd);
                         return;
                     }
-                    
+                    // if (UserPressesPToPlay(input)) // ends game
+                    // {
+                    //     return;
+                    // }
 
                     var isValidUniverse = Validator.IsValidUniverse(input);
                     while (!isValidUniverse)
@@ -66,6 +69,10 @@ namespace ConwaysGameOfLife
                             _output.WriteLine(Messages.GameEnd);
                             return;
                         }
+                        // if (UserPressesPToPlay(input))
+                        // {
+                        //     return;
+                        // }
                         isValidUniverse = Validator.IsValidUniverse(input);
                     }
                     _universe = InputParser.ParseUniverse(input);
@@ -77,13 +84,16 @@ namespace ConwaysGameOfLife
                         _output.WriteLine($"or {Messages.Play}");
 
                         input = _input.ReadLine();
-
+            
                         if (UserEndsGame(input))
                         {
                             _output.WriteLine(Messages.GameEnd);
                             return;
                         }
-
+                        // if (UserPressesPToPlay(input))
+                        // {
+                        //     return;
+                        // }
                         var isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
                         while (!isValidLocation)
                         {
@@ -96,6 +106,12 @@ namespace ConwaysGameOfLife
                                 _output.WriteLine(Messages.GameEnd);
                                 return;
                             }
+
+                            // if (UserPressesPToPlay(input))
+                            // {
+                            //     return;
+                            // }
+                            
                             isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
                         }
                         var location = InputParser.ParseLocation(input);
@@ -103,7 +119,7 @@ namespace ConwaysGameOfLife
                         SetLiveCellLocation(location);
                         DisplayUniverse();
                     }
-                    while (input != "p");
+                    while (!UserPressesPToPlay(input));
                     Play();
             //     }
             // }
