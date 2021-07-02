@@ -120,6 +120,11 @@ namespace ConwaysGameOfLife
             
         }
 
+        private bool UserPressesPToPlay(string input)
+        {
+            return input == "p";
+        }
+
         private bool UserEndsGame(string input)
         {
             return input == "q";
