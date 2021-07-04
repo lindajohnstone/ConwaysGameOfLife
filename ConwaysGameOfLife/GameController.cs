@@ -44,13 +44,17 @@ namespace ConwaysGameOfLife
             _output.WriteLine(Messages.Welcome);
             _output.WriteLine(Messages.RequestDimensions);
             var input = _input.ReadLine();
-            do
-            {
-                while (!_input.ConsoleKeyAvailable())
-                {
-                    // if (UserEndsGame(input))
+            // do
+            // {
+            //     while (!_input.ConsoleKeyAvailable())
+            //     {
+                    if (UserEndsGame(input))
+                    {
+                        _output.WriteLine(Messages.GameEnd);
+                        return;
+                    }
+                    // if (UserPressesPToPlay(input)) // ends game
                     // {
-                    //     _output.WriteLine(Messages.GameEnd);
                     //     return;
                     // }
 
@@ -60,9 +64,13 @@ namespace ConwaysGameOfLife
                         _output.WriteLine(Messages.InvalidInput);
                         _output.WriteLine(Messages.RequestDimensions);
                         input = _input.ReadLine();
-                        // if (UserEndsGame(input))
+                        if (UserEndsGame(input))
+                        {
+                            _output.WriteLine(Messages.GameEnd);
+                            return;
+                        }
+                        // if (UserPressesPToPlay(input))
                         // {
-                        //     _output.WriteLine(Messages.GameEnd);
                         //     return;
                         // }
                         isValidUniverse = Validator.IsValidUniverse(input);
@@ -76,13 +84,16 @@ namespace ConwaysGameOfLife
                         _output.WriteLine($"or {Messages.Play}");
 
                         input = _input.ReadLine();
-
-                        // if (UserEndsGame(input))
+            
+                        if (UserEndsGame(input))
+                        {
+                            _output.WriteLine(Messages.GameEnd);
+                            return;
+                        }
+                        // if (UserPressesPToPlay(input))
                         // {
-                        //     _output.WriteLine(Messages.GameEnd);
                         //     return;
                         // }
-
                         var isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
                         while (!isValidLocation)
                         {
@@ -90,11 +101,17 @@ namespace ConwaysGameOfLife
                             _output.WriteLine($"{Messages.RequestLiveCell}.");
                             input = _input.ReadLine();
 
-                            // if (UserEndsGame(input))
+                            if (UserEndsGame(input))
+                            {
+                                _output.WriteLine(Messages.GameEnd);
+                                return;
+                            }
+
+                            // if (UserPressesPToPlay(input))
                             // {
-                            //     _output.WriteLine(Messages.GameEnd);
                             //     return;
                             // }
+                            
                             isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
                         }
                         var location = InputParser.ParseLocation(input);
@@ -102,25 +119,26 @@ namespace ConwaysGameOfLife
                         SetLiveCellLocation(location);
                         DisplayUniverse();
                     }
-                    while (input != "p");
+                    while (!UserPressesPToPlay(input));
                     Play();
-                }
-            }
-                while (_input.ReadKey(true).Key != ConsoleKey.Q);
+            //     }
+            // }
+            // while (_input.ReadKey(true).Key != ConsoleKey.Q);
         }
 
         private void Play()
         {
-            //var generator = new Generator();
+            while(!_universe.AreAllCellsDead())
+            {
+                var generator = new Generator(_universe);
+                generator.GenerateNewUniverse();
+            }
+            
+        }
 
-            // loop until all cells are dead or user enters q
-            var generator = new Generator(_universe);
-            generator.GenerateNewUniverse();
-
-            /*
-                Generator called to check rules & create new universe while game has not ended
-                loop last step until user presses 'q' to quit or all cells are dead
-            */
+        private bool UserPressesPToPlay(string input)
+        {
+            return input == "p";
         }
 
         private bool UserEndsGame(string input)
