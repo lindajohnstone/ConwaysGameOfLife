@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 
 namespace ConwaysGameOfLife
 {
@@ -132,6 +133,7 @@ namespace ConwaysGameOfLife
                 _universe = generator.GenerateNewUniverse();
                 Console.Clear();
                 DisplayUniverse();
+                Thread.Sleep(500);
             }
         }
 
