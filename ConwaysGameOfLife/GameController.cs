@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 
 namespace ConwaysGameOfLife
 {
@@ -41,89 +42,87 @@ namespace ConwaysGameOfLife
 
         public void Run()
         {
+            // write welcome to console
             _output.WriteLine(Messages.Welcome);
+            // ask for universe dimensions
             _output.WriteLine(Messages.RequestDimensions);
+            // get input
             var input = _input.ReadLine();
-            // do
-            // {
-            //     while (!_input.ConsoleKeyAvailable())
-            //     {
+            // if input is q, end game
+            if (UserEndsGame(input))
+            {
+                _output.WriteLine(Messages.GameEnd);
+                return;
+            }
+            // if input is not q
+            // are dimensions valid
+            var isValidUniverse = Validator.IsValidUniverse(input);
+            while (!isValidUniverse)
+            {
+                // if dimensions are not valid, ask user for dimensions
+                _output.WriteLine(Messages.InvalidInput);
+                _output.WriteLine(Messages.RequestDimensions);
+                input = _input.ReadLine();
+                // is input is q, game ends
+                if (UserEndsGame(input))
+                {
+                    _output.WriteLine(Messages.GameEnd);
+                    return;
+                }
+
+                isValidUniverse = Validator.IsValidUniverse(input);
+            }
+            // input is valid & universe is created & displayed
+            _universe = InputParser.ParseUniverse(input);
+            DisplayUniverse();
+            // need to loop through adding location input until user enters p
+            do 
+            {
+                // user prompted for location input
+                _output.Write(Messages.RequestLiveCell);
+                // or to enter p to play
+                _output.WriteLine($" or {Messages.Play}");
+                // receive input
+                input = _input.ReadLine();
+                // if input is q, end game
+                if (UserEndsGame(input))
+                {
+                    _output.WriteLine(Messages.GameEnd);
+                    return;
+                }
+                if (input == "p")
+                {
+                    Play();
+                    _output.WriteLine(Messages.GameEnd);
+                    return;
+                }
+                // is location input valid
+                // is yes, move to line 109
+                var isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
+                // if no
+                while (!isValidLocation)
+                {
+                    // user prompted for valid location input - loops until valid input received
+                    _output.WriteLine(Messages.InvalidInput);
+                    _output.WriteLine($"{Messages.RequestLiveCell}.");
+                    input = _input.ReadLine();
+                    // if input is q, game ends
                     if (UserEndsGame(input))
                     {
                         _output.WriteLine(Messages.GameEnd);
                         return;
                     }
-                    // if (UserPressesPToPlay(input)) // ends game
-                    // {
-                    //     return;
-                    // }
-
-                    var isValidUniverse = Validator.IsValidUniverse(input);
-                    while (!isValidUniverse)
-                    {
-                        _output.WriteLine(Messages.InvalidInput);
-                        _output.WriteLine(Messages.RequestDimensions);
-                        input = _input.ReadLine();
-                        if (UserEndsGame(input))
-                        {
-                            _output.WriteLine(Messages.GameEnd);
-                            return;
-                        }
-                        // if (UserPressesPToPlay(input))
-                        // {
-                        //     return;
-                        // }
-                        isValidUniverse = Validator.IsValidUniverse(input);
-                    }
-                    _universe = InputParser.ParseUniverse(input);
-                    DisplayUniverse();
-
-                    do
-                    {
-                        _output.Write(Messages.RequestLiveCell);
-                        _output.WriteLine($"or {Messages.Play}");
-
-                        input = _input.ReadLine();
-            
-                        if (UserEndsGame(input))
-                        {
-                            _output.WriteLine(Messages.GameEnd);
-                            return;
-                        }
-                        // if (UserPressesPToPlay(input))
-                        // {
-                        //     return;
-                        // }
-                        var isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
-                        while (!isValidLocation)
-                        {
-                            _output.WriteLine(Messages.InvalidInput);
-                            _output.WriteLine($"{Messages.RequestLiveCell}.");
-                            input = _input.ReadLine();
-
-                            if (UserEndsGame(input))
-                            {
-                                _output.WriteLine(Messages.GameEnd);
-                                return;
-                            }
-
-                            // if (UserPressesPToPlay(input))
-                            // {
-                            //     return;
-                            // }
-                            
-                            isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
-                        }
-                        var location = InputParser.ParseLocation(input);
-
-                        SetLiveCellLocation(location);
-                        DisplayUniverse();
-                    }
-                    while (!UserPressesPToPlay(input));
-                    Play();
-            //     }
-            // }
-            // while (_input.ReadKey(true).Key != ConsoleKey.Q);
+                    
+                    isValidLocation = Validator.IsValidLocation(input, _universe.GridWidth, _universe.GridLength);
+                }
+                // location is valid, location is parsed
+                var location = InputParser.ParseLocation(input);
+                // change cell state of cell at location to alive
+                SetLiveCellLocation(location);
+                // display universe
+                DisplayUniverse();
+            }
+            while (input != "p");
         }
 
         private void Play()
@@ -131,14 +130,11 @@ namespace ConwaysGameOfLife
             while(!_universe.AreAllCellsDead())
             {
                 var generator = new Generator(_universe);
-                generator.GenerateNewUniverse();
+                _universe = generator.GenerateNewUniverse();
+                Console.Clear();
+                DisplayUniverse();
+                Thread.Sleep(500);
             }
-            
-        }
-
-        private bool UserPressesPToPlay(string input)
-        {
-            return input == "p";
         }
 
         private bool UserEndsGame(string input)
