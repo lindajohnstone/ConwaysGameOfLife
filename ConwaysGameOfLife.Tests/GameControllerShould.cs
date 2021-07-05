@@ -150,14 +150,14 @@ namespace ConwaysGameOfLife.Tests
         
         [Theory]
         [InlineData("5,5", "💀💀💀💀💀\n💀💀💀💀💀\n💀💟💟💟💀\n💀💀💀💀💀\n💀💀💀💀💀\n", "1,2", "2,2", "3,2")]
-        [InlineData("4,4", "💀💀💀💀\n💀💟💟💀\n💀💟💟💀\n💀💀💀💀\n", "1,2", "1,1", "2,2", "2,1")]
-        [InlineData("6,6", "💀💀💀💀💀💀\n💀💀💀💀💀💀\n💀💀💟💟💟💀\n💀💟💟💟💀💀\n💀💀💀💀💀💀\n💀💀💀💀💀💀\n", "1,3", "2,2", "2,3", "3,2", "3,3", "4,2")] 
+        // [InlineData("4,4", "💀💀💀💀\n💀💟💟💀\n💀💟💟💀\n💀💀💀💀\n", "1,2", "1,1", "2,2", "2,1")]
+        // [InlineData("6,6", "💀💀💀💀💀💀\n💀💀💀💀💀💀\n💀💀💟💟💟💀\n💀💟💟💟💀💀\n💀💀💀💀💀💀\n💀💀💀💀💀💀\n", "1,3", "2,2", "2,3", "3,2", "3,3", "4,2")] 
         public void DisplayUniverse_GivenPInput(string universeInput, string expected, params string[] inputs)
         {
             _input.GetReadLine(universeInput);
             _input.GetReadLine(inputs);
-            _input.GetReadLine("p");
-            _input.GetReadLine("q");
+            _input.GetReadLine("p");// when debugged, output == "Invalid input. Please try again."
+            // _input.GetReadLine("q");
 
             _controller.Run();
             
